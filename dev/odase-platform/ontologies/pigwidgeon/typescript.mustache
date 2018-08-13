@@ -1,0 +1,311 @@
+import <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl> as pig.
+import <http://www.missioncriticalit.com/ontologies/pigwidgeon.swd>.
+import <http://ontologies.missioncriticalit.com/service.owl> as s.
+
+{{#is a pig:TypeScriptGenerator}}
+
+export function asIndividual<T extends Individual>(obj: any) : T {
+    asIndividual2(<Individual>obj, []);
+    return <T>(obj);
+}
+
+export interface Individual {
+    readonly id : string;
+    readonly someLabel : string;
+    {{#pig:generatesInterface}}
+    is{{pig:interfaceName}}() :  this is {{pig:typeQualifiedName}};
+    {{/pig:generatesInterface}}
+}
+
+export const individuals: { [key: string]: Individual } = {};
+
+function createIndividual(id: string, types: string[]) {
+    individuals[id] = asIndividual({"@id": id, "@type": types});
+}
+
+    {{#pig:generatesInstance}}
+createIndividual("{{pig:individualToCreate}}", [{{#pig:correspondsTo}}{{#pig:correspondsTo}}"{{.}}",{{/pig:correspondsTo}}{{/pig:correspondsTo}}]);
+    {{/pig:generatesInstance}}
+    {{#pig:generatesInterface}}
+export namespace {{pig:interfaceName}}_Individuals {
+        {{#pig:interfaceContainsInstance}}
+    export const {{pig:instanceName}} = individuals["{{pig:individualToCreate}}"];
+        {{/pig:interfaceContainsInstance}}
+}
+    {{/pig:generatesInterface}}
+
+    {{#pig:generatesInterface}}
+export interface {{pig:interfaceName}} extends Individual{{#pig:extensionOf}}, {{pig:typeQualifiedName}}{{/pig:extensionOf}} {
+        {{#pig:interfaceContainsField}}
+    {{pig:fieldName}} : {{#pig:fieldType}}{{pig:typeQualifiedName}}{{/pig:fieldType}};
+        {{/pig:interfaceContainsField}}
+}
+
+export function new{{pig:interfaceName}}() : {{pig:interfaceName}} {
+    let result = {
+        "@id" : uuid(),
+        "@type" : [{{#pig:extensionOf}}"{{pig:correspondsToConcept}}", {{/pig:extensionOf}}"{{#pig:correspondsToConcept}}{{.}}{{/pig:correspondsToConcept}}"]
+    };
+    addMethods(result);
+    return cast<{{pig:interfaceName}}>(result);
+}
+
+export let extend_{{pig:interfaceName}} = function() {};
+
+    {{/pig:generatesInterface}}
+
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+
+function uuid() {
+    return "urn:uuid:" + Math.random(); // XXX TODO
+}
+
+// If a key is present in context, return an abbreviated key
+function replace_from_context(key: string, context: any): [boolean, string] {
+    for(var k in context) {
+        if(typeof context[k] == 'string' && key.startsWith(context[k]))
+            return [true, (k != "@vocab" ? k + ':' : '') + key.slice(context[k].length)];
+    }
+    return [false, key];
+}
+
+// check_type(obj, "http://www.aviva.fr/ontologies/auto-direct/auto.owl#DomaineDeValeur")
+// obj @context: { a: "http://www.aviva.fr/ontologies/auto-direct/auto.owl#" }
+// obj @type: "a:DomaineDeValeur"
+function check_type(obj: any, type: string) {
+    if (obj['@type'].indexOf(type) != -1) return true;
+    let found: boolean;
+    if (obj['@context'] != undefined) {
+        [found, type] = replace_from_context(type, obj['@context']);
+        if (found) return obj['@type'].indexOf(type) != -1;
+    }
+    if (obj['@localContext'] != undefined) {
+        [found, type] = replace_from_context(type, obj['@localContext']);
+        if (found) return obj['@type'].indexOf(type) != -1;
+    }
+    return false;
+}
+
+// get_key(obj, 'a') -> "http://www.aviva.fr/ontologies/auto-direct/auto.owl#"
+// obj @context: { a: "http://www.aviva.fr/ontologies/auto-direct/auto.owl#" }
+function get_key(obj: any, key: string) {
+    let found: boolean;
+    [found, key] = replace_from_context(key, obj['@localContext']);
+    return obj[key];
+}
+
+function set_key(obj: any, key: string, value: any) {
+    let found: boolean;
+    [found, key] = replace_from_context(key, obj['@localContext']);
+    obj[key] = value;
+}
+
+function addMethods(obj: any) {
+    Object.defineProperty(obj, "id", {
+        get : function() {
+            let myid: string = (<any> this)["@id"];
+            let localContext = obj['@localContext'];
+            if (localContext != undefined) {
+                let idx = myid.indexOf(':');
+                if(idx != -1 && myid.substr(idx+1, 2) !== "//") {  // probably a compact IRI
+                    let contextKey = myid.substr(0, idx);
+                    // Expand if not the same as in localContext
+                    let expanded = localContext[contextKey];
+                    if (expanded != undefined)
+                    {
+                        let key = myid.slice(idx+1);
+                        return expanded + key;
+                    }
+                }
+            }
+            return myid;
+        }
+    });
+    Object.defineProperty(obj, "someLabel", {
+        get : function() {
+            let labels = get_key(this, "http://www.w3.org/2000/01/rdf-schema#label");
+            if(labels != null && labels.length > 0) {
+                if(labels[0] != null && labels[0]["@value"] != null) {
+                    return labels[0]["@value"];
+                }
+                return labels[0];
+            }
+            return null;
+        }
+    });
+    {{#pig:generatesInterface}}
+    obj.is{{pig:interfaceName}} = function() {return "@type" in this && check_type(this, "{{#pig:correspondsToConcept}}{{.}}{{/pig:correspondsToConcept}}");};
+
+    if("@type" in obj && check_type(obj, "{{#pig:correspondsToConcept}}{{.}}{{/pig:correspondsToConcept}}")) {
+        if(extend_{{pig:interfaceName}}) {
+            extend_{{pig:interfaceName}}.call(obj);
+        }
+        {{#pig:interfaceContainsField}}
+        if(! ("@localContext" in obj && replace_from_context("{{#pig:correspondsToProperty}}{{.}}{{/pig:correspondsToProperty}}", obj["@localContext"])[1] == "{{pig:fieldName}}")) { // do not add getter/setter if the field name is the same as the abbreviated uri
+            Object.defineProperty(obj, "{{pig:fieldName}}", {
+                configurable: true,
+                get : function() {return cast<{{#pig:fieldType}}{{pig:typeQualifiedName}}{{/pig:fieldType}}>(get_key(this, "{{#pig:correspondsToProperty}}{{.}}{{/pig:correspondsToProperty}}"));},
+                set : function(v : {{#pig:fieldType}}{{pig:typeQualifiedName}}{{/pig:fieldType}}) {set_key(this, "{{#pig:correspondsToProperty}}{{.}}{{/pig:correspondsToProperty}}", v);}
+            });
+        }
+
+            {{#is a pig:FieldWithSubPropertySetter}}
+        Object.defineProperty(obj, "{{pig:fieldName}}", {
+            set : function(v : {{#pig:fieldType}}{{pig:typeQualifiedName}}{{/pig:fieldType}}) {
+                this["{{#pig:setsSubProperty}}{{.}}{{/pig:setsSubProperty}}"] = v;
+            }
+        });
+            {{/is a pig:FieldWithSubPropertySetter}}
+
+        {{/pig:interfaceContainsField}}
+        {{#pig:compiledMethod}}
+        Object.defineProperty(obj, "{{pig:methodName}}", {
+            get : function() {
+            //return cast<{{#pig:returnType}}{{pig:typeQualifiedName}}{{/pig:returnType}}>(); XXX cast where ?
+                {{{pig:methodBody}}}
+            }
+        });
+        {{/pig:compiledMethod}}
+    }
+    {{/pig:generatesInterface}}
+}
+
+function asIndividual2(obj:Individual, done:string[]) {
+    if(obj != null && (<any> obj)["@id"] != null && done.indexOf((<any> obj)["@id"]) < 0) {
+        done.push((<any> obj)["@id"]);
+        addMethods(obj);
+        for(var key in (<any> obj)) {
+            if(key.indexOf("@") != 0) {
+                if((<any> obj)[key] instanceof Array) {
+                    for (let entry of (<any> obj)[key]) {
+                        asIndividual2(entry, done);
+                    }
+                } else {
+                    asIndividual2((<any> obj)[key], done);
+                }
+            }
+        }
+    }
+}
+
+function cast<T>(obj: any): T {
+    return <T>obj;
+}
+
+function and(variable: string, values: any, subst: any) {
+    if(! (values instanceof Array)) {
+        values = [values];
+    }
+    values = values.filter((v: any) => v != null);
+    var results: Individual[] = [];
+    if(subst[variable] != null) {
+        for(let value of values) {
+            if(value_equals(subst[variable], value)) {
+                return [subst];
+            }
+        }
+        return results;
+    } else {
+        // for each value, create a copy of subst, and add variable -> value
+        for(let value of values) {
+            var result: any = {};
+            result[variable] = value;
+            Object.assign(result, subst);
+            results.push(result);
+        }
+    }
+    return results;
+}
+
+function value_equals(v1: any, v2: any) {
+    if(v1 == v2) {
+        return true;
+    } else {
+        // XXX TODO @id!!!
+    }
+}
+
+function condense(arrayOfArray: any[]) {
+    var result = [];
+    for(let array of arrayOfArray) {
+        for(let v of array) {
+            if(v != null) {
+                result.push(v);
+            }
+        }
+    }
+    return result;
+
+}
+
+function arrayToElement(array: any[]) {
+    if(array.length > 0) {
+        return array[0];
+    }
+}
+
+function copySubsts(substs: any) {
+    var result = [];
+    for(let subst of substs) {
+        result.push(Object.assign({}, subst));
+    }
+    return result;
+}
+
+{{/is a pig:TypeScriptGenerator}}
+
+function __expandToLocalContextKey(key: string, context: any){
+    if(key.startsWith("@")) {
+        return key;
+    }
+    let expandedKey = key;
+    let idx = key.indexOf(':');
+    if(idx != -1 && key.substr(idx+1, 2) !== "//") {
+        let contextKey = key.substr(0, idx);
+        let expandedKey = context[contextKey];
+        if (expandedKey != undefined) {
+            return expandedKey + key.slice(idx+1);
+        }
+    }
+    return expandedKey;
+}
+
+// Property validator
+
+{{#is a s:SemanticServiceFixedScope}}
+
+// Property validator for {{s:serviceLocalName}}
+
+let __{{s:serviceLocalName}}_ignored_properties = new Set<string>([
+{{#s:ignoredProperty}}
+    "{{.}}",
+{{/s:ignoredProperty}}]);
+
+export function {{s:serviceLocalName}}_validator(k: string, ctx: any) {
+    let expandedKey = __expandToLocalContextKey(k, ctx);
+    return ! __{{s:serviceLocalName}}_ignored_properties.has(expandedKey);
+}
+
+let __{{s:serviceLocalName}}_valid_properties = new Set<string>([
+{{#s:serviceConsumesProperty}}
+    "{{.}}",
+{{/s:serviceConsumesProperty}}
+{{#s:serviceInspectsObjectProperty}}
+    "{{.}}",
+{{/s:serviceInspectsObjectProperty}}
+]);
+
+export function {{s:serviceLocalName}}_validator_positive(k: string, ctx: any) {
+    let expandedKey = __expandToLocalContextKey(k, ctx);
+    return __{{s:serviceLocalName}}_valid_properties.has(expandedKey);
+}
+
+createIndividual('', []); // so it is used
+and('', [], {}); // so it is used
+condense([]); // so it is used
+arrayToElement([]); // so it is used
+copySubsts([]); // so it is used
+
+
+{{/is a s:SemanticServiceFixedScope}}

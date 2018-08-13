@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/service.owl"
+    xmlns="http://ontologies.missioncriticalit.com/service.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Class rdf:ID="SemanticServiceConsumesScope">
+    <rdfs:subClassOf rdf:resource="#SemanticServiceScope"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SemanticServiceFixedScope">
+    <rdfs:comment rdf:datatype="&xsd;string">Fixed scope of a semantic service defines which properties and classes should be consumed/produced.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#SemanticServiceConsumesScope"/>
+    <rdfs:subClassOf rdf:resource="#SemanticServiceProducesScope"/>
+    <rdfs:subClassOf rdf:resource="#SemanticServiceScope"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SemanticServiceProducesPropertiesInDomains">
+    <rdfs:comment rdf:datatype="&xsd;string">Service produces all properties that it knows about that is domain compatible with the produced concepts.
+If properties specified with serviceProducesProperty are defined, those are added as well.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#SemanticServiceProducesScope"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SemanticServiceProducesScope">
+    <rdfs:subClassOf rdf:resource="#SemanticServiceScope"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SemanticServiceScope">
+    <rdfs:comment rdf:datatype="&xsd;string">The scope of a service allows to define what is the scope of data to accept and/or produce.</rdfs:comment>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="serviceConsumesClass">
+    <rdfs:domain rdf:resource="#SemanticServiceConsumesScope"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="serviceConsumesProperty">
+    <rdfs:domain rdf:resource="#SemanticServiceConsumesScope"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="serviceInspectsObjectProperty">
+    <rdfs:comment rdf:datatype="&xsd;string">Inspects means that the object property will be inspected, traversed, considered, but not necessarily read or written. This is useful when consuming an existential individual but with asserted data to it.</rdfs:comment>
+    <rdfs:domain rdf:resource="#SemanticServiceConsumesScope"/>
+    <rdfs:range rdf:resource="&owl;ObjectProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="serviceProducesClass">
+    <rdfs:domain rdf:resource="#SemanticServiceProducesScope"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="serviceProducesProperty">
+    <rdfs:domain rdf:resource="#SemanticServiceProducesScope"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about=""/>
+</rdf:RDF>

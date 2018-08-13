@@ -1,0 +1,30 @@
+import <http://www.missioncriticalit.com/ontologies/xsdRestrictions.swd> as res.
+
+export class RestrictedDatatype {
+
+    constructor( readonly fullURI : string,
+                 readonly baseType : string,
+                 readonly restrictions : Restriction[]){}
+}
+
+export class Restriction {
+    constructor( readonly restrictionKind : string,
+                 readonly restrictionValue : any){}
+}
+
+
+export function allRestrictedTypes() : RestrictedDatatype[]{
+    let restrictedDatatypes = [];
+    {{#is a res:RestrictedDatatype}}
+    {//{{.}}
+        let restrictions = [];
+        {{#res:hasRestriction}}
+        restrictions.push(new Restriction("{{res:facet}}","{{res:value}}"));
+        {{/res:hasRestriction}}
+        restrictedDatatypes.push(new RestrictedDatatype("{{.}}",
+                                                        "{{res:hasBaseType}}",
+                                                        restrictions);
+    }
+    {{/is a res:RestrictedDatatype}}
+    return restrictedDatatypes;
+}

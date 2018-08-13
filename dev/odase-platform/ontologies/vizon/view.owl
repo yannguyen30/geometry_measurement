@@ -1,0 +1,2170 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY aggr "http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl#">
+  <!ENTITY conv "http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl#">
+  <!ENTITY indiv_bt "http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY sqwrl "http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY tbox_bt "http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/vizon/view.owl"
+    xmlns="http://www.missioncriticalit.com/vizon/view.owl#"
+    xmlns:aggr="&aggr;"
+    xmlns:conv="&conv;"
+    xmlns:indiv_bt="&indiv_bt;"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:sqwrl="&sqwrl;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrla="&swrla;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:tbox_bt="&tbox_bt;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Class rdf:ID="AggregatedView">
+    <rdfs:comment rdf:datatype="&xsd;string">Aggregates the shows and hides of the aggregated views</rdfs:comment>
+    <rdfs:label xml:lang="en">Aggregated view</rdfs:label>
+    <rdfs:label xml:lang="fr">Vue aggrégée</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#View"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AutomaticSizeViewAsSVG">
+    <rdfs:subClassOf rdf:resource="#ViewAsSVG"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassConfig">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#configures_class"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Config"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassView">
+    <rdfs:subClassOf rdf:resource="#View"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Config">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#configures"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GroupOfView"/>
+  <owl:Class rdf:ID="GroupOfViewForOntology">
+    <rdfs:subClassOf rdf:resource="#GroupOfView"/>
+  </owl:Class>
+  <owl:Class rdf:ID="InstanceConfig">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#configures_instance"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Config"/>
+  </owl:Class>
+  <owl:Class rdf:ID="InstanceView">
+    <rdfs:subClassOf rdf:resource="#View"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyConfig">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#configures_property"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Config"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyLocation"/>
+  <owl:Class rdf:ID="PropertyView">
+    <rdfs:subClassOf rdf:resource="#View"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RuleConfig">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#configures_rule"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Config"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RuleView">
+    <rdfs:subClassOf rdf:resource="#ClassView"/>
+    <rdfs:subClassOf rdf:resource="#View"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleClassView">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ClassView"/>
+          <rdf:Description rdf:about="#SimpleView"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleInstanceView">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#InstanceView"/>
+          <rdf:Description rdf:about="#SimpleView"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="SimplePropertyView">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#SimpleView"/>
+          <rdf:Description rdf:about="#PropertyView"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleRuleView">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#RuleView"/>
+          <rdf:Description rdf:about="#SimpleView"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#SimpleClassView"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleView">
+    <rdfs:subClassOf rdf:resource="#View"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleViewAllSubClasses">
+    <rdfs:subClassOf rdf:resource="#SimpleClassView"/>
+    <rdfs:subClassOf rdf:resource="#SimpleView"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleViewView">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ViewView"/>
+          <rdf:Description rdf:about="#SimpleView"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="View"/>
+  <owl:Class rdf:ID="ViewAsHTML">
+    <rdfs:subClassOf rdf:resource="#ViewOutput"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ViewAsSVG">
+    <rdfs:subClassOf rdf:resource="#ViewOutput"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ViewConfig">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#configures_view"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Config"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ViewOutput">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#output_filename_extension"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#outputs"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ViewView">
+    <rdfs:subClassOf rdf:resource="#View"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="abscissa">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Config"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="background">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ViewAsSVG"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="controlPoints">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#PropertyLocation"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="css_class">
+    <rdfs:domain rdf:resource="#Config"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="direct_arcs">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ViewAsSVG"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="height">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ViewAsSVG"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="ordinate">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Config"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="output_filename_extension">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ViewOutput"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="priority">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Config"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_annotations">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_classes_equivalent_condition">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">When set, display the equivalent condition of the classes. By default: no.</rdfs:comment>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_classes_necessary_condition">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">When set to true, display the necessary conditions for each class. By default, do no show.</rdfs:comment>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_data_properties">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_inherited_data_properties">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_inherited_object_properties">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_instances_relationship">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#InstanceView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_object_properties">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="shows_sub_class_relationship">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="views_for">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#GroupOfViewForOntology"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="width">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ViewAsSVG"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="configures">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Config"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="configures_class">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassConfig"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#configures"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="configures_instance">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#InstanceConfig"/>
+    <rdfs:subPropertyOf rdf:resource="#configures"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="configures_property">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyConfig"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:subPropertyOf rdf:resource="#configures"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="configures_rule">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#RuleConfig"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+    <rdfs:subPropertyOf rdf:resource="#configures"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="configures_view">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ViewConfig"/>
+    <rdfs:range rdf:resource="#ViewOutput"/>
+    <rdfs:subPropertyOf rdf:resource="#configures"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="data_property_view">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassConfig"/>
+    <rdfs:range rdf:resource="#PropertyView"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="for_ontology">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#GroupOfViewForOntology"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="in_group">
+    <owl:inverseOf rdf:resource="#groups"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#View"/>
+    <rdfs:range rdf:resource="#GroupOfView"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="inherited_data_property_view">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassConfig"/>
+    <rdfs:range rdf:resource="#PropertyView"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="inherited_object_property_view">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassConfig"/>
+    <rdfs:range rdf:resource="#PropertyView"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="object_property_view">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassConfig"/>
+    <rdfs:range rdf:resource="#PropertyView"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="outputs">
+    <owl:inverseOf rdf:resource="#output_as"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ViewOutput"/>
+    <rdfs:range rdf:resource="#View"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyLocation"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="super_class_view">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassConfig"/>
+    <rdfs:range rdf:resource="#ClassView"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="target">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyLocation"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="groups">
+    <owl:inverseOf rdf:resource="#in_group"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#GroupOfView"/>
+    <rdfs:range rdf:resource="#View"/>
+  </owl:InverseFunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="output_as">
+    <owl:inverseOf rdf:resource="#outputs"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#View"/>
+    <rdfs:range rdf:resource="#ViewOutput"/>
+  </owl:InverseFunctionalProperty>
+  <owl:ObjectProperty rdf:ID="aggregates">
+    <rdfs:domain rdf:resource="#AggregatedView"/>
+    <rdfs:range rdf:resource="#View"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="annotated">
+    <rdfs:domain rdf:resource="#ClassConfig"/>
+    <rdfs:range rdf:resource="&owl;AnnotationProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="embeds">
+    <rdfs:domain rdf:resource="#ViewAsHTML"/>
+    <rdfs:range rdf:resource="#ViewAsSVG"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hides">
+    <rdfs:domain rdf:resource="#View"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hides_class">
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#hides"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hides_instance">
+    <rdfs:subPropertyOf rdf:resource="#hides"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hides_property">
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:subPropertyOf rdf:resource="#hides"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hides_rule">
+    <rdfs:domain rdf:resource="#RuleView"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+    <rdfs:subPropertyOf rdf:resource="#hides"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="location">
+    <rdfs:domain rdf:resource="#PropertyConfig"/>
+    <rdfs:range rdf:resource="#PropertyLocation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="recursively_show_rules_to_compute_property">
+    <rdfs:subPropertyOf rdf:resource="#shows_rules_to_compute_property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="recursively_shows_rule_and_used_classes">
+    <rdfs:subPropertyOf rdf:resource="#recursively_show_rules_to_compute_property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows">
+    <rdfs:domain rdf:resource="#View"/>
+    <rdfs:range rdf:resource="#Config"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows_class">
+    <rdfs:domain rdf:resource="#ClassView"/>
+    <rdfs:range rdf:resource="#ClassConfig"/>
+    <rdfs:subPropertyOf rdf:resource="#shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows_instance">
+    <rdfs:domain rdf:resource="#InstanceView"/>
+    <rdfs:range rdf:resource="#InstanceConfig"/>
+    <rdfs:subPropertyOf rdf:resource="#shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows_object_property">
+    <rdfs:domain rdf:resource="#InstanceConfig"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows_property">
+    <rdfs:domain rdf:resource="#PropertyView"/>
+    <rdfs:range rdf:resource="#PropertyConfig"/>
+    <rdfs:subPropertyOf rdf:resource="#shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows_rule">
+    <rdfs:domain rdf:resource="#RuleView"/>
+    <rdfs:range rdf:resource="#RuleConfig"/>
+    <rdfs:subPropertyOf rdf:resource="#shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows_rules_to_compute_property">
+    <rdfs:domain rdf:resource="#SimpleRuleView"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="shows_view">
+    <rdfs:domain rdf:resource="#ViewView"/>
+    <rdfs:range rdf:resource="#ViewConfig"/>
+    <rdfs:subPropertyOf rdf:resource="#shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows">
+    <rdfs:domain rdf:resource="#SimpleView"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows_class">
+    <rdfs:domain rdf:resource="#SimpleClassView"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#simply_shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows_instance">
+    <rdfs:domain rdf:resource="#SimpleInstanceView"/>
+    <rdfs:subPropertyOf rdf:resource="#simply_shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows_property">
+    <rdfs:subPropertyOf rdf:resource="#simply_shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows_rule">
+    <rdfs:domain rdf:resource="#SimpleRuleView"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+    <rdfs:subPropertyOf rdf:resource="#simply_shows"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows_rule_and_used_classes">
+    <rdfs:domain rdf:resource="#SimpleRuleView"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+    <rdfs:subPropertyOf rdf:resource="#simply_shows_rule"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows_subclasses_of">
+    <rdfs:domain rdf:resource="#SimpleViewAllSubClasses"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#simply_shows_class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="simply_shows_view">
+    <rdfs:domain rdf:resource="#SimpleViewView"/>
+    <rdfs:range rdf:resource="#ViewOutput"/>
+    <rdfs:subPropertyOf rdf:resource="#simply_shows"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl"/>
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl"/>
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl"/>
+    <owl:imports rdf:resource="http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl"/>
+    <owl:imports rdf:resource="http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl"/>
+    <owl:imports rdf:resource="http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl"/>
+  </owl:Ontology>
+  <swrl:Imp rdf:ID="GroupOfViewForOntology_property_view">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vg"/>
+          <swrl:classPredicate rdf:resource="#GroupOfViewForOntology"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#vg"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgln"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;splitUri"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:DatavaluedPropertyAtom>
+          <swrl:argument1 rdf:resource="#vg"/>
+          <swrl:argument2 rdf:resource="#ns"/>
+          <swrl:propertyPredicate rdf:resource="#views_for"/>
+        </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#ins"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#ns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">#</rdf:first>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&swrlb;stringConcat"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:classPredicate rdf:resource="&rdf;Property"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#c"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cln"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;splitUri"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#ins"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cns"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&swrlb;equal"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgln"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cln"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOn"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#vo"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#vg"/>
+          <swrl:argument2 rdf:resource="#v"/>
+          <swrl:propertyPredicate rdf:resource="#groups"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:classPredicate rdf:resource="#SimplePropertyView"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:classPredicate rdf:resource="#SimpleRuleView"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#shows_rules_to_compute_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:classPredicate rdf:resource="#ViewAsHTML"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:argument2 rdf:resource="#v"/>
+          <swrl:propertyPredicate rdf:resource="#outputs"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="GroupOfViewForOntology_rule_views">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vg"/>
+          <swrl:classPredicate rdf:resource="#GroupOfViewForOntology"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#vg"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgln"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;splitUri"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:DatavaluedPropertyAtom>
+          <swrl:argument1 rdf:resource="#vg"/>
+          <swrl:argument2 rdf:resource="#ns"/>
+          <swrl:propertyPredicate rdf:resource="#views_for"/>
+        </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#ins"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#ns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">#</rdf:first>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&swrlb;stringConcat"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:classPredicate rdf:resource="&swrl;Imp"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#c"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cln"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;splitUri"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#ins"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cns"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&swrlb;equal"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgns"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vgln"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#cln"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOn"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#vo"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#vosvg"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">svg</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#vg"/>
+          <swrl:argument2 rdf:resource="#v"/>
+          <swrl:propertyPredicate rdf:resource="#groups"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:classPredicate rdf:resource="#SimpleRuleView"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_rule_and_used_classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:classPredicate rdf:resource="#ViewAsHTML"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:argument2 rdf:resource="#v"/>
+          <swrl:propertyPredicate rdf:resource="#outputs"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:DatavaluedPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:datatype="&xsd;boolean">true</swrl:argument2>
+          <swrl:propertyPredicate rdf:resource="#shows_data_properties"/>
+        </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vosvg"/>
+          <swrl:classPredicate rdf:resource="#AutomaticSizeViewAsSVG"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#vosvg"/>
+          <swrl:argument2 rdf:resource="#v"/>
+          <swrl:propertyPredicate rdf:resource="#outputs"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="Rule-18">
+    <rdfs:comment rdf:datatype="&xsd;string">XXX, redundant, but due to bug.</rdfs:comment>
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:classPredicate rdf:resource="#ViewAsHTML"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#index"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">index</rdf:first>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOn"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#indexo"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#index"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#index"/>
+          <swrl:classPredicate rdf:resource="#SimpleViewView"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#index"/>
+          <swrl:argument2 rdf:resource="#vo"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_view"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#indexo"/>
+          <swrl:classPredicate rdf:resource="#ViewAsHTML"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#indexo"/>
+          <swrl:argument2 rdf:resource="#index"/>
+          <swrl:propertyPredicate rdf:resource="#outputs"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="aggregated_view_1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:classPredicate rdf:resource="#AggregatedView"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#va"/>
+          <swrl:propertyPredicate rdf:resource="#aggregates"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#va"/>
+          <swrl:argument2 rdf:resource="#cc"/>
+          <swrl:propertyPredicate rdf:resource="#shows"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#cc"/>
+          <swrl:propertyPredicate rdf:resource="#shows"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="aggregates_view_2">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:classPredicate rdf:resource="#AggregatedView"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#va"/>
+          <swrl:propertyPredicate rdf:resource="#aggregates"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#va"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#hides_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#hides_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="html_extension">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:classPredicate rdf:resource="#ViewAsHTML"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:DatavaluedPropertyAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:argument2 rdf:datatype="&xsd;string">html</swrl:argument2>
+          <swrl:propertyPredicate rdf:resource="#output_filename_extension"/>
+        </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="index_view">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:classPredicate rdf:resource="#ViewOutput"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#index"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">index</rdf:first>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOn"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#indexo"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#index"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#index"/>
+          <swrl:classPredicate rdf:resource="#SimpleViewView"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#index"/>
+          <swrl:argument2 rdf:resource="#vo"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_view"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#indexo"/>
+          <swrl:classPredicate rdf:resource="#ViewAsHTML"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#indexo"/>
+          <swrl:argument2 rdf:resource="#index"/>
+          <swrl:propertyPredicate rdf:resource="#outputs"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="recursive_rules_for_property">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#recursively_show_rules_to_compute_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:classPredicate rdf:resource="&swrl;Imp"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:argument2 rdf:resource="#rh"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;head"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#ra"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#rh"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&swrlb;member"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#ra"/>
+          <swrl:classPredicate rdf:resource="&swrl;Atom"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#ra"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;propertyPredicate"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:argument2 rdf:resource="#rb"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;body"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#rba"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#rb"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&swrlb;member"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#rba"/>
+          <swrl:argument2 rdf:resource="#recp"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;propertyPredicate"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#recp"/>
+          <swrl:propertyPredicate rdf:resource="#recursively_show_rules_to_compute_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="rules_for_property">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#shows_rules_to_compute_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:classPredicate rdf:resource="&swrl;Imp"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:argument2 rdf:resource="#rh"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;head"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#ra"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#rh"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&swrlb;member"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#ra"/>
+          <swrl:classPredicate rdf:resource="&swrl;Atom"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#ra"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;propertyPredicate"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_rule"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="rules_for_property_and_classes">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#recursively_shows_rule_and_used_classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_rule"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_rule_and_used_classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="simple_show_class">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#cc"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#c"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_class"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#cc"/>
+          <swrl:propertyPredicate rdf:resource="#shows_class"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#cc"/>
+          <swrl:classPredicate rdf:resource="#ClassConfig"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#cc"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#configures_class"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="simple_show_instance">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#cc"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#c"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_instance"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#cc"/>
+          <swrl:propertyPredicate rdf:resource="#shows_instance"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#cc"/>
+          <swrl:classPredicate rdf:resource="#InstanceConfig"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#cc"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#configures_instance"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="simple_show_property">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#pc"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#p"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#pc"/>
+          <swrl:propertyPredicate rdf:resource="#shows_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#pc"/>
+          <swrl:classPredicate rdf:resource="#PropertyConfig"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#pc"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#configures_property"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="simple_show_view">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#vvc"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#vv"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#vv"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_view"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#vvc"/>
+          <swrl:propertyPredicate rdf:resource="#shows_view"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vvc"/>
+          <swrl:classPredicate rdf:resource="#ViewConfig"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#vvc"/>
+          <swrl:argument2 rdf:resource="#vv"/>
+          <swrl:propertyPredicate rdf:resource="#configures_view"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="simple_sub_classes_show">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_subclasses_of"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#c"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#sc"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox_bt;isSuperClassOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#sc"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_class"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="simply-show-rules">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#rc"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:datatype="&xsd;string">http://www.missioncriticalit.com/vizon/view.owl/RuleConfig#</rdf:first>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#v"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#r"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&indiv_bt;individualDependsOnObjects"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="#simply_shows_rule"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:classPredicate rdf:resource="&swrl;Imp"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#rc"/>
+          <swrl:classPredicate rdf:resource="#RuleConfig"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#rc"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="#configures_rule"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#v"/>
+          <swrl:argument2 rdf:resource="#rc"/>
+          <swrl:propertyPredicate rdf:resource="#shows_rule"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="svg_extension">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:classPredicate rdf:resource="#ViewAsSVG"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:DatavaluedPropertyAtom>
+          <swrl:argument1 rdf:resource="#vo"/>
+          <swrl:argument2 rdf:datatype="&xsd;string">svg</swrl:argument2>
+          <swrl:propertyPredicate rdf:resource="#output_filename_extension"/>
+        </swrl:DatavaluedPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Variable rdf:ID="c"/>
+  <swrl:Variable rdf:ID="cc"/>
+  <swrl:Variable rdf:ID="cln"/>
+  <swrl:Variable rdf:ID="cns"/>
+  <swrl:Variable rdf:ID="h"/>
+  <swrl:Variable rdf:ID="hf"/>
+  <swrl:Variable rdf:ID="index"/>
+  <swrl:Variable rdf:ID="index0"/>
+  <swrl:Variable rdf:ID="indexo"/>
+  <swrl:Variable rdf:ID="ins"/>
+  <swrl:Variable rdf:ID="nc"/>
+  <swrl:Variable rdf:ID="ne"/>
+  <swrl:Variable rdf:ID="nr"/>
+  <swrl:Variable rdf:ID="ns"/>
+  <swrl:Variable rdf:ID="ons"/>
+  <swrl:Variable rdf:ID="p"/>
+  <swrl:Variable rdf:ID="pc"/>
+  <swrl:Variable rdf:ID="r"/>
+  <swrl:Variable rdf:ID="ra"/>
+  <swrl:Variable rdf:ID="rac"/>
+  <swrl:Variable rdf:ID="rb"/>
+  <swrl:Variable rdf:ID="rba"/>
+  <swrl:Variable rdf:ID="rc"/>
+  <swrl:Variable rdf:ID="recp"/>
+  <swrl:Variable rdf:ID="rh"/>
+  <swrl:Variable rdf:ID="sc"/>
+  <swrl:Variable rdf:ID="surf"/>
+  <swrl:Variable rdf:ID="v"/>
+  <swrl:Variable rdf:ID="va"/>
+  <swrl:Variable rdf:ID="vg"/>
+  <swrl:Variable rdf:ID="vgln"/>
+  <swrl:Variable rdf:ID="vgns"/>
+  <swrl:Variable rdf:ID="vln"/>
+  <swrl:Variable rdf:ID="vns"/>
+  <swrl:Variable rdf:ID="vo"/>
+  <swrl:Variable rdf:ID="vosvg"/>
+  <swrl:Variable rdf:ID="vsvg"/>
+  <swrl:Variable rdf:ID="vv"/>
+  <swrl:Variable rdf:ID="vvc"/>
+  <swrl:Variable rdf:ID="w"/>
+</rdf:RDF>

@@ -1,0 +1,29 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.mercurylang.jmercury</groupId>
+  <artifactId>mer_std</artifactId>
+  <packaging>jar</packaging>
+  <name>Mercury standard libraries</name>
+  <version></version>
+  <description>The standard Mercury libraries for the Java back-end</description>
+  <url>http://mercurylang.org/</url>
+  <licenses>
+    <license>
+      <name>GNU General Public License, version 2</name>
+      <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+    </license>
+  </licenses>
+  <scm>
+    <url>https://github.com/Mercury-Language</url>
+    <connection>https://github.com/Mercury-Language</connection>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.mercurylang.jmercury</groupId>
+      <artifactId>mer_rt</artifactId>
+      <version>13.05</version>
+      <type>jar</type>
+    </dependency>
+  </dependencies>
+</project>
+

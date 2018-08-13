@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY nary "http://missioncriticalit.com/swrl-nary.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY p1 "http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY sqwrl "http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/persistence.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/persistence.owl#"
+    xmlns:nary="&nary;"
+    xmlns:owl="&owl;"
+    xmlns:p1="&p1;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:sqwrl="&sqwrl;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrla="&swrla;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:AnnotationProperty rdf:ID="canBeReorderedInRules">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Something annotated with canBeReorderedInRules to true means that the reasoner is allowed to reoder the corresponding atoms when they appear in a rule to improve performance.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&rdf;Property"/>
+          <rdf:Description rdf:about="&rdfs;Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="inferredBy">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">inferredBy a reasoner is an annotation for the architecture to help deciding where to do the inference, in case of multiple reasoners.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&rdf;Property"/>
+          <rdf:Description rdf:about="&owl;Restriction"/>
+          <rdf:Description rdf:about="&rdfs;Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Reasoner"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="notInferredBy">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">notInferredBy a reasoner is an annotation for the architecture to help deciding where to do the inference, in case of multiple reasoners. It can also be used to decide what is only asserted, in the context of a reasoner.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&rdf;Property"/>
+          <rdf:Description rdf:about="&owl;Restriction"/>
+          <rdf:Description rdf:about="&rdfs;Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Reasoner"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="notPersistedIn">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">notPersistedIn in a store means that the class or a property in the context of a class (restriction) is certainly not persisted in that store.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&rdf;Property"/>
+          <rdf:Description rdf:about="&owl;Restriction"/>
+          <rdf:Description rdf:about="&rdfs;Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#PersistenceStore"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="persistedIn">
+    <owl:inverseOf rdf:resource="#persists"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">persistedIn in a store means that the class or a property in the context of a class (restriction) is persisted in that store (which does not necessarily means only in).</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&rdf;Property"/>
+          <rdf:Description rdf:about="&owl;Restriction"/>
+          <rdf:Description rdf:about="&rdfs;Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#PersistenceStore"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="persists">
+    <owl:inverseOf rdf:resource="#persistedIn"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PersistenceStore"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&rdf;Property"/>
+          <rdf:Description rdf:about="&rdfs;Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="regroupHead">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Rule annotated with regroupHead to true means that the rule should be rewritten to have a single head custom pred, and a correspofing rule is added to be equivalent. This is useful for expensive rules with large head that are usually infered together.</rdfs:comment>
+    <rdfs:domain rdf:resource="&swrl;Imp"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:Class>
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="&rdf;Property"/>
+      <rdf:Description rdf:about="&rdfs;Class"/>
+    </owl:unionOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AlwaysFailingPredicateAspect">
+    <rdfs:subClassOf rdf:resource="#PredicateAspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Aspect"/>
+  <owl:Class rdf:ID="AvoidMemoingPredicate">
+    <rdfs:comment rdf:datatype="&xsd;string">A DoNotMemoPredicate represents any predicate (e.g. a class, a property, a custom predicate, or a builtin) that should not be memoed, and thus recomputed everytime.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ReasonerHint"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CallMetrics">
+    <rdfs:subClassOf rdf:resource="#Aspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ConstantIndividual">
+    <rdfs:comment rdf:datatype="&xsd;string">A ConstantIndividual means that any predicate (class and property) with this individual as subject evaluation remains constant.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ReasonerHint"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ConstantPredicate">
+    <rdfs:comment rdf:datatype="&xsd;string">A ConstantPredicate represents any predicate (e.g. a class, a property, a custom predicate, or a builtin) whose interpretation remains constant.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ReasonerHint"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ConstantStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A ConstantStore represents some store which contains constant data. A constant store is never updated</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PersistenceStore"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FunctionOfClass">
+    <rdfs:comment rdf:datatype="&xsd;string">A class for which individuals are only function ofs. This hint allows to replace Class(?x) into it&apos;s equivalent function of.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ReasonerHint"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ManySubstitutionsOrBranchWorthParallelizing">
+    <rdfs:subClassOf rdf:resource="#ParallelizeHint"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ParallelizeHint">
+    <rdfs:subClassOf rdf:resource="#ReasonerHint"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PerformanceSample">
+    <rdfs:subClassOf rdf:resource="#Sample"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PersistenceStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A PersistenceStore represents some instance or type of store in an architecture.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="PredicateAspect">
+    <rdfs:subClassOf rdf:resource="#Aspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Reasoner">
+    <rdfs:comment rdf:datatype="&xsd;string">A Reasoner corresponds to some instance of a reasoner, to distinguish between reasoner types, or different reasoner instances in an architecture (e.g., client or server).</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ReasonerAspect">
+    <rdfs:subClassOf rdf:resource="#Aspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ReasonerFunctionalRuleMetrics">
+    <rdfs:subClassOf rdf:resource="#ReasonerRuleMetrics"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ReasonerHint"/>
+  <owl:Class rdf:ID="ReasonerPredicateAspect">
+    <rdfs:subClassOf rdf:resource="#PredicateAspect"/>
+    <rdfs:subClassOf rdf:resource="#ReasonerAspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ReasonerPredicateMetrics">
+    <rdfs:comment rdf:datatype="&xsd;string">Measured metrics for predicate on reasoner</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#CallMetrics"/>
+    <rdfs:subClassOf rdf:resource="#ReasonerPredicateAspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ReasonerRuleAspect">
+    <rdfs:subClassOf rdf:resource="#RuleAspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ReasonerRuleMetrics">
+    <rdfs:subClassOf rdf:resource="#CallMetrics"/>
+    <rdfs:subClassOf rdf:resource="#ReasonerAspect"/>
+    <rdfs:subClassOf rdf:resource="#RuleAspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RuleAspect">
+    <rdfs:subClassOf rdf:resource="#Aspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Sample"/>
+  <owl:Class rdf:ID="StorePredicateAspect">
+    <rdfs:subClassOf rdf:resource="#PredicateAspect"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StorePredicateQuantity">
+    <rdfs:subClassOf rdf:resource="#StorePredicateAspect"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="callCount">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#CallMetrics"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="forPredicateMode">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#StorePredicateQuantity"/>
+          <rdf:Description rdf:about="#ReasonerPredicateMetrics"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="minimumSubstitutions">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ManySubstitutionsOrBranchWorthParallelizing"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="numberOfAnswers">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#CallMetrics"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="sampleDuration">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Sample"/>
+    <rdfs:range rdf:resource="&xsd;float"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="sampledAt">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Sample"/>
+    <rdfs:range rdf:resource="&xsd;dateTime"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="storesQuantity">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#StorePredicateQuantity"/>
+    <rdfs:range rdf:resource="&xsd;decimal"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="successfulCallCount">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#CallMetrics"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="totalDuration">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#CallMetrics"/>
+    <rdfs:range rdf:resource="&xsd;float"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="warmupCountBeforeForking">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ManySubstitutionsOrBranchWorthParallelizing"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="forReasoner">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ReasonerAspect"/>
+    <rdfs:range rdf:resource="#Reasoner"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="forRule">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#RuleAspect"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="measuredDuringSample">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#CallMetrics"/>
+    <rdfs:range rdf:resource="#PerformanceSample"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="samplesReasoner">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Sample"/>
+    <rdfs:range rdf:resource="#Reasoner"/>
+  </owl:FunctionalProperty>
+  <owl:ObjectProperty rdf:ID="forPredicate">
+    <rdfs:domain rdf:resource="#PredicateAspect"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&rdf;Property"/>
+          <rdf:Description rdf:about="&owl;Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inStore">
+    <owl:inverseOf rdf:resource="#revealsAspect"/>
+    <rdfs:domain rdf:resource="#StorePredicateAspect"/>
+    <rdfs:range rdf:resource="#PersistenceStore"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="parallelizeInRule">
+    <rdfs:domain rdf:resource="#ManySubstitutionsOrBranchWorthParallelizing"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="revealsAspect">
+    <owl:inverseOf rdf:resource="#inStore"/>
+    <rdfs:domain rdf:resource="#PersistenceStore"/>
+    <rdfs:range rdf:resource="#StorePredicateAspect"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl"/>
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl"/>
+    <owl:imports rdf:resource="http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl"/>
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrl"/>
+  </owl:Ontology>
+  <swrl:Builtin rdf:ID="forceMode">
+    <nary:user_defined_predicate rdf:datatype="&xsd;boolean">true</nary:user_defined_predicate>
+    <rdfs:comment rdf:datatype="&xsd;string">forceMode(predicateUri, originalMode, forcedMode) will force the predicates to be queried with the more generic forcedMode. For instance forceMode(p, ii, io) will translate all p(x::in,y::in) into p(x::in,a::out) and sameAs(a, y). This is useful for predicates that are called very often with a mode, for which computing it once (memoed) with a more generic mode is cheaper.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="predicateCostWeight">
+    <nary:user_defined_predicate rdf:datatype="&xsd;boolean">true</nary:user_defined_predicate>
+    <rdfs:comment rdf:datatype="&xsd;string">Custom predicate predicateCostWeight(costWeightAsFloat, predicateUri, modes) is used to influence the reordering heuristic of rules for engineering of performance. Modes is a string such as iiioooio with i representing a ground arg, and o a free arg.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="predicateCostWeightInRule">
+    <nary:user_defined_predicate rdf:datatype="&xsd;boolean">true</nary:user_defined_predicate>
+    <rdfs:comment rdf:datatype="&xsd;string">Custom predicate predicateCostWeightInRule(costWeightAsFloat, ruleUri, predicateUri, modes) is used to influence the reordering heuristic of rules for engineering of performance. Modes is a string such as iiioooio with i representing a ground arg, and o a free arg.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="rulePriority">
+    <nary:user_defined_predicate rdf:datatype="&xsd;boolean">true</nary:user_defined_predicate>
+    <rdfs:comment rdf:datatype="&xsd;string">rulePriority(priorityAsFloat, ruleUri, headPredicateUri) is useful to influence the rule reordering, for rules inferring a functional head, to increase cut probability. priorityAsFloat should be a number between 0.0 and 1.0, 1.0 is most priority, 0.5 is neutral, 0.0 means the rules is will be last to be evaluated</rdfs:comment>
+  </swrl:Builtin>
+</rdf:RDF>

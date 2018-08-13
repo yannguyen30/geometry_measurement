@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/ui/question.owl"
+    xmlns="http://ontologies.missioncriticalit.com/ui/question.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Class rdf:ID="DataField">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#predicate"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#subject"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DatatypePropertyDataField">
+    <owl:disjointWith rdf:resource="#ObjectPropertyDataField"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#PropertyDataField"/>
+          <owl:Restriction>
+            <owl:allValuesFrom rdf:resource="&owl;DatatypeProperty"/>
+            <owl:onProperty rdf:resource="#predicate"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="DatatypePropertyQuestion">
+    <owl:disjointWith rdf:resource="#ObjectPropertyQuestion"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Question"/>
+          <rdf:Description rdf:about="#DatatypePropertyDataField"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="DatatypePropertyQuestionWithRange">
+    <rdfs:subClassOf rdf:resource="#DatatypePropertyQuestion"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectPropertyDataField">
+    <owl:disjointWith rdf:resource="#DatatypePropertyDataField"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#PropertyDataField"/>
+          <owl:Restriction>
+            <owl:allValuesFrom rdf:resource="&owl;ObjectProperty"/>
+            <owl:onProperty rdf:resource="#predicate"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectPropertyQuestion">
+    <owl:disjointWith rdf:resource="#DatatypePropertyQuestion"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ObjectPropertyDataField"/>
+          <rdf:Description rdf:about="#Question"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectPropertyQuestionWithRange">
+    <rdfs:comment rdf:datatype="&xsd;string">ObjectPropertyQuestion with a given set of values for range</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ObjectPropertyQuestion"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectPropertyQuestionWithTypesCreationAllowed">
+    <rdfs:comment rdf:datatype="&xsd;string">New individuals can be created for this ObjectProperty
+Question, but only of these types (compatible with range of property please)</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+        <owl:onProperty rdf:resource="#instanceCreationAllowed"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ObjectPropertyQuestion"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyDataField">
+    <owl:disjointWith rdf:resource="#TypeDataField"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#DataField"/>
+          <owl:Restriction>
+            <owl:allValuesFrom rdf:resource="&rdf;Property"/>
+            <owl:onProperty rdf:resource="#predicate"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="Question">
+    <rdfs:subClassOf rdf:resource="#DataField"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TypeDataField">
+    <owl:disjointWith rdf:resource="#PropertyDataField"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#DataField"/>
+          <owl:Restriction>
+            <owl:allValuesFrom rdf:resource="&owl;Class"/>
+            <owl:onProperty rdf:resource="#predicate"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="datatypeQuestionRange">
+    <rdfs:domain rdf:resource="#DatatypePropertyQuestionWithRange"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="instanceCreationAllowed">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ObjectPropertyQuestion"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="isDisabled">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Question"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="isOmitted">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#DataField"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="isReadOnly">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Question"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="maximumRangeValue">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#DatatypePropertyQuestion"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="minimumRangeValue">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#DatatypePropertyQuestion"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="maximumCardinality">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#PropertyDataField"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="minimumCardinality">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#PropertyDataField"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="priority">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#DataField"/>
+    <rdfs:range rdf:resource="&xsd;decimal"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="asksProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyDataField"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:subPropertyOf rdf:resource="#predicate"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="asksType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#TypeDataField"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#predicate"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="predicate">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#DataField"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="rangeType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyDataField"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="subject">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#DataField"/>
+  </owl:FunctionalProperty>
+  <owl:ObjectProperty rdf:ID="allowedTypes">
+    <rdfs:domain rdf:resource="#ObjectPropertyQuestionWithTypesCreationAllowed"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inContextOfDomain">
+    <rdfs:domain rdf:resource="#PropertyDataField"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="questionRange">
+    <rdfs:domain rdf:resource="#ObjectPropertyQuestionWithRange"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="http://ontologies.missioncriticalit.com/ui/question-base.owl"/>
+</rdf:RDF>

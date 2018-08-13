@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/builtins/odase_builtins.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/builtins/odase_builtins.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>
+  </owl:Ontology>
+  <swrl:Builtin rdf:ID="isIn">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">isIn(?x, o1, o2, o3, ...) succeeds sif ?x is equal to one of the arguments o1 o2 o3 ...</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isInIntegerRange">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">isInIntegerRange(?x, start, end) succeeds sif ?x is in the range [start end], start and end must be ground</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="naf">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NAF(predicate, a1, a2, a3, ...) succeeds the reasoner fails for predicate(a1, a2, a3, ...). Note that in sword, the syntax is NAF(some conjunction) which will be translated into this builtin.</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:minArgs>
+  </swrl:Builtin>
+</rdf:RDF>

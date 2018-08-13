@@ -1,0 +1,765 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY aggr "http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl#">
+  <!ENTITY conv "http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY sqwrl "http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY wb "http://missioncriticalit.com/workbench.owl#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+  <!ENTITY tbox "http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl#">
+]>
+<rdf:RDF
+    xml:base="http://missioncriticalit.com/workbench_rules.owl"
+    xmlns="http://missioncriticalit.com/workbench_rules.owl#"
+    xmlns:aggr="&aggr;"
+    xmlns:conv="&conv;"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:sqwrl="&sqwrl;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrla="&swrla;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:wb="&wb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://missioncriticalit.com/workbench.owl"/>
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl"/>
+  </owl:Ontology>
+  <swrl:Imp rdf:ID="classProperties-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#d"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#p"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isInDomainOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#d"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classProperties"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="classRestrictions-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments rdf:parseType="Collection">
+            <rdf:Description rdf:about="#c"/>
+            <rdf:Description rdf:about="#r"/>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isSubClassOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:classPredicate rdf:resource="&owl;Restriction"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classRestrictions"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="classes-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&rdf;type"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:classPredicate rdf:resource="&owl;Class"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="classes-rule2">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#a"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments rdf:parseType="Collection">
+            <rdf:Description rdf:about="#a"/>
+            <rdf:Description rdf:about="#b"/>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isSubClassOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#b"/>
+          <swrl:classPredicate rdf:resource="&owl;Class"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#b"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="directSubClassOf-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#class1"/>
+          <swrl:argument2 rdf:resource="#l"/>
+          <swrl:propertyPredicate rdf:resource="&owl;unionOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#l"/>
+          <swrl:argument2 rdf:resource="#class2"/>
+          <swrl:propertyPredicate rdf:resource="&wb;listContains"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#class2"/>
+          <swrl:argument2 rdf:resource="#class1"/>
+          <swrl:propertyPredicate rdf:resource="&wb;directSubClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="directSubClassOf-rule2">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#b"/>
+          <swrl:propertyPredicate rdf:resource="&rdfs;subClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#b"/>
+          <swrl:propertyPredicate rdf:resource="&wb;directSubClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="directSuperClassOf-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#b"/>
+          <swrl:propertyPredicate rdf:resource="&wb;directSubClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#b"/>
+          <swrl:argument2 rdf:resource="#a"/>
+          <swrl:propertyPredicate rdf:resource="&wb;directSuperClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="listContains-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#l"/>
+          <swrl:argument2 rdf:resource="#e"/>
+          <swrl:propertyPredicate rdf:resource="&rdf;first"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#l"/>
+          <swrl:argument2 rdf:resource="#e"/>
+          <swrl:propertyPredicate rdf:resource="&wb;listContains"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="listContains-rule2">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#l"/>
+          <swrl:argument2 rdf:resource="#t"/>
+          <swrl:propertyPredicate rdf:resource="&rdf;rest"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#t"/>
+          <swrl:argument2 rdf:resource="#e"/>
+          <swrl:propertyPredicate rdf:resource="&wb;listContains"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#l"/>
+          <swrl:argument2 rdf:resource="#e"/>
+          <swrl:propertyPredicate rdf:resource="&wb;listContains"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="namedClassRules-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;classPredicate"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:classPredicate rdf:resource="&swrl;ClassAtom"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#al"/>
+          <swrl:argument2 rdf:resource="#a"/>
+          <swrl:propertyPredicate rdf:resource="&wb;listContains"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:argument2 rdf:resource="#al"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;head"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="&wb;namedClassRules"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="namedDatatypePropertyRules-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;propertyPredicate"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:classPredicate rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#al"/>
+          <swrl:argument2 rdf:resource="#a"/>
+          <swrl:propertyPredicate rdf:resource="&wb;listContains"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:argument2 rdf:resource="#al"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;head"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="&wb;namedDatatypePropertyRules"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="named_object_property_rules-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;propertyPredicate"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:classPredicate rdf:resource="&swrl;IndividualPropertyAtom"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#al"/>
+          <swrl:argument2 rdf:resource="#a"/>
+          <swrl:propertyPredicate rdf:resource="&wb;listContains"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#r"/>
+          <swrl:argument2 rdf:resource="#al"/>
+          <swrl:propertyPredicate rdf:resource="&swrl;head"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:argument2 rdf:resource="#r"/>
+          <swrl:propertyPredicate rdf:resource="&wb;namedObjectPropertyRules"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="properties-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#d"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:argument2 rdf:resource="#d"/>
+          <swrl:propertyPredicate rdf:resource="&rdfs;domain"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="&wb;properties"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="properties-sub-classes">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:argument2 rdf:resource="#s"/>
+          <swrl:propertyPredicate rdf:resource="&rdfs;domain"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments rdf:parseType="Collection">
+            <rdf:Description rdf:about="#s"/>
+            <rdf:Description rdf:about="#c"/>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isSubClassOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#i"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="&wb;propertiesSubClasses"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="properties-tbox">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#x"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&wb;classes"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments>
+            <rdf:List>
+              <rdf:first rdf:resource="#c"/>
+              <rdf:rest>
+              <rdf:List>
+              <rdf:first rdf:resource="#p"/>
+              <rdf:rest rdf:resource="&rdf;nil"/>
+              </rdf:List>
+              </rdf:rest>
+            </rdf:List>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isInDomainOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#x"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="&wb;properties"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="subClassOf-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments rdf:parseType="Collection">
+            <rdf:Description rdf:about="#a"/>
+            <rdf:Description rdf:about="#b"/>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isSubClassOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest>
+        <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments rdf:parseType="Collection">
+            <rdf:Description rdf:about="#b"/>
+            <rdf:Description rdf:about="#c"/>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isSubClassOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+        </swrl:AtomList>
+        </rdf:rest>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="&wb;subClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="subClassOf-rule2">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#b"/>
+          <swrl:propertyPredicate rdf:resource="&wb;directSubClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#a"/>
+          <swrl:argument2 rdf:resource="#b"/>
+          <swrl:propertyPredicate rdf:resource="&wb;subClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="superClassOf-rule1">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:BuiltinAtom>
+          <swrl:arguments rdf:parseType="Collection">
+            <rdf:Description rdf:about="#a"/>
+            <rdf:Description rdf:about="#b"/>
+          </swrl:arguments>
+          <swrl:builtin rdf:resource="&tbox;isSubClassOf"/>
+        </swrl:BuiltinAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#b"/>
+          <swrl:argument2 rdf:resource="#a"/>
+          <swrl:propertyPredicate rdf:resource="&wb;superClassOf"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Variable rdf:ID="a"/>
+  <swrl:Variable rdf:ID="al"/>
+  <swrl:Variable rdf:ID="b"/>
+  <swrl:Variable rdf:ID="c"/>
+  <swrl:Variable rdf:ID="class1"/>
+  <swrl:Variable rdf:ID="class2"/>
+  <swrl:Variable rdf:ID="d"/>
+  <swrl:Variable rdf:ID="e"/>
+  <swrl:Variable rdf:ID="i"/>
+  <swrl:Variable rdf:ID="l"/>
+  <swrl:Variable rdf:ID="p"/>
+  <swrl:Variable rdf:ID="r"/>
+  <swrl:Variable rdf:ID="s"/>
+  <swrl:Variable rdf:ID="t"/>
+  <swrl:Variable rdf:ID="x"/>
+</rdf:RDF>

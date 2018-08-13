@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/xml_object_filler.owl"
+    xmlns="http://ontologies.missioncriticalit.com/xml_object_filler.owl#"
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:xsd="&xsd;">
+  <owl:Class rdf:ID="DataPropertyFiller">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#data_property"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#PropertyFiller"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectFiller">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#owl_class"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#xml_element_name"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectPropertyFiller">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#object_filler"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#object_property"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#PropertyFiller"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyFiller">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#xml_path"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="xml_element_name">
+    <rdfs:comment rdf:datatype="&xsd;string">The name of the xml element that will represent this object.</rdfs:comment>
+    <rdfs:domain rdf:resource="#ObjectFiller"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="xml_path">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">From the XML element which describes the current object find the XML which describes this property.</rdfs:comment>
+    <rdfs:domain rdf:resource="#PropertyFiller"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="data_property">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#DataPropertyFiller"/>
+    <rdfs:range rdf:resource="&owl;DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="object_filler">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ObjectPropertyFiller"/>
+    <rdfs:range rdf:resource="#ObjectFiller"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="object_property">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ObjectPropertyFiller"/>
+    <rdfs:range rdf:resource="&owl;ObjectProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="owl_class">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ObjectFiller"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:FunctionalProperty>
+  <owl:ObjectProperty rdf:ID="data_property_filler">
+    <rdfs:domain rdf:resource="#ObjectFiller"/>
+    <rdfs:range rdf:resource="#DataPropertyFiller"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="object_property_filler">
+    <rdfs:domain rdf:resource="#ObjectFiller"/>
+    <rdfs:range rdf:resource="#ObjectPropertyFiller"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="http://ontologies.missioncriticalit.com/xml_object_filler.owl"/>
+</rdf:RDF>

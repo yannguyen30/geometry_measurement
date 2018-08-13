@@ -1,0 +1,54 @@
+/* hideshow.css --- HideShow CSS file */
+
+/* Copyright (C) 2014 All Right Reserved, Fabrice Niessen */
+
+/* This file is free software: you can redistribute it and/or */
+/* modify it under the terms of the GNU General Public License as */
+/* published by the Free Software Foundation, either version 3 of */
+/* the License, or (at your option) any later version. */
+
+/* This file is distributed in the hope that it will be useful, */
+/* but WITHOUT ANY WARRANTY; without even the implied warranty of */
+/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the */
+/* GNU General Public License for more details. */
+
+/* Author: Fabrice Niessen <(concat "fniessen" at-sign "pirilampo.org")> */
+/* URL: https://github.com/fniessen/hide-show/ */
+/* Version: 20140131.2037 */
+
+.hsExpanded.hsAnchor {background: #0077EE;}
+
+.buttons {
+    padding: 0px 7px 13px 0px;
+    background: rgb(190, 30, 45);
+}
+
+.hsButton {
+    color: white;
+    float: right;
+    font-size: 70%;
+    margin-left: 10px;
+}
+
+    .hsButton:hover {
+         background: #48E4FB;
+         color: black;
+         cursor: pointer;
+    }
+
+.ellipsis {
+    color: #999999;
+    /* background-color: #FFF8C0; */
+    /* float: right; */
+    margin-left: 0.6em;
+}
+
+.review {
+    border: 2px solid #48E4FB;
+    background-color: #88FFFF;
+}
+
+/* This is for the sake of Emacs. */
+/* Local Variables: */
+/* eval: (when (locate-library "rainbow-mode") (require 'rainbow-mode) (rainbow-mode)) */
+/* End: */

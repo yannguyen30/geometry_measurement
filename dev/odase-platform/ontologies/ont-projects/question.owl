@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/ui/question.owl"
+    xmlns="http://ontologies.missioncriticalit.com/ui/question.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:AnnotationProperty rdf:ID="creationLabel">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:domain rdf:resource="#ObjectPropertyQuestion"/>
+    <rdfs:subPropertyOf rdf:resource="&rdfs;label"/>
+  </owl:AnnotationProperty>
+  <owl:Class>
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#QuestionGroupForIndividualInNamespace"/>
+      <rdf:Description rdf:about="#EditorForIndividual"/>
+    </owl:unionOf>
+  </owl:Class>
+  <owl:Class>
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#QuestionGroupForIndividualInNamespace"/>
+      <rdf:Description rdf:about="#EditorForIndividual"/>
+    </owl:unionOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DataFieldGroup">
+    <owl:disjointWith rdf:resource="#DataField"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DatatypePropertyDataFieldWithAnswer">
+    <rdfs:subClassOf rdf:resource="#DatatypePropertyDataField"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Editor">
+    <rdfs:subClassOf rdf:resource="#DataFieldGroup"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EditorForIndividual">
+    <rdfs:subClassOf rdf:resource="#Editor"/>
+    <rdfs:subClassOf rdf:resource="#QuestionGroupForIndividual"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EditorForOutcome">
+    <rdfs:subClassOf rdf:resource="#Editor"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectPropertyDataFieldWithAnswer">
+    <rdfs:subClassOf rdf:resource="#ObjectPropertyDataField"/>
+  </owl:Class>
+  <owl:Class rdf:ID="QuestionGroupForIndividual">
+    <rdfs:subClassOf rdf:resource="#DataFieldGroup"/>
+  </owl:Class>
+  <owl:Class rdf:ID="QuestionGroupForIndividualInNamespace">
+    <rdfs:subClassOf rdf:resource="#QuestionGroupForIndividual"/>
+  </owl:Class>
+  <owl:Class rdf:ID="QuestionWithAnswerGroupForIndividualInNamespace">
+    <rdfs:subClassOf rdf:resource="#QuestionGroupForIndividualInNamespace"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="datatypeFieldAnswer">
+    <rdfs:domain rdf:resource="#DatatypePropertyDataFieldWithAnswer"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="filterQuestionsPredicate">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#EditorForOutcome"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="individualsForPredicate">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#EditorForOutcome"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="questionsFor">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#QuestionGroupForIndividual"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="questionsForStore">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#EditorForOutcome"/>
+          <rdf:Description rdf:about="#EditorForIndividual"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="questionsInNamespace">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#EditorForIndividual"/>
+          <rdf:Description rdf:about="#QuestionGroupForIndividualInNamespace"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="questionsNeededFor">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#EditorForOutcome"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="questionsNeededOn">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#EditorForOutcome"/>
+  </owl:FunctionalProperty>
+  <owl:ObjectProperty rdf:ID="groupsDataField">
+    <rdfs:domain rdf:resource="#DataFieldGroup"/>
+    <rdfs:range rdf:resource="#DataField"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="groupsQuestion">
+    <rdfs:domain rdf:resource="#Editor"/>
+    <rdfs:range rdf:resource="#Question"/>
+    <rdfs:subPropertyOf rdf:resource="#groupsDataField"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="groupsQuestionWithAnswer">
+    <rdfs:domain rdf:resource="#QuestionWithAnswerGroupForIndividualInNamespace"/>
+    <rdfs:subPropertyOf rdf:resource="#groupsQuestion"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inContextOfDomain">
+    <rdfs:domain rdf:resource="#PropertyDataField"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="objectFieldAnswer">
+    <rdfs:domain rdf:resource="#ObjectPropertyDataFieldWithAnswer"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://ontologies.missioncriticalit.com/ui/question-base.owl"/>
+  </owl:Ontology>
+  <swrl:Builtin rdf:ID="filteredQuestionsNeededToCompute">
+    <rdfs:comment rdf:datatype="&xsd;string">questionsNeededToComputeData(?qindiv, ?qDomain, ?qUri, ?qpropOrType, filterPredicate, uri_of_session_store, indiv, property_uri) will retrieve the questions, made of ?qindiv and ?qUri pairs that are needed to compute values for property_uri(indiv, ?). Questions means that only types or properties input predicates that can be stored in the session store will be considered. ?qpropOrType is either owl:Class or owl:DatatypeProperty or owl:ObjectProperty.</rdfs:comment>
+    <swrlb:args rdf:datatype="&xsd;int">6</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="questionsFrom">
+    <rdfs:comment rdf:datatype="&xsd;string">questionsFrom(?qindiv, ?qDomain, ?qUri, ?qpropOrType, uri_of_session_store, namespace_uri, indiv) will retrieve the questions, made of ?qindiv and ?qUri pairs that are related to the indiv, or an individual related via one of the question. Questions means that only types or properties input predicates that can be stored in the session store will be considered. ?qpropOrType is either owl:Class or owl:DatatypeProperty or owl:ObjectProperty.</rdfs:comment>
+    <swrlb:args rdf:datatype="&xsd;int">5</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="questionsFromIndividualInNamespace">
+    <rdfs:comment rdf:datatype="&xsd;string">questionsFromIndividualInNamespace(?qindiv, ?qDomain, ?qUri, ?qpropOrType, namespace_uri, indiv) will retrieve the questions, made of ?qindiv and ?qUri pairs that are related to the indiv, or an individual related via one of the question. Questions means that only types or properties in the given namespace will be considered, regardless of if they are inferred or not. ?qpropOrType is either owl:Class or owl:DatatypeProperty or owl:ObjectProperty.</rdfs:comment>
+    <swrlb:args rdf:datatype="&xsd;int">5</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="questionsNeededToComputeData">
+    <rdfs:comment rdf:datatype="&xsd;string">questionsNeededToComputeData(?qindiv, ?qDomain, ?qUri, ?qpropOrType, uri_of_session_store, indiv, property_uri) will retrieve the questions, made of ?qindiv and ?qUri pairs that are needed to compute values for property_uri(indiv, ?). Questions means that only types or properties input predicates that can be stored in the session store will be considered. ?qpropOrType is either owl:Class or owl:DatatypeProperty or owl:ObjectProperty.</rdfs:comment>
+    <swrlb:args rdf:datatype="&xsd;int">6</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="questionWantedFor">
+    <rdfs:comment rdf:datatype="&xsd;string">questionWantedFor(qsubject, qpredicate, goalpred, goalargs), where all must be ground. It iwill succeed if qpredicate(qsubject, [?x]) has been queried as a store predicate (in any store) when querying for goal: goalpred(goalargs). ([?x] is there or not depending if qpredicate is property or class). Warning, the current implementation does not support complex store predicates, which means notPersistedIn-engineering on question-predicates may lead to an exception.</rdfs:comment>
+  </swrl:Builtin>
+</rdf:RDF>

@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl#"
+  xml:base="http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl">
+  <owl:Ontology rdf:about=""/>
+  <swrl:Builtin rdf:ID="count">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="countDistinct">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="countTuples">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="countDataValues">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="countDistinctDataValues">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="countInstances">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="default">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="pickOne">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="sumInts">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="maxInts">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="minInts">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="maxDecimals">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="minDecimals">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="concatenateStrings">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">concatenateStrings(?concatenation, ?indiv, ?property1, ?property2, ...). Concatenate all the strings which are the result of the property chain. The strings are sorted following the default order before being concatenated.</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="sumFloats">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="sumDoubles">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="sumDecimals">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="productDecimals">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="productDecimalsAsFloats">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="productFloats">
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="avivaJoinList">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">avivaJoinList{?string | g(?string)} returns the concatenation of the strings, separated by comma, the last string being introduced by ET</rdfs:comment> 
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="joinList">
+      <rdf:type rdf:resource="http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl#AggregateBuiltin"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">joinList{?string, ?separator | g(?string)} returns the concatenation of the strings, separated by the separator (the separator should be constant, but FYI if the separator varies, then one of them will be ignored)</rdfs:comment>
+    <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</numberOfAggregatedVariables>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="joinListSortedBy">
+      <rdf:type rdf:resource="http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl#AggregateBuiltin"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">joinListSortedBy{?prior, ?string, ?separator | g(?string)} returns the concatenation of the strings, sorted by ?prior (please use the same type), separated by the separator (the separator should be constant, but FYI if the separator varies, then one of them will be ignored)</rdfs:comment>
+    <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</numberOfAggregatedVariables>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="joinListLast">
+    <rdf:type rdf:resource="http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl#AggregateBuiltin"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">joinList{?string, ?separator, ?lastSeparator | g(?string)} returns the concatenation of the strings, separated by the separator, except for the last separation which is separated with ?lastSeparator (typical use case is a comma separated list, but with and as the last separator)</rdfs:comment>
+    <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</numberOfAggregatedVariables>
+  </swrl:Builtin>
+
+  <owl:Class rdf:ID="AggregateBuiltin">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#numberOfAggregatedVariables"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="numberOfAggregatedVariables">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#AggregateBuiltin"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  </owl:DatatypeProperty>
+
+  <AggregateBuiltin rdf:ID="count">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = count {?y | ...} will count each ?y into ?x</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="greatestIndividualBy">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = greatestIndividualBy {?i, ?b | ...} will bind ?x to the individual which is associated with the greatest ?b (literal, not resource)</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+  <AggregateBuiltin rdf:ID="smallestIndividualBy">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = greatestIndividualBy {?i, ?b | ...} will bind ?x to the individual which is associated with the greatest ?b (literal, not resource)</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="latestDate">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = latestDate {?d | ...} will bind ?x to the latest date</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+  <AggregateBuiltin rdf:ID="latestYearMonth">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = latestYearMonth {?d | ...} will bind ?x to the latest gYearMonth</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+  <AggregateBuiltin rdf:ID="earliestYearMonth">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = earliestYearMonth {?d | ...} will bind ?x to the earliest gYearMonth</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="sumDecimals">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = sumDecimals {?d, ?e | ...} will add each ?d to the sum ?x</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="sumInts">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = sumInts {?i, ?e | ...} will add each ?i to the sum?x</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="maxDecimals">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = maxDecimals {?y | ...} will pick the max from values of ?y, if one</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="minDecimals">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = minDecimals {?y | ...} will pick the min from values of ?y, if one</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="maxInts">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = maxInts {?y | ...} will pick the max from values of ?y, if one</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="minInts">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = minInts {?y | ...} will pick the min from values of ?y, if one</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="pickOne">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = pickOne {?y | ...} will pick the one from values of ?y, if one (which is undefined)</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+  <AggregateBuiltin rdf:ID="productDecimals">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">?x = productDecimals {?y, ?e | ...} will do the product of all ?y</rdfs:comment>
+      <numberOfAggregatedVariables rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</numberOfAggregatedVariables>
+  </AggregateBuiltin>
+
+</rdf:RDF>

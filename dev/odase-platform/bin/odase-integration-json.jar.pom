@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.odaseontologies.odase</groupId>
+  <artifactId>odase-integration-json</artifactId>
+  <packaging>jar</packaging>
+  <name>ODASE java integration json</name>
+  <version>12.18.3</version>
+  <description>ODASE</description>
+  <url>http://www.odaseontologies.com</url>
+  <licenses>
+    <license>
+      <name>Proprietary</name>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>com.odaseontologies.odase</groupId>
+      <artifactId>odase-common</artifactId>
+      <version>12.18.3</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>[2.1,2.7]</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>[2.1,2.7]</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>[2.0, 2.0.1]</version>
+    </dependency>
+  </dependencies>
+</project>

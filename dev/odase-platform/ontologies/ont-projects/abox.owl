@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns="http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xml:base="http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl">
+  <owl:Ontology rdf:about=""/>
+  <swrl:Builtin rdf:ID="hasValue">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Returns true if the individual named by the first argument has a property specified by the second argument with the value specified by the third argument. If the third argument in unbound, bind it to all the values for this property.  E.g., abox:hasValue(?i, hasAliases, "Freddy"), abox:hasProperty(?i, hasAge, 23).</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasProperty">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Returns true if the individual named by the first argument has at least one value for the property named by the second argument. If the second argument in unbound, bind it to all the properties that have at least one value for this individual. E.g., abox:hasProperty(?i, hasAge).</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasAssertedPropertyValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasAssertedPropertyValue(a,b,c) is similar to hasPropertyValue, but only for asserted (in any store) values. Please use with caution. The tolerated use cases are default values, or technical rules.</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >2</swrlb:minArgs>
+    <swrlb:maxArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >3</swrlb:maxArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasPropertyValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasPropertyValue(a,b,c) is equivalent to hasValue(a,b,c) and hasPropertyValue(a,b) is equivalent to hasProperty(a,b).</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >2</swrlb:minArgs>
+    <swrlb:maxArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >3</swrlb:maxArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="booleanHasPropertyValue">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">booleanHasPropertyValue(result, a,b,c) is equivalent to hasValue(a,b,c) and booleanHasPropertyValue(result, a,b) is equivalent to hasProperty(a,b), but with a,b (and c) ground, and instead of failing or succeeding, result is an xsd:boolean set to true or false</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >3</swrlb:minArgs>
+    <swrlb:maxArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >4</swrlb:maxArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasPropertyValueOrDefault">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasPropertyValueOrDefault(?subj, pred, ?obj, subjDefault, objDefault) is ?subj pred ?obj, if there are no answer, ?subj is subjDefault and ?obj is objDefault.</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >3</swrlb:minArgs>
+    <swrlb:maxArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >4</swrlb:maxArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasURI">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Returns true if the OWL class, property, or individual named by the first argument has a URI identified by the second argument. If the second argument is unbound, bind it to URI of the resource. E.g., hasURI(?c, ?uri).</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isNumeric">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is numeric.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="notNumeric">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is not numeric.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isIndividual">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is an individual. If the argument is unbound, bind it to all the individuals in the ontology.</rdfs:comment>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isConstant">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="hasNumberOfPropertyValues">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="hasClass">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Returns true if the individual named by the first argument is an instance of the class identified by the second argument. If the second argument is unbound, bind it to all defining classes of the individual.
+E.g., abox:hasClass(?i, Person).</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasIndividual">
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >1</swrlb:args>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >1</swrlb:minArgs>
+    <swrlb:maxArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int"
+    >1</swrlb:maxArgs>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Returns true if the class named by the first argument has an individual identified by the second argument. If the second argument is unbound, bind it to all individuals of the class. E.g., abox:hasInstance(?c, Fred).</rdfs:comment>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="individualPropertyMaxCardinality">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">individualPropertyMaxCardinality(?max, indiv, property) for indiv and property ground, it binds ?max to the inferred max cardinality for the property in the context indiv (depends on the inferred indiv membership)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="individualPropertyMinCardinality">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">individualPropertyMinCardinality(?min, indiv, property) for indiv and property ground, it binds ?min to the inferred min cardinality for the property in the context indiv (depends on the inferred indiv membership)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4, Build 124)  http://protege.stanford.edu -->

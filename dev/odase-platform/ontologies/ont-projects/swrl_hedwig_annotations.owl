@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/swrl_hedwig_annotations.owl"
+    xmlns="http://ontologies.missioncriticalit.com/swrl_hedwig_annotations.owl#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:hedwig="http://www.missioncriticalit.com/ontologies/hedwig.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <owl:Ontology rdf:about="">
+        <owl:imports rdf:resource="http://www.w3.org/2003/11/swrl"/>
+        <owl:imports rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl"/>
+    </owl:Ontology>
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Class">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#DataRange">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#DatatypeProperty">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#ObjectProperty">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#first">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#rest">
+        <hedwig:evaluation_method rdf:resource="http://www.missioncriticalit.com/ontologies/hedwig.owl#dynamic"/>
+    </rdf:Description>
+</rdf:RDF>

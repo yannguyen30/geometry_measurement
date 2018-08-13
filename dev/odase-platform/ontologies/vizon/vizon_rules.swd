@@ -1,0 +1,155 @@
+ontology <http://www.missioncriticalit.com/vizon/vizon_rules.swd>.
+
+import <http://www.missioncriticalit.com/vizon/view.owl> as view.
+import <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl> as ind.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl> as abox.
+
+if ?gforont is a view:GroupOfViewForOntology
+    and ?gforont view:views_for ?onNs
+    and swrlb:stringConcat(?ns,?onNs,"#")
+    and ?c is a owl:Class
+    and ind:splitUri(?c,?ns,?_)
+    and ?classConfig function of [view:ClassConfig,?c]
+    and ?cv function of[view:ClassView,?onNs]
+then ?gforont view:groups ?cv
+    and ?cv view:shows_class ?classConfig
+    and ?classConfig view:configures_class ?c
+    and ?cv is a view:ClassView
+    and ?cv view:shows_object_properties true
+    and ?cv view:shows_data_properties true
+    and ?cv view:shows_annotations true
+    and ?cv view:shows_sub_class_relationship true
+    and ?cv view:shows_inherited_data_properties true
+    and ?cv view:shows_inherited_object_properties true
+    and ?classConfig is a view:ClassConfig
+    and (if ?o is a owl:Ontology and ind:indiv_uri(?o,?onNs,"") then ?gforont view:for_ontology ?o).
+
+#------- Properties
+if ?cv is a view:ClassView
+    and ?cv view:shows_object_properties true
+    and ?cv view:shows_class ?cc
+    and ?objPropView function of [view:PropertyView,?cc,view:shows_object_properties]
+then ?objPropView is a view:PropertyView
+    and ?cc view:object_property_view ?objPropView.
+
+
+if ?cv is a view:ClassView
+    and ?cv view:shows_data_properties true
+    and ?cv view:shows_class ?cc
+    and ?datPropView function of [view:PropertyView,?cc,view:shows_data_properties]
+then ?datPropView is a view:PropertyView
+    and ?cc view:data_property_view ?datPropView.
+
+if ?cv is a view:ClassView
+    and ?cc view:object_property_view ?opv
+    and ?cv view:shows_class ?cc
+    and ?cc view:configures_class ?c
+    and ?p is a owl:ObjectProperty
+    and ?p rdfs:domain ?c
+    and ?pc function of[view:PropertyConfig,?p,?c]
+then ?opv view:shows_property ?pc
+    and ?pc view:configures_property ?p
+    and ?pc is a view:PropertyConfig.
+
+if ?cv is a view:ClassView
+    and ?cc view:data_property_view ?opv
+    and ?cv view:shows_class ?cc
+    and ?cc view:configures_class ?c
+    and ?p is a owl:DatatypeProperty
+    and ?p rdfs:domain ?c
+    and ?pc function of[view:PropertyConfig,?p,?c]
+then ?opv view:shows_property ?pc
+    and ?pc view:configures_property ?p
+    and ?pc is a view:PropertyConfig.
+
+if ?cv is a view:ClassView
+    and ?cv view:shows_inherited_object_properties true
+    and ?cv view:shows_class ?cc
+    and ?objPropView function of [view:PropertyView,?cc,view:shows_inherited_object_properties]
+then ?objPropView is a view:PropertyView
+    and ?cc view:inherited_object_property_view ?objPropView.
+
+if ?cv is a view:ClassView
+    and ?cv view:shows_inherited_data_properties true
+    and ?cv view:shows_class ?cc
+    and ?datPropView function of [view:PropertyView,?cc,view:shows_inherited_data_properties]
+then ?datPropView is a view:PropertyView
+    and ?cc view:inherited_data_property_view ?datPropView.
+
+
+if ?cc view:inherited_data_property_view ?idv
+    and ?cc view:configures_class ?c
+    and ?sc tbox:isSuperClassOf ?c
+    and ?sp is a owl:DatatypeProperty
+    and ?sp rdfs:domain ?sc
+    and ?pspc function of[view:PropertyConfig,?sp,?c]
+then ?pspc is a view:PropertyConfig
+    and ?idv view:shows_property ?pspc
+    and ?pspc view:configures_property ?sp.
+
+
+if ?cc view:inherited_object_property_view ?idv
+    and ?cc view:configures_class ?c
+    and ?sc tbox:isSuperClassOf ?c
+    and ?sp is a owl:ObjectProperty
+    and ?sp rdfs:domain ?sc
+    and ?pspc function of[view:PropertyConfig,?sp,?c]
+then ?pspc is a view:PropertyConfig
+    and ?idv view:shows_property ?pspc
+    and ?pspc view:configures_property ?sp.
+
+#------ Annotations
+
+if ?cv is a view:ClassView
+    and ?cv view:shows_class ?cc
+    and ?cc view:configures_class ?c
+    and ?a is a owl:AnnotationProperty
+    and abox:hasPropertyValue(?c,?a,?_)
+then ?cc view:annotated ?a.
+
+
+#------- Super class
+if ?cv is a view:ClassView
+    and ?cv view:shows_sub_class_relationship true
+    and ?cv view:shows_class ?cc
+    and ?cc view:configures_class ?c
+    and ?sc tbox:isSuperClassOf ?c
+    #and ?sc tbox:isDirectSuperClassOf ?c
+    and ?scc function of [view:ClassConfig, ?sc]
+    and ?scv function of [view:ClassView, ?cc, view:super_class_view]
+then ?scc is a view:ClassConfig
+    and ?scv is a view:ClassView
+    and ?scc view:configures_class ?sc
+    and ?scv view:shows_class ?scc
+    and ?cc view:super_class_view ?scv.
+
+
+#------------- Labels
+#Labels for classes
+if ?c is a owl:Class
+and NAF (?c rdfs:label ?_)
+and ind:splitUri(?c,?_,?ln)
+then ?c rdfs:label ?ln.
+
+#Labels for Properties
+if ?p is a owl:ObjectProperty
+and NAF(?p rdfs:label ?_)
+and ind:splitUri(?p,?_,?ln)
+then ?p rdfs:label ?ln.
+
+if ?p is a owl:DatatypeProperty
+and NAF(?p rdfs:label ?_)
+and ind:splitUri(?p,?_,?ln)
+then ?p rdfs:label ?ln.
+
+if?o is a owl:Ontology
+and NAF(?o rdfs:label ?_)
+and ind:splitUri(?o,?_,?ln)
+then ?o rdfs:label ?ln.
+
+
+if ?cc view:configures_class ?c
+    and ?c rdfs:label ?l
+then ?cc rdfs:label ?l.
+

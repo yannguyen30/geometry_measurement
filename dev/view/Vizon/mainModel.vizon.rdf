@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF
+    xml:base=""
+    xmlns="#"
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:xsd="&xsd;">
+  <SimpleClassView
+      rdf:about="urn:uuid:be9fbeb3-a1c2-41e2-8bf8-cb2e2737ae80"
+      xmlns="http://www.missioncriticalit.com/vizon/view.owl#">
+    <rdf:type rdf:resource="http://www.missioncriticalit.com/vizon/view.owl#SimpleViewAllSubClasses"/>
+    <shows_data_properties rdf:datatype="&xsd;boolean">true</shows_data_properties>
+    <shows_object_properties rdf:datatype="&xsd;boolean">true</shows_object_properties>
+    <shows_sub_class_relationship rdf:datatype="&xsd;boolean">true</shows_sub_class_relationship>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#AlertPoint"/>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#DegradationPoint"/>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#InterventionPoint"/>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#Measurement"/>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#NominalPoint"/>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#Rail"/>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#SlowdownPoint"/>
+    <simply_shows_class rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#Track"/>
+  </SimpleClassView>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjQWxlcnRQb2ludD4.#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">370</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">250</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjRGVncmFkYXRpb25Qb2ludD4.#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">450</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">150</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjSW50ZXJ2ZW50aW9uUG9pbnQ~#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">530</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">250</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjTWVhc3VyZW1lbnQ~#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">450</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">50</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjTm9taW5hbFBvaW50Pg..#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">210</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">250</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjU2xvd2Rvd25Qb2ludD4.#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">700</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">250</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjUmFpbD4.#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">250</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">50</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="func:http://www.missioncriticalit.com/vizon/view.owl?1=PHVybjp1dWlkOmJlOWZiZWIzLWExYzItNDFlMi04YmY4LWNiMmUyNzM3YWU4MD4.&amp;2=PGh0dHA6Ly93d3cubWVzZWEuZnIvb250by1tYWludGVuYW5jZS9vbnRvbG9naWVzL21haW4vdHJhY2tNYWludGVuYW5jZS5vd2wjVHJhY2s~#F">
+    <abscissa
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">0</abscissa>
+    <ordinate
+        rdf:datatype="&xsd;int"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">50</ordinate>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#hasDegradationPoint">
+    <css_class
+        rdf:datatype="&xsd;string"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">OBJECT_PROPERTY_EDGE</css_class>
+    <location xmlns="http://www.missioncriticalit.com/vizon/view.owl#">
+      <PropertyLocation xmlns="http://www.missioncriticalit.com/vizon/view.owl#">
+        <controlPoints rdf:datatype="&xsd;string">280,160 400,200</controlPoints>
+        <source rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#Rail"/>
+        <target rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#DegradationPoint"/>
+      </PropertyLocation>
+    </location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#isMeasurementForRail">
+    <css_class
+        rdf:datatype="&xsd;string"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">OBJECT_PROPERTY_EDGE</css_class>
+    <location xmlns="http://www.missioncriticalit.com/vizon/view.owl#">
+      <PropertyLocation xmlns="http://www.missioncriticalit.com/vizon/view.owl#">
+        <controlPoints rdf:datatype="&xsd;string">330,110</controlPoints>
+        <source rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#Measurement"/>
+        <target rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#Rail"/>
+      </PropertyLocation>
+    </location>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#isRailForTrack">
+    <css_class
+        rdf:datatype="&xsd;string"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">OBJECT_PROPERTY_EDGE</css_class>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#precededByMeasurement">
+    <css_class
+        rdf:datatype="&xsd;string"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">OBJECT_PROPERTY_EDGE</css_class>
+  </rdf:Description>
+  <rdf:Description rdf:about="&rdfs;subClassOf">
+    <css_class
+        rdf:datatype="&xsd;string"
+        xmlns="http://www.missioncriticalit.com/vizon/view.owl#">CLASS_HIERARCHY_EDGE</css_class>
+    <location xmlns="http://www.missioncriticalit.com/vizon/view.owl#">
+      <PropertyLocation xmlns="http://www.missioncriticalit.com/vizon/view.owl#">
+        <controlPoints rdf:datatype="&xsd;string">550,160</controlPoints>
+        <source rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#DegradationPoint"/>
+        <target rdf:resource="http://www.mesea.fr/onto-maintenance/ontologies/main/trackMaintenance.owl#Measurement"/>
+      </PropertyLocation>
+    </location>
+  </rdf:Description>
+</rdf:RDF>

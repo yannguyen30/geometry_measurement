@@ -1,0 +1,19 @@
+ontology <http://www.missioncriticalit.com/ontologies/tbox_engineering.swd>.
+
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://www.missioncriticalit.com/ontologies/persistence.owl> as p.
+
+
+tbox:isInRangeOf is a p:ConstantPredicate.
+tbox:isInDirectDomainOf is a p:ConstantPredicate.
+tbox:isInDirectRangeOf is a p:ConstantPredicate.
+tbox:isInDomainOf is a p:ConstantPredicate.
+tbox:isSubClassOf is a p:ConstantPredicate.
+tbox:isDisjointWith is a p:ConstantPredicate.
+tbox:isSuperPropertyOf is a p:ConstantPredicate.
+tbox:isSubPropertyOf is a p:ConstantPredicate.
+tbox:isSuperClassOf is a p:ConstantPredicate.
+tbox:isOWLDatatpypeProperty is a p:ConstantPredicate.
+tbox:isOWLObjectProperty is a p:ConstantPredicate.
+
+tbox:isOWLProperty is a p:ConstantPredicate.

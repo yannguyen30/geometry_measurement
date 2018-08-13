@@ -1,0 +1,9 @@
+ontology <http://www.missioncriticalit.com/ontologies/persistence_custom_pred.swd>.
+
+import <http://www.w3.org/2003/11/swrl>.
+import <http://missioncriticalit.com/swrl-nary.owl> as nary.
+
+
+propertyForClassIsPersistedIn is a swrl:Builtin.
+propertyForClassIsPersistedIn nary:user_defined_predicate true.
+

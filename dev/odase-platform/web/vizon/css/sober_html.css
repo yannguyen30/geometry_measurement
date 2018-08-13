@@ -1,0 +1,230 @@
+body
+{
+    font-family:Tahoma;
+}
+
+.title
+{
+    font-size:24pt;
+    font-weight:bold;
+}
+
+.section
+{
+    margin-bottom: 0pt;
+    margin-top: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section .title
+{
+    color: #1967BA;
+    font-size: 1.7em;
+    font-weight: bold;
+    background: none repeat scroll 0 0 #E5ECF9;
+    border-top: 4px solid #335EA8;
+    padding-top: 0.0em;
+    padding-left: 5pt;
+}
+
+.section .section
+{
+    margin-top: 1.2em;
+}
+
+.section .section .title
+{
+    font-size: 1.2em;
+    font-weight: bold;
+    background: none repeat scroll 0 0 #E5ECF9;
+    padding-top: 0.0em;
+    padding-left: 5pt;
+    -moz-border-radius-topright: 10px;
+    border-top: 0px none;
+}
+.section .section .section .title
+{
+    font-size: 1.0em;
+    background: -moz-linear-gradient(left, #E5ECF9, white);
+}
+
+.labels
+{
+    font-size: smaller;
+}
+.data .type
+{
+    color:rgb(41,166,123);
+    font-size:80%;
+    font-weight:bold;
+}
+
+
+.section.class > .content,
+.section.rule > .content
+{
+    border:1px solid #E5ECF9;
+    padding:5px;
+    padding-right:30px;
+}
+
+
+html {
+    min-width:640px;
+    max-width:920px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+body {
+    background-color: #F0F9FD;
+    margin: 0px;
+}
+
+body > .view {
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 0px 20px 20px 20px;
+}
+
+.view > .title {
+    font-size: 2.2em;
+    line-height: 80px;
+    font-weight: bold;
+    color: #F0F9FD;
+    background-color: #335EA8;
+    min-height: 96px;
+    margin: 5px;
+    text-align: center;
+}
+
+
+
+.necessary > .symbol
+{
+    border:1px solid grey;
+    background-color:rgb(255,255,156);
+}
+
+.equivalent > .symbol
+{
+    border:1px solid grey;
+    background-color:rgb(255,203,132);
+}
+
+
+
+.comment
+{
+    -moz-box-shadow: 1px 1px 3px grey;
+    -moz-border-radius: 5px;
+    margin:3px;
+    padding:3px;
+    margin-left:20px;
+    width:300px;
+    background: -moz-linear-gradient(left, rgb(240,240,240), white);
+}
+
+.comment,
+.labels
+{
+    font-style:italic;
+}
+
+.lang
+{
+    font-size:50%;
+}
+
+.restriction
+{
+    margin-left:20px;
+    font-size: 70%;
+}
+
+.data > .symbol
+{
+    color:rgb(41,166,123);
+}
+
+.object > .symbol
+{
+    color: rgb(41,117,165);
+}
+
+
+.class > .symbol,
+.class > .title > .symbol
+{
+    color:rgb(206,158,41);
+}
+
+.class > .content > div
+{
+    margin-top : 7px;
+}
+
+.rule > .symbol,
+.rule > .title > .symbol
+{
+    background:none repeat scroll 0 0 #C6A2A5;
+    color:black;
+    -moz-border-radius: 3px;
+    margin:2px;
+    
+}
+
+.instance > .symbol,
+.instance > .title > .symbol
+{
+    color:rgb(185,149,196);
+}
+
+.view_link
+{
+    text-decoration : inherit;
+    color:inherit;
+}
+
+
+.rule .content .symbol
+{
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.rule .content .symbol.separator
+{
+    font-weight: normal;
+    font-size: 90%;
+}
+
+.rule .content .atom .verb
+{
+    font-weight: normal;
+    font-size:110%;
+}
+
+.rule .content .atom
+{
+    margin-left: 60px;
+}
+
+.rule .content .atom .predicate.class,
+.rule .content .atom .predicate.property
+{
+    text-shadow: 1px 1px 3px #C6A2A5;
+}
+
+.rule .content .atom .term
+{
+}
+.rule .content .atom .predicate.verb
+{
+}
+
+
+.ViewView.section > .content > .letter.section > .content
+{
+    margin-left : 30px;
+}

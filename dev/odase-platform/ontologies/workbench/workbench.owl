@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY abox "http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl#">
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY tbox "http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl#">
+  <!ENTITY temporal "http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://missioncriticalit.com/workbench.owl"
+    xmlns="http://missioncriticalit.com/workbench.owl#"
+    xmlns:abox="&abox;"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:tbox="&tbox;"
+    xmlns:temporal="&temporal;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <OwlRule rdf:ID="all_values_from_rule">
+    <rdfs:label rdf:datatype="&xsd;string">All values from ${range} restriction on ${property}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="class_has_value_rule">
+    <rdfs:label rdf:datatype="&xsd;string">Has value ${value} restriction on ${property}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="domain_rule">
+    <rdfs:label rdf:datatype="&xsd;string">The domain of ${property} is ${domain}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="equiv_classes_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${class1} is equivalent to ${class2}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="equiv_properties_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${property1} is equivalent to ${property2}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="intersection_forward_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${class} is the intersection of some other classes.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="intersection_reverse_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${class1} is the intersection of ${class2} and some other classes.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="inverse_property_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${property1} is the inverse of ${property2}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="min_cardinality_rule">
+    <rdfs:label rdf:datatype="&xsd;string">Minimum cardinality ${n} restriction on ${property}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="property_has_value_rule">
+    <rdfs:label rdf:datatype="&xsd;string">Has value ${value} restriction on ${property}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="range_rule">
+    <rdfs:label rdf:datatype="&xsd;string">The range of ${property} is ${range}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="some_values_from_rule">
+    <rdfs:label rdf:datatype="&xsd;string">Some values from ${class} restriction on ${property}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="subclass_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${class1} is a subclass of ${class2}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="subproperty_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${property1} is a subproperty of ${property2}.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="symmetric_property_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${property} is symmetric.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="thing_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${class} is subclass of Thing.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="transitive_property_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${property} is transitive.</rdfs:label>
+  </OwlRule>
+  <OwlRule rdf:ID="union_rule">
+    <rdfs:label rdf:datatype="&xsd;string">${class1} is the union of ${class2} and some other classes.</rdfs:label>
+  </OwlRule>
+  <Workbench rdf:ID="the_workbench"/>
+  <owl:Class rdf:ID="OwlRule"/>
+  <owl:Class rdf:ID="Workbench"/>
+  <owl:DatatypeProperty rdf:ID="current_time">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Workbench"/>
+    <rdfs:range rdf:resource="&xsd;dateTime"/>
+  </owl:DatatypeProperty>
+  <owl:ObjectProperty rdf:ID="classProperties">
+    <rdfs:domain rdf:resource="&owl;Class" />
+    <rdfs:range rdf:resource="&rdf;Property" />
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="classRestrictions">
+    <rdfs:domain rdf:resource="&owl;Class" />
+    <rdfs:range rdf:resource="&owl;Restriction" />
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="classes">
+    <owl:inverseOf rdf:resource="#members"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="listContains">
+    <rdfs:comment rdf:datatype="&xsd;string">listContains(?l, ?e) is true if the rdf list ?l contains ?e.</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="members">
+    <owl:inverseOf rdf:resource="#classes"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="namedClassRules">
+    <rdfs:domain rdf:resource="&rdfs;Class"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="namedDatatypePropertyRules">
+    <rdfs:domain rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="namedObjectPropertyRules">
+    <rdfs:domain rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:range rdf:resource="&swrl;Imp"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="properties">
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:domain rdf:resource="&rdfs;Resource"/>
+    <rdfs:subPropertyOf rdf:resource="#propertiesSubClasses"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="propertiesSubClasses">
+    <rdfs:domain rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:range rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="directSuperClassOf"/>
+  <owl:ObjectProperty rdf:ID="superClassOf"/>
+  <owl:ObjectProperty rdf:ID="directSubClassOf"/>
+  <owl:ObjectProperty rdf:ID="subClassOf"/>
+  <owl:ObjectProperty rdf:about="&rdf;first"/>
+  <owl:ObjectProperty rdf:about="&rdf;rest"/>
+  <owl:ObjectProperty rdf:about="&rdf;type"/>
+  <owl:ObjectProperty rdf:about="&rdfs;domain"/>
+  <owl:ObjectProperty rdf:about="&rdfs;range"/>
+  <owl:ObjectProperty rdf:about="&rdfs;subClassOf"/>
+  <owl:ObjectProperty rdf:about="&owl;unionOf"/>
+  <owl:Class rdf:about="&owl;Class"/>
+  <owl:Class rdf:about="&owl;Restriction"/>
+  <owl:Class rdf:about="&owl;Thing"/>
+  <owl:Class rdf:about="&rdf;Property"/>
+  <owl:Class rdf:about="&owl;ObjectProperty">
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+  </owl:Class>
+  <owl:Class rdf:about="&owl;DatatypeProperty">
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+  </owl:Class>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrl"/>
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>
+  </owl:Ontology>
+</rdf:RDF>

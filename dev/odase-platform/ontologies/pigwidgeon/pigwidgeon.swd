@@ -1,0 +1,1162 @@
+ontology <http://www.missioncriticalit.com/ontologies/pigwidgeon.swd>.
+
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl> as abox.
+import <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl> as uri.
+import <http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl> as conversion.
+
+import <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl> as pig.
+import <http://www.missioncriticalit.com/ontologies/persistence.owl> as p.
+
+# XXX use of rdfs:range should be changed to tbox direct range, to support better sub-properties.
+
+# Generic Generator rules
+
+rule poly-generator-aggregation
+if ?poly is a pig:PolyGenerator
+    and ?poly pig:aggregatesGenerator ?gen
+then
+    if ?poly pig:generatesWithOption ?option
+    then ?gen pig:generatesWithOption ?option
+    if ?poly pig:usesMapping ?mapping
+    then ?gen pig:usesMapping ?mapping
+    if ?poly pig:generatesForConcept ?c
+    then ?gen pig:generatesForConcept ?c
+    if ?poly pig:generatesClassForConcept ?c
+    then ?gen pig:generatesClassForConcept ?c
+    if ?poly pig:generatesForProperty ?p
+    then ?gen pig:generatesForProperty ?p.
+    # Put here other aggregation...
+
+predicate generatorInSameContext.
+if ?poly pig:aggregatesGeneratorSharingContext ?gen1
+    and ?poly pig:aggregatesGeneratorSharingContext ?gen2
+then generatorInSameContext(?gen1, ?gen2).
+if ?gen is a pig:Generator
+then generatorInSameContext(?gen, ?gen).
+
+# DoubleGeneratorForODASEClientServerService
+if ?gen is a pig:DoubleGeneratorForODASEClientServerService
+    and ?gen pig:hasServerGenerator ?server
+then ?server is a pig:GeneratorUsingODASEDependencies and ?gen is a pig:JavaGenerator.
+
+
+rule generate-concepts-properties-for-ontology-namespace
+if ?nsGen is a pig:GeneratorForOntologyNamespace
+    and ?nsGen pig:generatesForNamespace ?ns
+then
+    if tbox:isOWLClass(?concept)
+        and uri:splitUri(?concept, ?ns, ?_)
+    then ?nsGen pig:generatesForConcept ?concept
+    
+    if tbox:isOWLDatatypeProperty(?property)
+        and uri:splitUri(?property, ?ns, ?_)
+    then ?nsGen pig:generatesForProperty ?property
+    
+    if tbox:isOWLObjectProperty(?property)
+        and uri:splitUri(?property, ?ns, ?_)
+    then ?nsGen pig:generatesForProperty ?property.
+
+rule default-mappings
+if ?gen is a pig:GeneratorUsingDefaultMappings and ?gen is a pig:JavaGenerator
+    and ?mapping is a pig:DefaultXSDToJavaMapping
+then ?gen pig:usesMapping ?mapping.
+
+if ?gen is a pig:GeneratorUsingNonDateDefaultMappings and ?gen is a pig:JavaGenerator
+    and ?mapping is a pig:DefaultNonDateXSDToJavaMapping
+then ?gen pig:usesMapping ?mapping.
+
+
+# Java types rules
+
+rule simple-parametric-type
+if ?c is a pig:JavaSingleParameterizedType
+    and ?c pig:parameterType ?et
+    and ?et pig:typeQualifiedName ?etqn
+    and ?c pig:hasRawType ?raw
+    and ?raw pig:typeQualifiedName ?rawqn
+    and swrlb:stringConcat(?typeqn, ?rawqn, "<", ?etqn, ">")
+then ?c pig:typeQualifiedName ?typeqn.
+
+rule class-qualified-name
+if ?c is a pig:JavaClass
+    and ?c pig:inPackage ?p
+    and ?c pig:className ?n
+    and swrlb:stringConcat(?qn, ?p, ".", ?n)
+then ?c pig:typeQualifiedName ?qn.
+
+rule sourceUri-annotation
+if ?x pig:correspondsTo ?s
+    and ?x pig:generatedBy ?generator
+    and ?generator is a pig:GeneratorUsingODASEDependencies
+    and ?sourceUri function of[pig:SourceURIAnnotation, ?s]
+then
+    ?x pig:isAnnotatedWith ?sourceUri
+    and ?sourceUri pig:sourceURI ?s
+    and ?sourceUri is a pig:SourceURIAnnotation.
+        
+rule sourceType-concept-annotation
+if ?x pig:correspondsToConcept ?s
+    and ?x pig:generatedBy ?generator
+    and ?generator is a pig:GeneratorUsingODASEDependencies
+    and ?sourceType function of[pig:SourceTypeAnnotation, ?s]
+then
+    ?x pig:isAnnotatedWith ?sourceType
+    and ?sourceType is a pig:SourceTypeAnnotation
+    and ?sourceType pig:sourceType owl:Class.
+    
+rule sourceType-property-annotation
+if ?x pig:correspondsToProperty ?s
+    and ?x pig:generatedBy ?generator
+    and ?generator is a pig:GeneratorUsingODASEDependencies
+    and ?sourceType function of[pig:SourceTypeAnnotation, ?s]
+then
+    ?x pig:isAnnotatedWith ?sourceType
+    and ?sourceType is a pig:SourceTypeAnnotation
+    and ?sourceType pig:sourceType rdf:Property.
+
+
+# POJO generation
+
+# decide which concepts will be translated into classes (not all due to OO restrictions!)
+rule java-pojo-class-for-concept
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo pig:generatesForConcept ?concept
+    and NAF(
+            ?anyPojo is a pig:POJOPackageGenerator
+            and generatorInSameContext(?anyPojo, ?pojo)
+            and ?anyPojo pig:generatesForConcept ?siblingConcept
+            and ?siblingConcept \= ?concept
+            and tbox:isSubClassOf(?concept, ?superConcept)
+            and tbox:isSubClassOf(?siblingConcept, ?superConcept)
+            and NAF(tbox:isSubClassOf(?siblingConcept, ?concept))
+            and NAF(tbox:isSubClassOf(?concept, ?siblingConcept))
+            and NAF(tbox:isDisjointWith(?concept, ?siblingConcept))
+        )
+then ?pojo pig:generatesClassForConcept ?concept.
+
+# in Pojo generation, every concept that is not generated as class, will be by inline pattern (isXXX())
+rule java-pojo-inline-for-concept
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo pig:generatesForConcept ?concept
+    and NAF(?pojo pig:generatesClassForConcept ?concept)
+then ?pojo pig:generatesInlineForConcept ?concept.
+
+if ?pojo pig:generatesClass ?class
+    and ?class pig:correspondsToConcept ?concept
+    and ?pojo pig:generatesInlineForConcept ?conceptNoClass
+    and tbox:isSubClassOf(?conceptNoClass, ?concept)
+    and ?conceptNoClass \= ?concept
+        # don't inline ?conceptNoClass if there exists a sub-concept of ?concept 
+        # for which the generated class inlines already ?conceptNoClass and 
+        # for which ?conceptNoClass is a subclass of the sub-concept.
+    and NAF(
+            ?anyPojo is a pig:POJOPackageGenerator
+            and generatorInSameContext(?anyPojo, ?pojo)
+            and ?anyPojo pig:generatesClass ?subClass
+            and ?subClass pig:correspondsToConcept ?subConcept
+            and ?subConcept \= ?concept
+            and tbox:isSubClassOf(?subConcept, ?concept)
+            and tbox:isSubClassOf(?conceptNoClass, ?subConcept)
+        )
+then ?class pig:inlinesCorrespondingConcept ?conceptNoClass.
+
+rule java-pojo-class
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo pig:generatesClassForConcept ?concept
+    and normalizedLocalNameForGeneration(?localName, ?pojo, ?concept)
+    and ?pojo pig:generatesInPackage ?package
+    and ?class function of[pig:JavaClass, ?pojo, ?concept]
+then ?pojo pig:generatesClass ?class
+    and ?class is a pig:JavaClass
+    and ?class pig:className ?localName
+    and ?class pig:inPackage ?package
+    and ?class pig:correspondsToConcept ?concept
+    and ?class pig:implementsInterface <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.io.Serializable>
+    and
+        (if forceInheritsFor(?forcedType, ?pojo, ?concept)
+        then ?class pig:inherits ?forcedType
+        )
+        (if NAF(forceInheritsFor(?forcedType, ?pojo, ?concept))
+        then
+            if mostDirectSuperClassForConceptInSameContext(?pojo, ?concept, ?superClass)
+            then ?class pig:inherits ?superClass
+            if NAF(mostDirectSuperClassForConceptInSameContext(?pojo, ?concept, ?superClass))
+                and ?uriField function of[rdf:ID, ?pojo, ?concept]
+                and ?uriFieldColumnAnnotation function of[pig:JPAColumnAnnotation, ?uriField]
+                and ?pojo pig:useIndividualTypeForRoots ?indivType
+            then
+                ?class pig:inherits ?indivType
+                and ?uriField is a pig:ClassFieldWithGetterAndSetter
+                and ?uriField pig:fieldName "id"
+                and ?class pig:classContainsField ?uriField
+                and ?uriField pig:fieldType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.lang.String>
+                and 
+                    (if ?pojo is a pig:JPAPojoPackageGenerator
+                    then ?uriField pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#annotation_javax.persistence.Id>
+                        and ?uriField pig:isAnnotatedWith ?uriFieldColumnAnnotation
+                        and ?uriFieldColumnAnnotation is a pig:JPAColumnAnnotation
+                        and ?uriFieldColumnAnnotation pig:jpaColumnName "id"
+                    )
+        ).
+
+predicate forceInheritsFor. #(?type, ?gen, ?concept)
+if ?gen pig:generatesWithOption ?option
+    and ?option is a pig:ForceInherits
+    and ?option pig:forcesInheritsFor ?concept
+    and ?option pig:forceToType ?type
+then forceInheritsFor(?type, ?gen, ?concept).
+
+rule java-pojo-field
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo pig:generatesClass ?class
+    and ?class pig:generatedFromConcept ?concept # correspondsToConcept + inlinesCorrespondingConcept
+    and ?pojo pig:generatesForProperty ?property
+    and tbox:isInDomainOf(?concept, ?property)
+    and NAF(
+            ?pojo pig:generatesWithOption ?option
+            and ?option pig:propertyOmitted ?property
+            )
+    and NAF(
+            ?anyPojo1 is a pig:POJOPackageGenerator
+            and generatorInSameContext(?anyPojo1, ?pojo)
+            and ?anyPojo1 pig:generatesClass ?superClass
+            and ?superClass != ?class
+            and ?superClass pig:correspondsToConcept ?superConcept
+            and tbox:isInDomainOf(?superConcept, ?property)
+            and tbox:isSubClassOf(?concept, ?superConcept)
+            )
+    and normalizedLocalNameForGeneration(?localName, ?pojo, ?property)
+    and ?field function of[pig:ClassField, ?class, ?property]
+then 
+    ?field is a pig:ClassFieldWithGetter
+    and ?field pig:fieldName ?localName
+    and ?class pig:classContainsField ?field
+    and ?field pig:correspondsToProperty ?property
+    and
+        (if ?pojo is a pig:DynamicPOJOPackageGenerator then ?field is a pig:DynamicClassField)
+        
+        (if NAF(?pojo pig:generatesWithOption ?option
+                    and ?option is a pig:ReadOnlyPropertyOption
+                    and ?option pig:propertyReadOnly ?property)
+        then ?field is a pig:ClassFieldWithSetter
+        )
+        
+        (if forcedTypeForProperty(?pojo, ?property, ?forcedType)
+        then ?field pig:fieldType ?forcedType)
+        
+        (if NAF(forcedTypeForProperty(?pojo, ?property, ?_))
+        then
+            (if tbox:isOWLDatatypeProperty(?property)
+            then
+                (if ?property rdfs:range ?dtype
+                    and ?pojo pig:usesMapping ?mapping
+                    and ?mapping pig:xsdType ?dtype
+                    and ?mapping pig:targetType ?jtype
+                    and ?rangeAnn function of[pig:RangeDatatypeAnnotation, ?field]
+                then
+                       (if ?pojo is a pig:GeneratorUsingODASEDependencies
+                        then ?rangeAnn is a pig:RangeDatatypeAnnotation
+                            and ?rangeAnn pig:rangeDatatype ?dtype
+                            and ?field pig:isAnnotatedWith ?rangeAnn
+                       )
+                    and
+                        (if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                        then ?field pig:fieldType ?jtype
+                        )
+                    and
+                        (if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                            and ?collection function of[pig:JavaSingleParameterizedType, <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.util.Collection>, ?jtype]
+                        then ?field pig:fieldType ?collection
+                            and ?collection is a pig:JavaSingleParameterizedType
+                            and ?collection pig:parameterType ?jtype
+                            and ?collection pig:hasRawType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.util.Collection>
+                        )
+                )
+                    
+                (if NAF(?property rdfs:range ?dtype
+                        and ?pojo pig:usesMapping ?mapping
+                        and ?mapping pig:xsdType ?dtype
+                        and ?mapping pig:targetType ?jtype)
+                then
+                    (if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                    then ?field pig:fieldType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.lang.Object>
+                    )
+                    (if NAF(isFunctionalPropertyForConcept(?property, ?concept)) # NAF(tbox:isOWLFunctionalProperty(?property))
+                    then ?field pig:fieldType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.util.Collection>
+                    )
+                )
+           )
+           (if tbox:isOWLObjectProperty(?property)
+            then
+                    # The range is generated -> pointer
+                (if ?property rdfs:range ?range
+                    and ?anyPojo2 is a pig:POJOPackageGenerator
+                    and generatorInSameContext(?anyPojo2, ?pojo)
+                    and ?anyPojo2 pig:generatesClass ?rangeClass
+                   and ?rangeClass pig:correspondsToConcept ?range
+                then
+                    if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                    then ?field pig:fieldType ?rangeClass
+                    if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                        and ?collection function of[pig:JavaSingleParameterizedType, <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.util.Collection>, ?rangeClass]
+                    then ?field pig:fieldType ?collection
+                        and ?collection is a pig:JavaSingleParameterizedType
+                        and ?collection pig:parameterType ?rangeClass
+                        and ?collection pig:hasRawType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.util.Collection>
+                )
+                    # the range is not in the set of generated classes (can be across generators)
+                (if NAF(?property rdfs:range ?range
+                            and ?anyPojo3 is a pig:POJOPackageGenerator
+                            and generatorInSameContext(?anyPojo3, ?pojo)
+                            and ?anyPojo3 pig:generatesClass ?rangeClass
+                            and ?rangeClass pig:correspondsToConcept ?range)
+                 then
+                    if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                       and ?pojo pig:useTypeForExternalRange ?extType
+                    then ?field pig:fieldType ?extType
+                    if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                       and ?pojo pig:useTypeForExternalNonFunctional ?extType
+                    then ?field pig:fieldType ?extType
+                    # XXX add unmappedRange annotation if the range is outside there is a range, and it's disjoint with all concepts generated??
+                )
+            )
+        ).
+predicate forcedTypeForProperty. #(?generator, ?property, ?type).
+if ?generator pig:generatesWithOption ?option and ?option is a pig:ForceRangeTypeForPropertiesOption
+    and ?option pig:forceTypeForProperty ?property and ?option pig:forceToType ?type
+then forcedTypeForProperty(?generator, ?property, ?type).
+
+
+
+if ?class pig:inlinesCorrespondingConcept ?concept
+    and ?class pig:generatedBy ?gen
+    and normalizedLocalNameForGeneration(?localName, ?gen, ?concept)
+    and swrlb:stringConcat(?isConcept, "is", ?localName)
+    and ?field function of[pig:ClassField, ?class, ?concept]
+then 
+    ?field is a pig:ClassFieldWithGetterAndSetter # XXX option!
+    and ?field pig:fieldName ?isConcept
+    and ?field pig:fieldType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.lang.Boolean>
+    and ?class pig:classContainsField ?field
+    and ?field pig:correspondsToConcept ?concept
+    and (if ?gen is a pig:DynamicPOJOPackageGenerator then ?field is a pig:DynamicClassField).
+
+# generate for all subclass part of the generation a isXXX getter
+# XXX for now, this is only done for dynamic pojo
+if ?pojo is a pig:POJOPackageGenerator and ?pojo is a pig:DynamicPOJOPackageGenerator
+    and ?pojo pig:generatesClassForConcept ?ancestorConcept
+    and ?class pig:correspondsTo ?ancestorConcept
+    and ?pojo pig:generatesForConcept ?concept
+    and tbox:isSubClassOf(?concept, ?ancestorConcept)
+    and normalizedLocalNameForGeneration(?localName, ?gen, ?concept)
+    and swrlb:stringConcat(?isConcept, "is", ?localName)
+    and ?field function of[pig:ClassField, ?class, ?concept]
+then 
+    ?field is a pig:ClassFieldWithGetter
+    and ?field pig:fieldName ?isConcept
+    and ?field pig:fieldType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.lang.Boolean>
+    and ?class pig:classContainsField ?field
+    and ?field pig:correspondsToConcept ?concept
+    and (if ?gen is a pig:DynamicPOJOPackageGenerator then ?field is a pig:DynamicClassField).
+
+
+if ?gen is a pig:ObjectOrientedGenerator
+    and ?gen pig:generatesWithOption ?option
+    and ?option is a pig:ExternalObjectPropertyRangeOption
+then
+    if ?option pig:useTypeForExternalRange ?extType
+    then ?gen pig:useTypeForExternalRange ?extType
+    if ?option is a pig:ExternalObjectPropertyRangeConceptType
+        and ?option pig:useConceptForExternalRange ?concept
+        and ?gen pig:generatesClass ?class and ?class pig:correspondsToConcept ?concept
+    then ?gen pig:useTypeForExternalRange ?class.
+
+
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo is a pig:GeneratorUsingODASEDependencies
+    and NAF(?gen pig:generatesWithOption ?option
+            and ?option is a pig:ExternalObjectPropertyRangeOption)
+then
+    (if NAF(?pojo is a pig:DynamicPOJOPackageGenerator) then ?pojo pig:useTypeForExternalRange <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.integration.PojoIndividual>)
+    (if ?pojo is a pig:DynamicPOJOPackageGenerator then ?pojo pig:useTypeForExternalRange <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.integration.DynamicObjectIndividual>).
+
+if ?gen is a pig:ObjectOrientedGenerator
+then
+    if ?gen pig:generatesWithOption ?option
+        and ?option pig:useIndividualTypeForRoots ?indivType
+    then ?gen pig:useIndividualTypeForRoots ?indivType.
+
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo is a pig:GeneratorUsingODASEDependencies
+    and NAF(?pojo pig:generatesWithOption ?option
+            and ?option pig:useIndividualTypeForRoots ?indivType)
+then
+    (if NAF(?pojo is a pig:DynamicPOJOPackageGenerator) then ?pojo pig:useIndividualTypeForRoots <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.integration.PojoIndividual>)
+    (if ?pojo is a pig:DynamicPOJOPackageGenerator then ?pojo pig:useIndividualTypeForRoots <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.integration.DefaultDynamicObjectIndividual>).
+
+
+if ?pojo is a pig:JavaGenerator
+    and ?pojo pig:useTypeForExternalRange ?extType
+    and ?coll function of[pig:JavaSingleParameterizedType, ?extType, <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.util.Collection>]
+then ?coll is a pig:JavaSingleParameterizedType
+    and ?coll pig:hasRawType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#java.util.Collection>
+    and ?coll pig:parameterType ?extType
+    and ?pojo pig:useTypeForExternalNonFunctional ?coll.
+
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo is a pig:GeneratorUsingODASEDependencies
+    and ?pojo pig:generatesClass ?class
+    and ?subClass pig:inherits ?class
+    and ?subClass pig:typeQualifiedName ?subClassQN
+    and ?ann function of[pig:Annotation, <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.annotations.SubClasses>, ?pojo, ?class]
+    and ?assign function of[pig:StaticArrayAssignment, ?ann]
+    and swrlb:stringConcat(?subClassDotClass, ?subClassQN, ".class")
+then ?ann is a pig:Annotation
+    and ?ann pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.annotations.SubClasses>
+    and ?assign is a pig:StaticArrayAssignment
+    and ?assign pig:valuesToAssign ?subClassDotClass
+    and ?assign pig:assignedInto "value"
+    and ?ann pig:annotationAssignment ?assign
+    and ?class pig:isAnnotatedWith ?ann.
+
+# pojo options
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo pig:generatesWithOption ?option
+    and ?option is a pig:AbstractConceptsOption
+    and ?option pig:makesConceptAbstract ?concept
+    and ?pojo pig:generatesClass ?class
+    and ?class pig:correspondsTo ?concept
+then ?class pig:isAbstract true.
+
+if ?x pig:generatedBy ?gen
+    and ?gen pig:generatesWithOption ?option
+    and ?option is a pig:AnnotationsOption
+    and ?option pig:annotateElement ?x
+    and ?option pig:annotateWith ?ann
+then ?x pig:isAnnotatedWith ?ann.
+
+if ?gen pig:generatesWithOption ?option
+    and ?option is a pig:AnnotationsOption
+    and ?option pig:annotateConcept ?concept
+    and ?class pig:generatedBy ?gen
+    and ?class pig:correspondsTo ?concept
+then ?option pig:annotateElement ?class.
+
+
+
+# JPA for POJO rules
+
+if ?jpa is a pig:JPAPojoPackageGenerator
+    and ?jpa pig:generatesClass ?class
+    and NAF(?class pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#annotation_javax.persistence.MappedSuperclass>)
+    and ?class pig:className ?className
+    and ?entity function of[pig:Annotation, <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.Entity>, ?class]
+    and ?table function of[pig:Annotation, pig:JPATableAnnotation, ?class]
+then
+    ?class pig:isAnnotatedWith ?entity
+    and ?class pig:isAnnotatedWith ?table
+    and ?entity is a pig:Annotation
+    and ?entity pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.Entity>
+    and ?table is a pig:JPATableAnnotation
+    and ?table pig:jpaTableName ?className.
+    
+
+if ?jpa is a pig:JPAPojoPackageGenerator
+    and ?jpa pig:generatesClass ?class and ?class pig:correspondsToConcept ?concept
+    and ?class pig:classContainsField ?field
+    and ?field pig:correspondsToProperty ?property
+    and ?field pig:fieldName ?name
+then
+    (if tbox:isOWLObjectProperty(?property)
+        and ?relation function of[pig:JPARelationshipTypeAnnotation, ?field]
+    then
+        ?relation is a pig:JPARelationshipTypeAnnotation
+        and ?field pig:isAnnotatedWith ?relation
+        and ?relation pig:relationshipCascadingType "MERGE" and ?relation pig:relationshipCascadingType "PERSIST" and ?relation pig:relationshipCascadingType "REFRESH"
+        and
+            if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                and tbox:isOWLInverseFunctionalProperty(?property)
+            then ?relation pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.OneToOne>
+            if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                and NAF(tbox:isOWLInverseFunctionalProperty(?property))
+            then ?relation pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.ManyToOne>
+            (if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                and tbox:isOWLInverseFunctionalProperty(?property)
+            then ?relation pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.OneToMany>
+                and 
+                        # OneToMany, if inverse is being generated, then add mappedBy, so that no join table is being generated!
+                    if tbox:isInverseOf(?inverse, ?property)
+                        and ?inverseField pig:generatedBy ?jpa and ?inverseField pig:correspondsToProperty ?inverse
+                        and ?inverseField pig:fieldName ?ifn and swrlb:stringConcat(?ifns, "\"", ?ifn, "\"")
+                        and ?mappedBy function of[pig:Assignment, "mappedBy", ?relation]
+                    then ?relation pig:annotationAssignment ?mappedBy
+                        and ?mappedBy pig:assignedInto "mappedBy"
+                        and ?mappedBy pig:valueToAssign ?ifns
+            )
+            if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                and NAF(tbox:isOWLInverseFunctionalProperty(?property))
+                and ?joinTable function of[pig:JPAJoinTableAnnotation, ?field]
+                and ?class pig:className ?className and swrlb:stringConcat(?joinTableName, ?className, "_", ?name)
+            then ?relation pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.ManyToMany>
+                and ?joinTable is a pig:JPAJoinTableAnnotation and ?joinTable pig:nameValue ?joinTableName and ?field pig:isAnnotatedWith ?joinTable
+                    # XXX if there is an inverse being generated, pick one as the owner, and add mappedBy
+    )
+    if tbox:isOWLDatatypeProperty(?property)
+        and isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+        and ?column function of[pig:Annotation, pig:JPAColumnAnnotation, ?field]
+    then
+        ?field pig:isAnnotatedWith ?column
+        and ?column is a pig:JPAColumnAnnotation
+        and ?column pig:jpaColumnName ?name
+    if tbox:isOWLDatatypeProperty(?property)
+        and NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+        and ?elementCollectionAnnotation function of[<http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.ElementCollection>, ?field]
+    then
+        ?field pig:isAnnotatedWith ?elementCollectionAnnotation
+        and ?elementCollectionAnnotation is a pig:JPAElementCollectionAnnotation
+    if ?property rdfs:range xsd:dateTime
+    then ?field pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.Temporal_TIMESTAMP>
+    if ?property rdfs:range xsd:date
+    then ?field pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.Temporal_DATE>
+    if ?property rdfs:range xsd:time
+    then ?field pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#javax.persistence.Temporal_TIME>.
+
+# jpa options
+if ?jpa is a pig:JPAPojoPackageGenerator
+    and ?jpa pig:generatesWithOption ?option
+    and ?option is a pig:MappedSuperClassAbstractConceptsOption
+    and ?option pig:makesConceptAbstract ?concept
+    and ?jpa pig:generatesClass ?class
+    and ?class pig:correspondsTo ?concept
+then ?class pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#annotation_javax.persistence.MappedSuperclass>.
+
+
+
+# JacksonJsonPojoPackageGenerator
+
+if ?jack is a pig:JacksonJsonPojoPackageGenerator
+    and ?jack pig:generatesClass ?class
+then
+    ?class pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.annotation.JsonTypeInfo_minimal_class_property> # This solution is simplest with portability (as long as classes are in same java namespace, then the namespace is stripped)
+        #<http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.annotation.JsonTypeInfo_name_property> # this would need to define subtypes @JsonSubTypes
+        #<http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.annotation.JsonTypeInfo_class_property> # portability not so great
+    and ?class pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.annotation.JsonIdentityInfo_property_id>.
+
+
+if ?jack is a pig:JacksonJsonPojoPackageGenerator
+    and ?field pig:generatedBy ?jack
+    and ?field pig:fieldName ?name
+    and swrlb:stringConcat(?annValue, "\"", ?name, "\"")
+    and ?ann function of[<http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.annotation.JsonProperty>, ?field]
+then
+    ?ann is a pig:SimpleAnnotation
+    and ?ann pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.annotation.JsonProperty>
+    and ?ann pig:annotationValue ?annValue
+    and ?field pig:isAnnotatedWith ?ann.
+
+if ?gen is a pig:DynamicPOJOPackageGeneratorJsonLDWithinJacksonJson
+    and ?gen pig:generatesClass ?class
+then
+    ?class pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.databind.annotation.JsonSerialize_DynamicObjectIndividualJsonLDSerializer>
+    and ?class pig:isAnnotatedWith <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#com.fasterxml.jackson.databind.annotation.JsonDeserialize_DynamicObjectIndividualJsonLDDeserializer>.
+
+
+# Annotation rules
+
+if ?ann is a pig:SimpleAnnotation
+    and ?ann pig:annotationValue ?v
+    and ?assign function of[pig:ValueAssignement, ?ann]
+then ?assign is a pig:ValueAssignement
+    and ?assign pig:assignedInto "value"
+    and ?ann pig:annotationAssignment ?assign
+    and ?assign pig:valueToAssign ?v.
+
+if ?ann is a pig:NameAnnotation
+    and ?ann pig:nameValue ?name
+    and ?assign function of[pig:Assignment, ?ann, ?name]
+    and swrlb:stringConcat(?value, "\"", ?name, "\"")
+then ?ann pig:annotationAssignment ?assign
+    and ?assign is a pig:Assignment
+    and ?assign pig:assignedInto "name"
+    and ?assign pig:valueToAssign ?value.
+
+if ?ann is a pig:SourceURIAnnotation
+    and ?ann pig:sourceURI ?uri
+    and uri:splitUri(?uri, ?ns, ?ln)
+    and swrlb:stringConcat(?value, "\"", ?ns, ?ln, "\"")
+then ?ann pig:annotationValue ?value.
+
+if ?ann is a pig:SourceTypeAnnotation
+    and ?ann pig:sourceType ?type
+then
+    (if ?type = owl:Class
+    then ?ann pig:annotationValue "odase.annotations.SourceType.Type.CONCEPT"
+    )
+    (if ?type = rdf:Property
+    then ?ann pig:annotationValue "odase.annotations.SourceType.Type.PROPERTY"
+    ).
+
+if ?ann is a pig:RangeDatatypeAnnotation
+    and ?ann pig:rangeDatatype ?uri
+    and uri:splitUri(?uri, ?ns, ?ln)
+    and swrlb:stringConcat(?value, "\"", ?ns, ?ln, "\"")
+then ?ann pig:annotationValue ?value.
+
+if ?ann is a pig:JPARelationshipTypeAnnotation
+    and ?ann pig:relationshipCascadingType ?cascade
+    and swrlb:stringConcat(?cascadeQN, "javax.persistence.CascadeType.", ?cascade)
+    and ?assign function of[pig:StaticArrayAssignment, ?ann]
+then
+    ?ann pig:annotationAssignment ?assign
+    and ?assign is a pig:StaticArrayAssignment
+    and ?assign pig:valuesToAssign ?cascadeQN
+    and ?assign pig:assignedInto "cascade".
+
+# annotation propagation
+rule annotation-propagation
+if ?gen pig:generatesWithOption ?option
+    and ?option is a pig:AnnotationsPropagationOption
+    and ?option pig:propagateAnnotation ?ontoAnnProp
+    #and tbox:isOWLDatatypeProperty(?ontoAnnProp) # XXX only functional datatype annotation support yet
+    and ?ontoAnnProp rdfs:range ?range
+    and ?gen pig:usesMapping ?mapping
+    and ?mapping pig:xsdType ?range
+    and ?mapping pig:targetType ?jtype
+    and ?annType function of[pig:SimpleAnnotationType, ?gen, ?ontoAnnProp]
+    and uri:splitUri(?ontoAnnProp, ?_, ?ontoAnnPropLN)
+    and ?gen pig:generatesInPackage ?package
+    and swrlb:stringConcat(?aqn, ?package, ".", ?ontoAnnPropLN)
+then ?annType is a pig:SimpleAnnotationType
+    and ?annType pig:typeQualifiedName ?aqn
+    and ?annType pig:inPackage ?package
+    and ?annType pig:interfaceName ?ontoAnnPropLN
+    and ?annType pig:simpleAnnotationType ?jtype
+    and ?gen pig:generatesAnnotationType ?annType
+    and
+        if ?x pig:generatedBy ?gen
+            and ?x pig:correspondsTo ?xo
+            and abox:hasPropertyValue(?xo, ?ontoAnnProp, ?ontoannValue)
+            and swrlb:stringConcat(?valueQuoted, "\"", ?ontoannValue, "\"") # XXX xsd:string only??
+            and ?annValue function of[pig:SimpleAnnotation, ?x, ?ontoAnnProp]
+        then ?x pig:isAnnotatedWith ?annValue
+            and ?annValue is a pig:SimpleAnnotation
+            and ?annValue pig:annotationType ?annType
+            and ?annValue pig:annotationValue ?valueQuoted.
+
+if ?gen pig:generatesAnnotationType ?annType
+    and ?annType is a pig:SimpleAnnotationType
+    and ?annType pig:simpleAnnotationType ?type
+    and ?method function of[pig:InterfaceMethod, ?annType]
+then ?annType pig:interfaceContainsMethod ?method
+    and ?method is a pig:InterfaceMethod
+    and ?method pig:methodName "value"
+    and ?method pig:returnType ?type.
+
+# pig:generatedBy rules
+
+if ?pojo pig:generatesClass ?class
+then ?class pig:generatedBy ?pojo
+    and 
+        (
+            if ?class pig:classContainsField ?field
+            then ?field pig:generatedBy ?pojo
+        ).
+if ?field pig:generatedBy ?pojo
+    and ?g pig:getsField ?field
+then ?g pig:generatedBy ?pojo.
+if ?field pig:generatedBy ?pojo
+    and ?s pig:setsField ?field
+then ?s pig:generatedBy ?pojo.
+
+
+# OO Fields rules
+
+rule field-getter
+if ?f is a pig:ClassFieldWithGetter
+    and ?f pig:inClass ?class
+    and ?g function of [pig:ClassFieldGetter, ?f, ?class]
+then ?g is a pig:ClassFieldGetter
+    and ?g pig:getsField ?f
+    and ?g pig:inClass ?class
+    and
+        if ?f pig:correspondsToProperty ?property
+        then ?g pig:correspondsToProperty ?property
+        if ?f pig:correspondsToConcept ?concept
+        then ?g pig:correspondsToConcept ?concept
+        if ?f pig:isAnnotatedWith ?rangeAnn
+            and ?rangeAnn is a pig:RangeDatatypeAnnotation
+        then ?g pig:isAnnotatedWith ?rangeAnn.
+
+            
+rule field-setter
+if ?f is a pig:ClassFieldWithSetter
+    and ?f pig:inClass ?class
+    and ?s function of [pig:ClassFieldSetter, ?f, ?class]
+then ?s is a pig:ClassFieldSetter
+    and ?s pig:setsField ?f
+    and ?s pig:inClass ?class
+    and
+        if ?f pig:correspondsToProperty ?property
+        then ?s pig:correspondsToProperty ?property
+        if ?f pig:correspondsToConcept ?concept
+        then ?s pig:correspondsToConcept ?concept
+        if ?f pig:isAnnotatedWith ?rangeAnn
+            and ?rangeAnn is a pig:RangeDatatypeAnnotation
+        then ?s pig:isAnnotatedWith ?rangeAnn.
+
+
+# sub-class owl/oo in pojo
+
+predicate mostDirectSuperClassForConceptInSameContext. #(?pojo, ?concept, ?mostDirectSuperClass)
+
+if superClassForConceptInSameContext(?pojo, ?concept, ?mostDirectSuperConcept, ?mostDirectSuperClass)
+    and NAF(
+        tbox:isSubClassOf(?someConceptBetweenConceptAndSuperConcept, ?mostDirectSuperConcept)
+        and superClassForConceptInSameContext(?pojo, ?concept, ?someConceptBetweenConceptAndSuperConcept, ?_))
+then mostDirectSuperClassForConceptInSameContext(?pojo, ?concept, ?mostDirectSuperClass).
+
+if NAF(superClassForConceptInSameContext(?pojo, ?concept, ?mostDirectSuperConcept, ?mostDirectSuperClass)
+        and NAF(
+            tbox:isSubClassOf(?someConceptBetweenConceptAndSuperConcept, ?mostDirectSuperConcept)
+            and superClassForConceptInSameContext(?pojo, ?concept, ?someConceptBetweenConceptAndSuperConcept, ?_))
+     )
+then
+        # if there is something equivalent to owl:Thing that is generated, then use that as the top level
+    if tbox:isSubClassOf(owl:Thing, ?c)
+        and ?c \= ?concept
+        and ?otherPojo2 is a pig:POJOPackageGenerator
+        and generatorInSameContext(?otherPojo2, ?pojo)
+        and ?otherPojo2 pig:generatesClass ?thingClass
+        and ?thingClass pig:correspondsToConcept ?c
+    then mostDirectSuperClassForConceptInSameContext(?pojo, ?concept, ?thingClass).
+
+
+predicate superClassForConceptInSameContext. #(?pojo, ?concept, ?superConcept, ?superClass)
+
+if tbox:isSubClassOf(?concept, ?superConcept)
+    and ?concept \= ?superConcept
+    and ?pojo is a pig:POJOPackageGenerator
+    and ?otherPojo is a pig:POJOPackageGenerator
+    and generatorInSameContext(?otherPojo, ?pojo)
+    and ?otherPojo pig:generatesClass ?superClass
+    and ?superClass pig:correspondsToConcept ?superConcept
+then superClassForConceptInSameContext(?pojo, ?concept, ?superConcept, ?superClass).
+
+
+predicate element. #(?gen, ?i)
+if ?gen is a pig:Generator then
+    if ?i is a owl:Class then element(?gen, ?i)
+    if ?i is a owl:DatatypeProperty then element(?gen, ?i)
+    if ?i is a owl:ObjectProperty then element(?gen, ?i)
+    if ?gen pig:generatesForInstance ?i then element(?gen, ?i)
+.
+
+predicate prefixName. #(?prefix, ?gen, ?i)
+if ?gen pig:generatesWithOption ?option
+    and ?option is a pig:AddPrefixToInstancesForNamespace
+    and element(?gen, ?i)
+    and uri:splitUri(?i, ?ns, ?_)
+then
+    (if ?gen pig:generatesForInstance ?i 
+    then
+        (if ?option pig:forNamespace ?ns and ?option pig:prefixToAdd ?prefix then prefixName(?prefix, ?gen, ?i))
+        (if NAF(?option pig:forNamespace ?ns and ?option pig:prefixToAdd ?prefix) then prefixName("", ?gen, ?i))
+    )
+    (if ?i is a owl:Class then prefixName("", ?gen, ?i))
+    (if ?i is a owl:DatatypeProperty then prefixName("", ?gen, ?i))
+    (if ?i is a owl:ObjectProperty then prefixName("", ?gen, ?i))
+.
+if element(?gen, ?i)
+    and NAF(?gen pig:generatesWithOption ?option and ?option is a pig:AddPrefixToInstancesForNamespace)
+then prefixName("", ?gen, ?i).
+
+predicate normalizedLocalNameForGeneration. #(?localName, ?gen, ?i)
+if ?gen pig:generatesWithOption pig:generate_printable_ascii
+    and element(?gen, ?i)
+    and uri:splitUri(?i, ?_, ?ln)
+    and prefixName(?prefix, ?gen, ?i)
+    and swrlb:stringValuesConcat(?prefixed, ?prefix, ?ln)
+    and conversion:normalizeStringToPrintableASCII(?norm, ?prefixed)
+    and conversion:replaceNonAlphaNumBy(?alphaNum, ?norm, "_")
+then normalizedLocalNameForGeneration(?alphaNum, ?gen, ?i).
+    
+if element(?gen, ?i)
+    and NAF(?gen pig:generatesWithOption pig:generate_printable_ascii)
+    and uri:splitUri(?i, ?_, ?ln)
+    and prefixName(?prefix, ?gen, ?i)
+    and swrlb:stringValuesConcat(?prefixed, ?prefix, ?ln)
+then normalizedLocalNameForGeneration(?prefixed, ?gen, ?i).
+
+if ?class is a pig:ObjectOrientedClass
+    and ?class pig:classContains ?t
+then ?class pig:classGivesAccessTo ?t.
+if ?class pig:inherits ?super
+    and ?super pig:classGivesAccessTo ?t
+then ?class pig:classGivesAccessTo ?t.
+
+# instances pojo generator
+
+if ?gen is a pig:GeneratorForInstancesOfConcepts
+    and ?gen pig:generatesForConcept ?concept
+    and abox:hasIndividual(?concept, ?instance)
+then ?gen pig:generatesForInstance ?instance.
+
+if ?pojo is a pig:POJOPackageGenerator
+    and ?pojo is a pig:GeneratorForInstances
+    and ?pojo pig:generatesForInstance ?instance
+    and classForInstance(?class, ?instance, ?pojo)
+    and mostSpecificClassForInstance(?mostSpecificClass, ?instance, ?pojo)
+    and normalizedLocalNameForGeneration(?iln, ?pojo, ?instance)
+    and ?staticNew function of[pig:StaticLazyNewIndividualMethod, ?instance, ?mostSpecificClass]
+then
+    (if ?mostSpecificClass = ?class
+    then ?staticNew is a pig:StaticLazyNewIndividualMethod
+        and ?class pig:classContainsMethod ?staticNew
+        and ?staticNew pig:methodName ?iln
+        and ?staticNew pig:staticGetterReturns ?mostSpecificClass
+        and ?staticNew pig:individualToCreate ?instance
+
+        and
+            (if ?class pig:classGivesAccessTo ?setter 
+                and ?setter is a pig:ClassFieldSetter # XXX should be using any type of setter...
+                and ?setter pig:correspondsToProperty ?property
+                and ?setterCall function of[pig:SetterCallForValues, ?staticNew, ?property]
+                and abox:hasPropertyValue(?instance, ?property, ?value)
+            then ?setterCall is a pig:SetterCallForValues
+                and ?setterCall pig:setsFor ?setter
+                and ?staticNew pig:initializesValues ?setterCall
+                and 
+                    (if tbox:isOWLDatatypeProperty(?property)
+                    then ?setterCall is a pig:SetterCallForLiterals and ?setterCall pig:literalValueToSet ?value
+                    )
+                 and
+                    (if tbox:isOWLObjectProperty(?property)
+                    then ?setterCall is a pig:SetterCallForStaticGetters
+                        and 
+                            (if ?valueGetter pig:individualToCreate ?value then ?setterCall pig:valueToSetFromStaticGetter ?valueGetter)
+                            # XXX TODO (if NAF(?valueGetter pig:individualToCreate ?value) then ?setterCall pig:valueToSetFromStaticGetter ?setterCall)
+                   )
+              )
+          and
+              (if inlinedFields(?class, ?conceptInlined, ?field, ?instance, ?generator)
+                  and ?field pig:setBy ?fieldSetter
+                  and ?setterCall function of[pig:SetterCallForValues, ?staticNew, ?conceptInlined]
+              then ?setterCall is a pig:SetterCallForValues
+                  and ?setterCall pig:setsFor ?fieldSetter
+                  and ?staticNew pig:initializesValues ?setterCall
+                  and ?setterCall is a pig:SetterCallForLiterals and ?setterCall pig:literalValueToSet true
+              )
+    )
+    (if ?mostSpecificClass \= ?class 
+        and ?proxy function of[pig:StaticGetterProxyMethod, ?instance, ?class]
+    then ?proxy is a pig:StaticGetterProxyMethod
+        and ?class pig:classContainsMethod ?proxy
+        and ?proxy pig:methodName ?iln
+        and ?proxy pig:staticGetterReturns ?mostSpecificClass
+        and ?proxy pig:staticGetterProxiesFor ?staticNew
+    )
+        # id lookup of static individuals.
+    (if ?class pig:correspondsToConcept ?concept
+        and ?lookup function of[pig:StaticIndividualLookupByKeys, "id", ?class]
+        and ?class pig:classContainsField ?field and ?field pig:fieldName "id"
+    then ?lookup is a pig:StaticIndividualLookupByKeys and ?lookup pig:looksupAmongIndividuals ?staticNew
+        and ?class pig:classContainsMethod ?lookup and ?lookup pig:methodName "lookupBy"
+        and ?lookup pig:looksupBy ?field
+    )
+        # keys lookup of static individuals.
+    (if ?class pig:correspondsToConcept ?concept and tbox:hasKeys(?concept, ?keySet, ?_)
+        and ?lookup function of[pig:StaticIndividualLookupByKeys, ?class, ?keySet]
+    then ?lookup is a pig:StaticIndividualLookupByKeys and ?lookup pig:looksupAmongIndividuals ?staticNew
+        and ?class pig:classContainsMethod ?lookup and ?lookup pig:methodName "lookupBy"
+        and 
+            (if tbox:hasKeys(?concept, ?keySet, ?property) 
+                and ?class pig:classContainsField ?field and ?field pig:correspondsToProperty ?property
+            then ?lookup pig:looksupBy ?field)
+    ).
+
+predicate classForInstance.#(class, instance, generator)
+predicate mostSpecificClassForInstance.#(class, instance, generator)
+predicate inlinedFields.#(?class, ?conceptInlined, ?field, ?instance, ?generator)
+
+if ?generator pig:generatesClass ?class #?class pig:generatedBy ?generator
+    and ?generator is a pig:GeneratorForInstances # Add this constraint to avoid hasIndividual(owl:Thing, ?i)
+    and ?class pig:correspondsToConcept ?concept
+    and abox:hasIndividual(?concept, ?instance)
+then classForInstance(?class, ?instance, ?generator).
+
+if ?generator is a pig:GeneratorForInstances # Add this constraint to avoid hasIndividual(owl:Thing, ?i)
+    and classForInstance(?class, ?instance, ?generator)
+    and ?class pig:correspondsToConcept ?concept
+    and NAF(classForInstance(?otherClass, ?instance, ?generator) 
+                and ?otherClass pig:correspondsToConcept ?otherConcept
+                and tbox:isSubClassOf(?otherConcept, ?concept))
+then mostSpecificClassForInstance(?class, ?instance, ?generator)
+    and 
+        (if ?field pig:correspondsToConcept ?conceptInlined
+            and ?class pig:inlinesCorrespondingConcept ?conceptInlined
+            and abox:hasIndividual(?conceptInlined, ?instance)
+        then inlinedFields(?class, ?conceptInlined, ?field, ?instance, ?generator)
+        ).
+
+if ?generator pig:generatesClassForConcept ?concept and NAF(?class pig:correspondsTo ?concept)
+then ?concept is a pig:UnprocessedThing.
+if ?generator pig:generatesForConcept ?concept and NAF(?class pig:correspondsTo ?concept)
+then ?concept is a pig:UnprocessedThing.
+if ?generator pig:generatesForProperty ?property and NAF(?class pig:correspondsTo ?property)
+then ?property is a pig:UnprocessedThing.
+
+
+predicate isFunctionalPropertyForConcept. #(property, concept)
+if tbox:isOWLClass(?concept) and tbox:isOWLProperty(?property) and tbox:isOWLFunctionalProperty(?property) then isFunctionalPropertyForConcept(?property, ?concept).
+if tbox:isOWLClass(?concept) and tbox:isOWLProperty(?property) and tbox:hasMaxCardinality(1, ?property, ?concept) then isFunctionalPropertyForConcept(?property, ?concept).
+
+predicate booleanIsFunctionalPropertyForConcept. #(?result, ?property, ?concept)
+if tbox:isOWLClass(?concept) and tbox:isOWLProperty(?property) 
+then
+    (if isFunctionalPropertyForConcept(?property, ?concept) then booleanIsFunctionalPropertyForConcept(true, ?property, ?concept))
+    (if NAF(isFunctionalPropertyForConcept(?property, ?concept)) then booleanIsFunctionalPropertyForConcept(true, ?property, ?concept))
+.
+
+# Engineering transfer: engineering predicateCostWeight are transferred into generated code
+
+if ?x pig:generatedBy ?pojo
+    and ?pojo is a pig:POJOPackageGenerator
+    and ?pojo is a pig:GeneratorUsingODASEDependencies
+    and ?x pig:correspondsTo ?predicate
+    and p:predicateCostWeight(?_, ?predicate, ?_) # There is at least one cost weight
+    and ?ann function of[<http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.annotations.PredicateCostWeights>, ?x]
+    and ?assign function of[pig:StaticArrayAssignment, ?ann]
+then
+    ?x pig:isAnnotatedWith ?ann
+    and ?ann is a pig:Annotation
+    and ?ann pig:annotationType <http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#odase.annotations.PredicateCostWeights>
+    and ?ann pig:annotationAssignment ?assign
+    and ?assign pig:assignedInto "value"
+    and ?assign is a pig:StaticArrayAssignment
+    and (
+            if p:predicateCostWeight(?costWeight, ?predicate, ?modes)
+                and conversion:to_string(?costWeight, ?costWeightString)
+                and swrlb:stringConcat(?predicateCostWeightString, "@odase.annotations.PredicateCostWeights.PredicateCostWeight(costWeight=", ?costWeightString, "f, modes=\"", ?modes, "\")")
+            then ?assign pig:valuesToAssign ?predicateCostWeightString
+        ).
+
+
+# TYPESCRIPT
+
+if ?gen is a pig:TypeScriptGenerator
+    and ?gen pig:generatesForConcept ?concept
+    and normalizedLocalNameForGeneration(?interfaceName, ?gen, ?concept)
+    and ?interface function of[pig:ObjectOrientedInterface, ?gen, ?concept]
+then ?gen pig:generatesInterface ?interface
+    and ?interface is a pig:ObjectOrientedInterface
+    and ?interface pig:interfaceName ?interfaceName
+    and ?interface pig:typeQualifiedName ?interfaceName
+    and ?interface pig:correspondsToConcept ?concept.
+
+
+            # XXX generatorInSameContext TODO
+if ?gen is a pig:TypeScriptGenerator
+    and ?gen pig:generatesForConcept ?concept
+    and ?gen pig:generatesInterface ?interface and ?interface pig:correspondsToConcept ?concept
+    and ?gen pig:generatesForConcept ?superConcept
+    and ?gen pig:generatesInterface ?superInterface and ?superInterface pig:correspondsToConcept ?superConcept
+    and tbox:isSubClassOf(?concept, ?superConcept)
+    and NAF(?gen pig:generatesForConcept ?betweenConcept
+            and tbox:isSubClassOf(?concept, ?betweenConcept)
+            and tbox:isSubClassOf(?betweenConcept, ?superConcept)
+            and NAF(tbox:isSubClassOf(?betweenConcept, ?concept)) # if it is equivalent, it does not count as in between
+            and ?gen pig:generatesInterface ?betweenInterface and ?betweenInterface pig:correspondsToConcept ?betweenConcept
+        )
+    and NAF(tbox:isSubClassOf(?superConcept, ?concept)) # avoid cyclic extends
+then ?interface pig:extends ?superInterface.
+
+
+if ?gen is a pig:TypeScriptGenerator
+    and ?gen pig:generatesInterface ?interface and ?interface pig:correspondsToConcept ?concept
+    and ?gen pig:generatesForProperty ?property
+    and tbox:isInDomainOf(?concept, ?property)
+    and NAF(
+            ?gen pig:generatesWithOption ?option
+            and ?option pig:propertyOmitted ?property
+            )
+                    # XXX generatorInSameContext
+    and NAF(
+            ?gen pig:generatesInterface ?superInterface and ?superInterface pig:correspondsToConcept ?superConcept
+            and ?superInterface != ?interface
+            and tbox:isInDomainOf(?superConcept, ?property)
+            and tbox:isSubClassOf(?concept, ?superConcept)
+            and NAF(tbox:isSubClassOf(?superConcept, ?concept)) # if equivalent, still generate property...
+            )
+    and normalizedLocalNameForGeneration(?localName, ?gen, ?property)
+    and ?field function of[pig:Field, ?interface, ?property]
+then 
+    ?field is a pig:Field
+    and ?field pig:generatedBy ?gen
+    and ?field pig:fieldName ?localName
+    and ?interface pig:interfaceContainsField ?field
+    and ?field pig:correspondsToProperty ?property
+    and
+        (if forcedTypeForProperty(?gen, ?property, ?forcedType)
+        then ?field pig:fieldType ?forcedType
+            and compileMethod(?gen, ?interface, ?concept, ?property, ?forcedType)
+        )
+        
+        (if NAF(forcedTypeForProperty(?gen, ?property, ?_))
+        then
+            (if tbox:isOWLDatatypeProperty(?property)
+            then
+                (if ?property rdfs:range ?dtype
+                    and ?gen pig:usesMapping ?mapping
+                    and ?mapping pig:xsdType ?dtype
+                    and ?mapping pig:targetType ?tstype
+                then
+                    (if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                    then ?field pig:fieldType ?tstype
+                        and compileMethod(?gen, ?interface, ?concept, ?property, ?tstype)
+                    )
+                    (if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                        and ?collection function of[pig:TypeScriptType, ?tstype]
+                        and ?tstype pig:typeQualifiedName ?tstypeName and swrlb:stringValuesConcat(?collectionName, ?tstypeName, "[]")
+                    then ?field pig:fieldType ?collection
+                        and ?collection is a pig:TypeScriptType
+                        and ?collection pig:typeQualifiedName ?collectionName
+                        and compileMethod(?gen, ?interface, ?concept, ?property, ?collection)
+                    )
+                )
+                    
+                (if NAF(?property rdfs:range ?dtype
+                        and ?gen pig:usesMapping ?mapping
+                        and ?mapping pig:xsdType ?dtype
+                        and ?mapping pig:targetType ?_)
+                then
+                    (if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                    then ?field pig:fieldType pig:typescript_any
+                        and compileMethod(?gen, ?interface, ?concept, ?property, pig:typescript_any)
+                    )
+                    (if NAF(isFunctionalPropertyForConcept(?property, ?concept)) # NAF(tbox:isOWLFunctionalProperty(?property))
+                    then ?field pig:fieldType pig:typescript_anys
+                        and compileMethod(?gen, ?interface, ?concept, ?property, pig:typescript_anys)
+                    )
+                )
+           )
+           (if tbox:isOWLObjectProperty(?property)
+            then
+                    # The range is generated -> pointer
+                (if ?property rdfs:range ?range
+                    and ?gen pig:generatesInterface ?rangeInterface
+                   and ?rangeInterface pig:correspondsToConcept ?range
+                then
+                    (if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                    then ?field pig:fieldType ?rangeInterface
+                        and compileMethod(?gen, ?interface, ?concept, ?property, ?rangeInterface)
+                    )
+                    (if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                        and ?collection function of[pig:TypeScriptType, ?rangeInterface]
+                        and ?rangeInterface pig:typeQualifiedName ?rangeInterfaceName and swrlb:stringValuesConcat(?collectionName, ?rangeInterfaceName, "[]")
+                    then ?field pig:fieldType ?collection
+                        and ?collection is a pig:TypeScriptType
+                        and ?collection pig:typeQualifiedName ?collectionName
+                        and compileMethod(?gen, ?interface, ?concept, ?property, ?collection)
+                   )
+                )
+                (if NAF(?property rdfs:range ?range
+                        and ?gen pig:generatesInterface ?rangeInterface
+                        and ?rangeInterface pig:correspondsToConcept ?range)
+                 then
+                    if isFunctionalPropertyForConcept(?property, ?concept) #tbox:isOWLFunctionalProperty(?property)
+                    then ?field pig:fieldType pig:typescript_Individual
+                    if NAF(isFunctionalPropertyForConcept(?property, ?concept)) #NAF(tbox:isOWLFunctionalProperty(?property))
+                    then ?field pig:fieldType pig:typescript_Individuals
+                        and compileMethod(?gen, ?interface, ?concept, ?property, pig:typescript_Individuals)
+                )
+            )
+        ).
+
+
+# Instances for typescript
+
+predicate interfaceForInstance.#(class, instance, generator)
+class Instance.
+
+if ?gen is a pig:TypeScriptGenerator
+    and ?gen is a pig:GeneratorForInstances
+    and ?gen pig:generatesForInstance ?instance
+    and interfaceForInstance(?interface, ?instance, ?gen)
+    and normalizedLocalNameForGeneration(?iln, ?gen, ?instance)
+    and ?ii function of[Instance, ?instance]
+then
+    ?ii is a Instance
+    and ?gen pig:generatesInstance ?ii
+    and ?interface pig:interfaceContainsInstance ?ii
+    and ?ii pig:instanceName ?iln
+    and ?ii pig:correspondsTo ?interface
+    and ?ii pig:individualToCreate ?instance.
+
+if ?generator pig:generatesInterface ?interface
+    and ?generator is a pig:GeneratorForInstances # Add this constraint to avoid hasIndividual(owl:Thing, ?i)
+    and ?interface pig:correspondsToConcept ?concept
+    and abox:hasIndividual(?concept, ?instance)
+then interfaceForInstance(?interface, ?instance, ?generator).
+
+
+if ?gen is a pig:GeneratorUsingDefaultMappings and ?gen is a pig:TypeScriptGenerator
+    and ?mapping is a pig:DefaultXSDToTypeScriptMapping
+then ?gen pig:usesMapping ?mapping.
+
+# sub property setter
+if ?generator pig:generatesWithOption ?option
+    and ?option is a pig:SubPropertySetterOption
+    and ?option pig:setsSubProperty ?property
+    and ?option pig:setsValueInProperty ?subProperty
+    and ?field pig:generatedBy ?generator
+    and ?field pig:correspondsToProperty ?property
+then ?field is a pig:FieldWithSubPropertySetter
+    and ?field pig:setsSubProperty ?subProperty.
+    
+
+# compiler stuff
+
+if ?generator is a pig:GeneratorMostCompiler
+then
+    (if ?generator pig:generatesForProperty ?prop then ?generator pig:compilesForProperty ?prop)
+    (if ?generator pig:generatesForConcept ?prop then ?generator pig:compilesForConcept ?prop)
+.
+    
+predicate compileMethod. #(?generator, ?interface, ?concept, ?property, ?type)
+
+if compileMethod(?generator, ?interface, ?concept, ?prop, ?type)
+    and ?generator is a pig:GeneratorCompiler
+    and ?generator pig:compilesForProperty ?prop
+    and normalizedLocalNameForGeneration(?name, ?generator, ?prop)
+    and ?generator pig:generatesForLanguage ?lge
+    and booleanIsFunctionalPropertyForConcept(?functional, ?prop, ?concept)
+    and pig:compileProperty(?body, ?lge, ?generator, ?prop, ?functional, normalizedLocalNameForGeneration)
+    and ?method function of[pig:Method, ?generator, ?prop]
+then ?method is a pig:Method
+    and ?method pig:methodName ?name
+    and ?method pig:methodBody ?body
+    and ?method pig:correspondsToProperty ?prop
+    and ?interface pig:compiledMethod ?method
+    and ?method pig:returnType ?type
+.
+
+
+
+# Engineering
+
+if tbox:isOWLClass(?c)
+    and uri:splitUri(?c, "http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#", ?_)
+then ?c p:canBeReorderedInRules true.
+
+if tbox:isOWLObjectProperty(?p)
+    and uri:splitUri(?p, "http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#", ?_)
+then ?p p:canBeReorderedInRules true.
+
+if tbox:isOWLDatatypeProperty(?p)
+    and uri:splitUri(?p, "http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#", ?_)
+then ?p p:canBeReorderedInRules true.
+
+    # to avoid hasIndividual(owl:Thing, ?i)
+if then p:predicateCostWeight(0.0, pig:GeneratorForInstances, "i").
+if then p:predicateCostWeight(10.0, abox:hasIndividual, "io").

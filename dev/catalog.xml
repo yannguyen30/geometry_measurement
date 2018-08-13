@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xml:base="file:/C:/ERTMS/work/mesea-exercice/dev/" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+<uri name="http://www.mesea.fr/onto-maintenance/ontologies/main/businessModel.owl" xmlns:ns0="http://missioncriticalit.com/catalog/" ns0:selected="true" uri="ontologies/main/businessModel.owl"/>
+<uri name="http://www.mesea.fr/onto-maintenance/ontologies/main/degradationPoints.swd" xmlns:ns0="http://missioncriticalit.com/catalog/" ns0:selected="true" uri="ontologies/main/degradationPoints.swd"/>
+<uri name="http://www.mesea.fr/onto-maintenance/ontologies/main/modelWithData.owl" xmlns:ns0="http://missioncriticalit.com/catalog/" ns0:selected="true" uri="ontologies/main/modelWithData.owl"/>
+<nextCatalog catalog="odase-platform/ontologies/catalog.xml"/>
+<rewriteURI rewritePrefix="" uriStartString="http://www.mesea.fr/onto-maintenance/"/>
+</catalog>

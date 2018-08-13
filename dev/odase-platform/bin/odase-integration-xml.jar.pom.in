@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.odaseontologies.odase</groupId>
+  <artifactId>odase-integration-xml</artifactId>
+  <packaging>jar</packaging>
+  <name>ODASE java integration XML</name>
+  <version></version>
+  <description>ODASE</description>
+  <url>http://www.odaseontologies.com</url>
+  <licenses>
+    <license>
+      <name>Proprietary</name>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>com.odaseontologies.odase</groupId>
+      <artifactId>odase-runtime</artifactId>
+      <version></version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xsom</groupId>
+      <artifactId>xsom</artifactId>
+      <version>20140925</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml</groupId>
+      <artifactId>relaxngDatatype</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
+</project>

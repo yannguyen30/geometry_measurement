@@ -1,0 +1,35 @@
+ontology <http://ontologies.missioncriticalit.com/builtins/all_builtins.swd>.
+
+import <http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl>.
+import <http://www.missioncriticalit.com/ontologies/builtins/date_time_builtins.owl>.
+import <http://www.missioncriticalit.com/ontologies/builtins/financial_builtins.owl>.
+import <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl> as uri.
+import <http://www.missioncriticalit.com/ontologies/spreadsheet_builtins.owl>.
+import <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl>.
+import <http://www.missioncriticalit.com/ontologies/builtins/format_builtin.owl>.
+import <http://www.w3.org/2003/11/swrlb>.
+import <http://www.missioncriticalit.com/ontologies/builtins/time_builtins.owl>.
+import <http://www.missioncriticalit.com/ontologies/builtins/odase_builtins.owl>.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl>.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl> as abox.
+
+
+class OntologyWithBuiltins extends owl:Ontology with 
+    definesBuiltin range swrl:Builtin.
+
+class swrl:Builtin with
+    hasLocalName range xsd:string single.
+
+class DocumentedBuiltin extends swrl:Builtin.
+
+if ?o is a owl:Ontology and ?b is a swrl:Builtin
+    and uri:splitUri(?b, ?bns, ?bln)
+    and uri:splitUri(?o, ?ons, ?oln) and swrlb:stringConcat(?os, ?ons, ?oln)
+    and swrlb:startsWith(?bns, ?os)
+    and swrlb:stringConcat(?bns, ?os, "#")
+    and NAF(?b owl:deprecated true)
+then ?o is a OntologyWithBuiltins
+    and ?o definesBuiltin ?b
+    and ?b hasLocalName ?bln.
+
+if ?b is a swrl:Builtin and ?b rdfs:comment ?_ then ?b is a DocumentedBuiltin.

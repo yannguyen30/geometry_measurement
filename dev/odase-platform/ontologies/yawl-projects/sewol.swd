@@ -1,0 +1,97 @@
+ontology <http://ontologies.missioncriticalit.com/sewol.swd>.
+
+import <http://ontologies.missioncriticalit.com/sewol.owl> as sewol.
+import <http://www.missioncriticalit.com/ontologies/builtins/time_builtins.owl> as time.
+
+rule task-current-time
+if ?t is a sewol:Task
+   and time:now(?time)
+then
+   ?t sewol:hasCurrentTime ?time.
+
+rule case-current-time
+if ?c is a sewol:Case
+   and time:now(?time)
+then
+   ?c sewol:hasCurrentTime ?time.
+
+rule task-can-be-finished
+if ?t is a sewol:TaskRunning
+   and ?t sewol:canBeFinished true
+   and NAF(?t sewol:cannotBeFinishedBecause ?vr)
+then
+   ?t is a sewol:TaskCanBeFinished.
+
+rule case-depends-on-closure
+if ?c is a sewol:Case
+   and ?c sewol:hasParentCase ?p
+   and ?p sewol:dependsOn ?o
+then
+   ?c sewol:dependsOn ?o.
+
+rule task-depends-on-closure
+if ?t is a sewol:Task
+   and ?t sewol:isMemberOfCase ?c
+   and ?c sewol:dependsOn ?o
+then
+   ?t sewol:dependsOn ?o.
+
+
+
+if ?t is a sewol:Task
+    and ?t sewol:hasValidPreconditions true
+    and NAF(?t sewol:startedOn ?e)
+then ?t is a sewol:TaskAvailable.
+
+if ?t is a sewol:TaskAvailable
+    and ?t sewol:mustBeEnabled true
+    and NAF(?t sewol:enabledOn ?e)
+then ?t is a sewol:TaskAvailableToEnable.
+
+if ?t is a sewol:TaskAvailable
+    and ?t sewol:mustBeEnabled true
+    and ?t sewol:enabledOn ?e
+then ?t is a sewol:TaskAvailableToStart.
+
+if ?t is a sewol:TaskAvailable
+    and ?t sewol:mustBeEnabled false
+then ?t is a sewol:TaskAvailableToStart.
+
+
+if ?t is a sewol:Task
+    and ?t sewol:startedOn ?s
+    and NAF(?t sewol:finishedOn ?f)
+then ?t is a sewol:TaskRunning.
+
+if ?t is a sewol:Task
+    and ?t sewol:finishedOn ?f
+then ?t is a sewol:TaskFinished.
+
+
+if ?t is a sewol:Task
+    and ?t sewol:inContextOfCase ?c
+    and ?c sewol:hasParentCase ?pc
+then ?t sewol:inContextOfCase ?pc.
+
+
+
+if ?c is a sewol:Case
+    and ?c sewol:hasValidPreconditions true
+then ?c is a sewol:CaseAvailable.
+
+if ?c is a sewol:CaseAvailable
+    and ?c sewol:mustBeEnabled true
+    and NAF(?c sewol:enabledOn ?e)
+then ?c is a sewol:CaseAvailableToEnable.
+
+if ?c is a sewol:CaseAvailable
+    and ?c sewol:mustBeEnabled true
+    and ?c sewol:enabledOn ?e
+then ?c is a sewol:CaseActive.
+
+if ?c is a sewol:CaseAvailable
+    and ?c sewol:mustBeEnabled false
+then ?c is a sewol:CaseActive.
+
+
+

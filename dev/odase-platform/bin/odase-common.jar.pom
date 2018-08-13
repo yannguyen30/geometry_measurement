@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.odaseontologies.odase</groupId>
+  <artifactId>odase-common</artifactId>
+  <packaging>jar</packaging>
+  <name>ODASE java common</name>
+  <version>12.18.3</version>
+  <description>ODASE</description>
+  <url>http://www.odaseontologies.com</url>
+  <licenses>
+    <license>
+      <name>Proprietary</name>
+    </license>
+  </licenses>
+</project>

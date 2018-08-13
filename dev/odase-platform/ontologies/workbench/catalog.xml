@@ -1,0 +1,5 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri name="http://missioncriticalit.com/workbench_rules.owl" uri="workbench_rules.owl"/>
+    <uri name="http://missioncriticalit.com/workbench.owl" uri="workbench.owl"/>
+</catalog>
+

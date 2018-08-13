@@ -1,0 +1,19 @@
+ontology <http://ontologies.missioncriticalit.com/valueMapper.swd>.
+
+
+# display extra ?
+# sorting ?
+# potential ?
+
+class ObjectMapper with
+    leftValue object,
+    rightValue object,
+    editProperty range owl:ObjectProperty,
+    viewLeftAs range owl:Class,
+    viewRightAs range owl:Class.
+
+predicate potentialMapping. #(subject, predicate, object)
+
+
+
+

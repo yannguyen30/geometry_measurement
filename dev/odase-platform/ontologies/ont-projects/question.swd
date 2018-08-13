@@ -1,0 +1,148 @@
+ontology <http://ontologies.missioncriticalit.com/ui/question.swd>.
+
+import <http://ontologies.missioncriticalit.com/ui/question.owl> as q.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl> as abox.
+import <http://www.missioncriticalit.com/ontologies/persistence.owl> as p.
+
+if ?q function of [q:Question, ?i, ?qi, ?qp]
+    and ?e is a q:EditorForOutcome
+    and ?e q:questionsNeededFor ?p
+    and ?e q:questionsForStore ?s
+    and ?e q:questionsNeededOn ?i
+then
+    (if ?e q:filterQuestionsPredicate ?qf
+        and ?e q:individualsForPredicate ?qifp
+        and q:filteredQuestionsNeededToCompute(?qi, ?qd, ?qp, ?qt, ?qf, ?qifp, ?s, ?i, ?p)
+    then
+        ?e q:groupsQuestion ?q
+        and ?q q:subject ?qi
+        and ?q q:predicate ?qp
+        and ?q is a q:Question
+        and 
+            if ?qt = owl:ObjectProperty
+            then ?q is a q:ObjectPropertyQuestion
+                and ?q q:inContextOfDomain ?qd
+            if ?qt = owl:DatatypeProperty
+            then ?q is a q:DatatypePropertyQuestion
+                and ?q q:inContextOfDomain ?qd
+            if ?qt = owl:Class
+            then ?q is a q:TypeDataField
+    )
+    (if NAF(?e q:filterQuestionsPredicate ?qf and ?e q:individualsForPredicate ?qifp)
+        and q:questionsNeededToComputeData(?qi, ?qd, ?qp, ?qt, ?s, ?i, ?p)
+    then
+        ?e q:groupsQuestion ?q
+        and ?q q:subject ?qi
+        and ?q q:predicate ?qp
+        and ?q is a q:Question
+        and 
+            if ?qt = owl:ObjectProperty
+            then ?q is a q:ObjectPropertyQuestion
+                and ?q q:inContextOfDomain ?qd
+            if ?qt = owl:DatatypeProperty
+            then ?q is a q:DatatypePropertyQuestion
+                and ?q q:inContextOfDomain ?qd
+            if ?qt = owl:Class
+            then ?q is a q:TypeDataField
+    ).
+
+if ?e is a q:EditorForIndividual
+    and ?e q:questionsForStore ?s
+    and ?e q:questionsFor ?i
+    and ?e q:questionsInNamespace ?ns
+    and q:questionsFrom(?qi, ?qd, ?qp, ?qt, ?s, ?ns, ?i)
+    and ?q function of [q:Question, ?i, ?qi, ?qp]
+then
+    ?e q:groupsQuestion ?q
+    and ?q q:subject ?qi
+    and ?q q:predicate ?qp
+    and ?q is a q:Question
+    and 
+        if ?qt = owl:ObjectProperty
+        then ?q is a q:ObjectPropertyQuestion
+            and ?q q:inContextOfDomain ?qd
+        if ?qt = owl:DatatypeProperty
+        then ?q is a q:DatatypePropertyQuestion
+            and ?q q:inContextOfDomain ?qd
+        if ?qt = owl:Class
+        then ?q is a q:TypeDataField.
+
+
+
+if ?e is a q:QuestionGroupForIndividualInNamespace
+    and ?e q:questionsFor ?i
+    and ?e q:questionsInNamespace ?ns
+    and q:questionsFromIndividualInNamespace(?qi, ?qd, ?qp, ?qt, ?ns, ?i)
+    and ?q function of [q:Question, ?i, ?qi, ?qp]
+then
+    ?e q:groupsQuestion ?q
+    and ?q q:subject ?qi
+    and ?q q:predicate ?qp
+    and ?q is a q:Question
+    and 
+        if ?qt = owl:ObjectProperty
+        then ?q is a q:ObjectPropertyQuestion
+            and ?q q:inContextOfDomain ?qd
+        if ?qt = owl:DatatypeProperty
+        then ?q is a q:DatatypePropertyQuestion
+            and ?q q:inContextOfDomain ?qd
+        if ?qt = owl:Class
+        then ?q is a q:TypeDataField.
+
+
+if ?e is a q:QuestionWithAnswerGroupForIndividualInNamespace
+    and ?e q:groupsQuestion ?q
+    and ?q q:predicate ?qp
+    and ?q q:subject ?qi
+then
+    if ?q is a q:TypeDataField
+        and abox:hasIndividual(?qp, ?qi)
+    then ?e q:groupsQuestionWithAnswer ?q
+    if ?q is a q:ObjectPropertyQuestion
+        and abox:hasPropertyValue(?qi, ?qp, ?qa)
+    then ?e q:groupsQuestionWithAnswer ?q
+        and ?q q:objectFieldAnswer ?qa
+        and ?q is a q:ObjectPropertyDataFieldWithAnswer
+    if ?q is a q:DatatypePropertyQuestion
+        and abox:hasPropertyValue(?qi, ?qp, ?qa)
+    then ?e q:groupsQuestionWithAnswer ?q
+        and ?q q:datatypeFieldAnswer ?qa
+        and ?q is a q:DatatypePropertyDataFieldWithAnswer.
+    
+
+
+# Engineering
+if then p:forceMode(q:questionsNeededToComputeData, "iiiiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "oiiiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "ioiiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "iioiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "iiioiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "ooiiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "oioiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "oiioiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "iooiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "ioioiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "iiooiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "oooiiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "ooioiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "oiooiii", "ooooiii").
+if then p:forceMode(q:questionsNeededToComputeData, "ioooiii", "ooooiii").
+
+
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "iiiiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "oiiiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "ioiiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "iioiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "iiioiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "ooiiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "oioiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "oiioiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "iooiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "ioioiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "iiooiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "oooiiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "ooioiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "oiooiiiii", "ooooiiiii").
+if then p:forceMode(q:filteredQuestionsNeededToCompute, "ioooiiiii", "ooooiiiii").
+
+

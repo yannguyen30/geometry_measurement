@@ -1,0 +1,31 @@
+ontology <http://www.missioncriticalit.com/ontologies/persistence.swd>.
+
+import <http://www.missioncriticalit.com/ontologies/persistence.owl> as pers.
+import <http://www.missioncriticalit.com/ontologies/persistence_custom_pred.swd> as pers-pred.
+
+
+
+if
+    ?persRest owl:onProperty ?property
+    and ?persRest pers:persistedIn ?store
+    and ?persRest is a owl:Restriction
+    and ?class rdfs:subClassOf ?persRest
+    and ?class is a owl:Class # perf issue? => ?class rdf:type owl:Class
+then
+    pers-pred:propertyForClassIsPersistedIn(?persRest, ?store, ?class, ?property).
+
+if ?spq is a pers:StorePredicateQuantity
+    and ?spq pers:forPredicate ?pred
+    and ?spq pers:forPredicateMode ?mode
+    and ?spq pers:inStore ?store
+    and ?spq pers:storesQuantity ?quantity
+then pers:predicateCostWeight(?quantity, ?pred, ?mode).
+
+
+if ?m pers:measuredDuringSample ?s
+    and ?s pers:samplesReasoner ?r
+then ?m pers:forReasoner ?r.
+
+if ?m pers:callCount ?count and ?count > 0
+    and ?m pers:numberOfAnswers ?answers and ?answers == 0
+then ?m is a pers:AlwaysFailingPredicateAspect.

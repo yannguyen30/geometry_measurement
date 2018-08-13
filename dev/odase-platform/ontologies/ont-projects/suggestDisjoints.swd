@@ -1,0 +1,63 @@
+ontology <http://www.missioncriticalit.com/ontologies/suggestDisjoints.swd>.
+
+
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl> as abox.
+
+import <http://www.missioncriticalit.com/ontologies/persistence.owl> as p.
+import <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl> as indiv.
+import <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl> as agg.
+
+
+class DisjointSuggestions with
+    suggestDisjoint range DisjointSuggestion,
+    suggestDisjointActual range DisjointSuggestion,
+    forNS range xsd:string,
+    allDisjoints range owl:AllDisjointClasses.
+
+
+class DisjointSuggestion with
+    disClass range owl:Class,
+    root range owl:Class single.
+
+
+if ?ds is a DisjointSuggestions
+    and ?ds forNS ?scope
+    and ?root is a owl:Class
+    and isImmediateSubClassOf(?c1, ?root)
+    and isImmediateSubClassOf(?c2, ?root)
+   
+    and indiv:splitUri(?c1, ?c1ns, ?_)
+    and indiv:splitUri(?c2, ?c2ns, ?_)
+    and swrlb:startsWith(?c1ns, ?scope)
+    and swrlb:startsWith(?c2ns, ?scope)
+       
+    and ?c1 \= ?c2
+    and NAF(abox:hasClass(?x, ?c2) and abox:hasClass(?x, ?c1))
+
+    and ?ax function of[DisjointSuggestion, ?root, ?c1]
+then ?ax is a DisjointSuggestion
+    and ?ax disClass ?c1
+    and ?ax disClass ?c2
+    and ?ax root ?root
+    and ?ds suggestDisjoint ?ax.
+
+if ?dss is a DisjointSuggestions
+    and ?dss suggestDisjoint ?ds
+    and ?lb = agg:joinList{?name, ?sep | ?ds disClass ?c and indiv:splitUri(?c, ?_, ?name) and ?sep = " "}
+    and swrlb:stringValuesConcat(?label, ?rootName, "-", ?lb)
+    and ?ds root ?root
+    and indiv:splitUri(?root, ?_, ?rootName)
+    and ?axiom composed from <urn:Disjoints/{?label^^xsd:string}>
+then ?axiom rdfs:label ?label
+    and ?axiom is a DisjointSuggestion
+    and ?dss suggestDisjointActual ?axiom
+    and ?axiom root ?root
+    and (if ?ds disClass ?cl then ?axiom disClass ?cl)
+.
+
+predicate isImmediateSubClassOf.
+if ?c1 is a owl:Class
+    and tbox:isSubClassOf(?sub, ?c1)
+    and NAF(tbox:isSubClassOf(?inter, ?c1) and tbox:isSubClassOf(?sub,?inter))
+then isImmediateSubClassOf(?sub, ?c1).

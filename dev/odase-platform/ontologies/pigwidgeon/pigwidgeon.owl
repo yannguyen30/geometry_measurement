@@ -1,0 +1,1630 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/pigwidgeon.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/pigwidgeon.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <Annotation rdf:ID="annotation_javax.persistence.Id">
+    <annotationType rdf:resource="#javax.persistence.Id"/>
+  </Annotation>
+  <Annotation rdf:ID="annotation_javax.persistence.MappedSuperclass">
+    <annotationType rdf:resource="#javax.persistence.MappedSuperclass"/>
+  </Annotation>
+  <Annotation rdf:ID="annotation_odase.annotations.IgnoreOnPartialWrite">
+    <annotationType rdf:resource="#odase.annotations.IgnoreOnPartialWrite"/>
+  </Annotation>
+  <Annotation rdf:ID="annotation_odase.annotations.NoInference">
+    <annotationType rdf:resource="#odase.annotations.NoInference"/>
+  </Annotation>
+  <Annotation rdf:ID="annotation_odase.annotations.UnmappedRange">
+    <annotationType rdf:resource="#odase.annotations.UnmappedRange"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonFormat_yyyy-MM-dd">
+    <annotationAssignment rdf:resource="#pattern_yyyy-MM-dd"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonFormat"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonFormat_yyyy-MM-ddTHH:mm">
+    <annotationAssignment rdf:resource="#pattern_yyyy-MM-ddTHH:mm"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonFormat"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonFormat_yyyy-MM-ddTHH:mm:ss">
+    <annotationAssignment rdf:resource="#pattern_yyyy-MM-ddTHH:mm:ss"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonFormat"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonIdentityInfo_property_id">
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonIdentityInfo_generator_property"/>
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonIdentityInfo_property_id_assigment"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonIdentityInfo"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonIgnoreProperties_ignoreUnknown">
+    <annotationAssignment rdf:resource="#ignoreUnknown_true"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonIgnoreProperties"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Add this annotation to a generated class to ignore unknown json properties to exist on the object without throwing an exception</rdfs:comment>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_class_property">
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_include_property"/>
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_property_class"/>
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_use_class"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_minimal_class_property">
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_include_property"/>
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_property_class"/>
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_use_minimal_class"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_name_property">
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_include_property"/>
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_property_class"/>
+    <annotationAssignment rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo_use_name"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.annotation.JsonTypeInfo"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.databind.annotation.JsonDeserialize_DynamicObjectIndividualJsonLDDeserializer">
+    <annotationAssignment rdf:resource="#JsonDeserialize_DynamicObjectIndividualJsonLDDeserializer"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.databind.annotation.JsonDeserialize"/>
+  </Annotation>
+  <Annotation rdf:ID="com.fasterxml.jackson.databind.annotation.JsonSerialize_DynamicObjectIndividualJsonLDSerializer">
+    <annotationAssignment rdf:resource="#JsonSerialize_DynamicObjectIndividualJsonLDSerializer"/>
+    <annotationType rdf:resource="#com.fasterxml.jackson.databind.annotation.JsonSerialize"/>
+  </Annotation>
+  <Annotation rdf:ID="javax.persistence.Inheritance_javax.persistence.InheritanceType.JOINED">
+    <annotationAssignment rdf:resource="#strategy_javax.persistence.InheritanceType.JOINED"/>
+    <annotationType rdf:resource="#javax.persistence.Inheritance"/>
+  </Annotation>
+  <Annotation rdf:ID="javax.persistence.Inheritance_javax.persistence.InheritanceType.TABLE_PER_CLASS">
+    <annotationAssignment rdf:resource="#strategy_javax.persistence.InheritanceType.TABLE_PER_CLASS"/>
+    <annotationType rdf:resource="#javax.persistence.Inheritance"/>
+  </Annotation>
+  <Annotation rdf:ID="javax.persistence.Temporal_DATE">
+    <annotationAssignment rdf:resource="#value_javax.persistence.TemporalType.DATE"/>
+    <annotationType rdf:resource="#javax.persistence.Temporal"/>
+  </Annotation>
+  <Annotation rdf:ID="javax.persistence.Temporal_TIME">
+    <annotationAssignment rdf:resource="#value_javax.persistence.TemporalType.TIME"/>
+    <annotationType rdf:resource="#javax.persistence.Temporal"/>
+  </Annotation>
+  <Annotation rdf:ID="javax.persistence.Temporal_TIMESTAMP">
+    <annotationAssignment rdf:resource="#value_javax.persistence.TemporalType.TIMESTAMP"/>
+    <annotationType rdf:resource="#javax.persistence.Temporal"/>
+  </Annotation>
+  <Assignment rdf:ID="JsonDeserialize_DynamicObjectIndividualJsonLDDeserializer">
+    <assignedInto rdf:datatype="&xsd;string">using</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">odase.integration.json.jackson.DynamicObjectIndividualJsonLDJsonDeserializer.class</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="JsonSerialize_DynamicObjectIndividualJsonLDSerializer">
+    <assignedInto rdf:datatype="&xsd;string">using</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">odase.integration.json.jackson.DynamicObjectIndividualJsonLDSerializer.class</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="avax.persistence.OneToX_orphanRemoval">
+    <assignedInto rdf:datatype="&xsd;string">orphanRemoval</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">true</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="com.fasterxml.jackson.annotation.JsonIdentityInfo_generator_property">
+    <assignedInto rdf:datatype="&xsd;string">generator</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator.class</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="com.fasterxml.jackson.annotation.JsonIdentityInfo_property_id_assigment">
+    <assignedInto rdf:datatype="&xsd;string">property</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">&quot;id&quot;</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_include_property">
+    <assignedInto rdf:datatype="&xsd;string">include</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_property_class">
+    <assignedInto rdf:datatype="&xsd;string">property</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">&quot;class&quot;</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_use_class">
+    <assignedInto rdf:datatype="&xsd;string">use</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonTypeInfo.Id.CLASS</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_use_minimal_class">
+    <assignedInto rdf:datatype="&xsd;string">use</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonTypeInfo.Id.MINIMAL_CLASS</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo_use_name">
+    <assignedInto rdf:datatype="&xsd;string">use</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="ignoreUnknown_true">
+    <assignedInto rdf:datatype="&xsd;string">ignoreUnknown</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">true</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="pattern_yyyy-MM-dd">
+    <assignedInto rdf:datatype="&xsd;string">pattern</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">&quot;yyyy-MM-dd&quot;</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="pattern_yyyy-MM-ddTHH:mm">
+    <assignedInto rdf:datatype="&xsd;string">pattern</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">&quot;yyyy-MM-dd&apos;T&apos;HH:mm&quot;</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="pattern_yyyy-MM-ddTHH:mm:ss">
+    <assignedInto rdf:datatype="&xsd;string">pattern</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss&quot;</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="strategy_javax.persistence.InheritanceType.JOINED">
+    <assignedInto rdf:datatype="&xsd;string">strategy</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">javax.persistence.InheritanceType.JOINED</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="strategy_javax.persistence.InheritanceType.TABLE_PER_CLASS">
+    <assignedInto rdf:datatype="&xsd;string">strategy</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">javax.persistence.InheritanceType.TABLE_PER_CLASS</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="value_javax.persistence.TemporalType.DATE">
+    <assignedInto rdf:datatype="&xsd;string">value</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">javax.persistence.TemporalType.DATE</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="value_javax.persistence.TemporalType.TIME">
+    <assignedInto rdf:datatype="&xsd;string">value</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">javax.persistence.TemporalType.TIME</valueToAssign>
+  </Assignment>
+  <Assignment rdf:ID="value_javax.persistence.TemporalType.TIMESTAMP">
+    <assignedInto rdf:datatype="&xsd;string">value</assignedInto>
+    <valueToAssign rdf:datatype="&xsd;string">javax.persistence.TemporalType.TIMESTAMP</valueToAssign>
+  </Assignment>
+  <DefaultNonDateXSDToJavaMapping rdf:ID="booleanJavaMapping">
+    <targetType rdf:resource="#java.lang.Boolean"/>
+    <xsdType rdf:resource="&xsd;boolean"/>
+  </DefaultNonDateXSDToJavaMapping>
+  <DefaultNonDateXSDToJavaMapping rdf:ID="decimalJavaMapping">
+    <targetType rdf:resource="#java.math.BigDecimal"/>
+    <xsdType rdf:resource="&xsd;decimal"/>
+  </DefaultNonDateXSDToJavaMapping>
+  <DefaultNonDateXSDToJavaMapping rdf:ID="doubleJavaMapping">
+    <targetType rdf:resource="#java.lang.Double"/>
+    <xsdType rdf:resource="&xsd;double"/>
+  </DefaultNonDateXSDToJavaMapping>
+  <DefaultNonDateXSDToJavaMapping rdf:ID="floatJavaMapping">
+    <targetType rdf:resource="#java.lang.Float"/>
+    <xsdType rdf:resource="&xsd;float"/>
+  </DefaultNonDateXSDToJavaMapping>
+  <DefaultNonDateXSDToJavaMapping rdf:ID="intJavaMapping">
+    <targetType rdf:resource="#java.lang.Integer"/>
+    <xsdType rdf:resource="&xsd;int"/>
+  </DefaultNonDateXSDToJavaMapping>
+  <DefaultNonDateXSDToJavaMapping rdf:ID="integerJavaMapping">
+    <targetType rdf:resource="#java.math.BigInteger"/>
+    <xsdType rdf:resource="&xsd;integer"/>
+  </DefaultNonDateXSDToJavaMapping>
+  <DefaultNonDateXSDToJavaMapping rdf:ID="stringJavaMapping">
+    <targetType rdf:resource="#java.lang.String"/>
+    <xsdType rdf:resource="&xsd;string"/>
+  </DefaultNonDateXSDToJavaMapping>
+  <DefaultXSDToJavaMapping rdf:ID="dateJavaMapping">
+    <targetType rdf:resource="#java.util.Date"/>
+    <xsdType rdf:resource="&xsd;date"/>
+  </DefaultXSDToJavaMapping>
+  <DefaultXSDToJavaMapping rdf:ID="dateTimeJavaMapping">
+    <targetType rdf:resource="#java.util.Date"/>
+    <xsdType rdf:resource="&xsd;dateTime"/>
+  </DefaultXSDToJavaMapping>
+  <DefaultXSDToTypeScriptMapping rdf:ID="boolean_typescript_mapping">
+    <targetType rdf:resource="#typescript_boolean"/>
+    <xsdType rdf:resource="&xsd;boolean"/>
+  </DefaultXSDToTypeScriptMapping>
+  <DefaultXSDToTypeScriptMapping rdf:ID="decimal_typescript_mapping">
+    <targetType rdf:resource="#typescript_number"/>
+    <xsdType rdf:resource="&xsd;decimal"/>
+  </DefaultXSDToTypeScriptMapping>
+  <DefaultXSDToTypeScriptMapping rdf:ID="int_typescript_mapping">
+    <targetType rdf:resource="#typescript_number"/>
+    <xsdType rdf:resource="&xsd;int"/>
+  </DefaultXSDToTypeScriptMapping>
+  <DefaultXSDToTypeScriptMapping rdf:ID="integer_typescript_mapping">
+    <targetType rdf:resource="#typescript_number"/>
+    <xsdType rdf:resource="&xsd;integer"/>
+  </DefaultXSDToTypeScriptMapping>
+  <DefaultXSDToTypeScriptMapping rdf:ID="string_typescript_mapping">
+    <targetType rdf:resource="#typescript_string"/>
+    <xsdType rdf:resource="&xsd;string"/>
+  </DefaultXSDToTypeScriptMapping>
+  <GeneratorOption rdf:ID="generate_disjoint_with_annotations"/>
+  <GeneratorOption rdf:ID="generate_printable_ascii"/>
+  <JavaAnnotationType rdf:ID="com.fasterxml.jackson.databind.annotation.JsonDeserialize">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.databind.annotation.JsonDeserialize</typeQualifiedName>
+  </JavaAnnotationType>
+  <JavaAnnotationType rdf:ID="com.fasterxml.jackson.databind.annotation.JsonSerialize">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.databind.annotation.JsonSerialize</typeQualifiedName>
+  </JavaAnnotationType>
+  <JavaAnnotationType rdf:ID="odase.annotations.IgnoreOnPartialWrite">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.IgnoreOnPartialWrite</typeQualifiedName>
+  </JavaAnnotationType>
+  <JavaSingleParameterizedType rdf:ID="java.util.Collection_java.lang.String_">
+    <hasRawType rdf:resource="#java.util.Collection"/>
+    <parameterType rdf:resource="#java.lang.String"/>
+  </JavaSingleParameterizedType>
+  <JavaSingleParameterizedType rdf:ID="java.util.Collection_odase.Resource_">
+    <hasRawType rdf:resource="#java.util.Collection"/>
+    <parameterType rdf:resource="#odase.Resource"/>
+  </JavaSingleParameterizedType>
+  <JavaSingleParameterizedType rdf:ID="java.util.Collection_odase.integration.PojoIndividual_">
+    <hasRawType rdf:resource="#java.util.Collection"/>
+    <parameterType rdf:resource="#odase.integration.PojoIndividual"/>
+  </JavaSingleParameterizedType>
+  <JavaType rdf:ID="com.fasterxml.jackson.annotation.JsonFormat">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonFormat</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="com.fasterxml.jackson.annotation.JsonIdentityInfo">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonIdentityInfo</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="com.fasterxml.jackson.annotation.JsonIgnoreProperties">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonIgnoreProperties</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="com.fasterxml.jackson.annotation.JsonProperty">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonProperty</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="com.fasterxml.jackson.annotation.JsonPropertyOrder">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonPropertyOrder</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="com.fasterxml.jackson.annotation.JsonTypeInfo">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.annotation.JsonTypeInfo</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="com.fasterxml.jackson.databind.annotation.JsonTypeResolver">
+    <typeQualifiedName rdf:datatype="&xsd;string">com.fasterxml.jackson.databind.annotation.JsonTypeResolver</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.io.Serializable">
+    <rdf:type rdf:resource="#ObjectOrientedInterface"/>
+    <typeQualifiedName rdf:datatype="&xsd;string">java.io.Serializable</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.lang.Boolean">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.lang.Boolean</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.lang.Double">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.lang.Double</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.lang.Float">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.lang.Float</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.lang.Integer">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.lang.Integer</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.lang.Object">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.lang.Object</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.lang.String">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.lang.String</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.math.BigDecimal">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.math.BigDecimal</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.math.BigInteger">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.math.BigInteger</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.time.LocalDate">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.time.LocalDate</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.time.temporal">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.time.temporal</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.util.Collection">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.util.Collection</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="java.util.Date">
+    <typeQualifiedName rdf:datatype="&xsd;string">java.util.Date</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.CollectionTable">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.CollectionTable</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.Column">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.Column</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.ElementCollection">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.ElementCollection</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.Entity">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.Entity</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.Id">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.Id</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.Inheritance">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.Inheritance</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.JoinTable">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.JoinTable</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.ManyToMany">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.ManyToMany</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.ManyToOne">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.ManyToOne</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.MappedSuperclass">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.MappedSuperclass</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.OneToMany">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.OneToMany</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.OneToOne">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.OneToOne</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.Table">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.Table</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="javax.persistence.Temporal">
+    <typeQualifiedName rdf:datatype="&xsd;string">javax.persistence.Temporal</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.Resource">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.Resource</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.DisjointWith">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.DisjointWith</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.NoInference">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.NoInference</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.PredicateCostWeights">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.PredicateCostWeights</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.RangeDatatype">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.RangeDatatype</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.SourceType">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.SourceType</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.SourceURI">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.SourceURI</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.SubClasses">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.SubClasses</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.annotations.UnmappedRange">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.annotations.UnmappedRange</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.integration.DefaultDynamicObjectIndividual">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.integration.DefaultDynamicObjectIndividual</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.integration.DefaultPojoIndividual">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.integration.DefaultPojoIndividual</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.integration.DynamicIndividual">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.integration.DynamicIndividual</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.integration.DynamicObjectIndividual">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.integration.DynamicObjectIndividual</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="odase.integration.PojoIndividual">
+    <typeQualifiedName rdf:datatype="&xsd;string">odase.integration.PojoIndividual</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="org.joda.time.DateTime">
+    <typeQualifiedName rdf:datatype="&xsd;string">org.joda.time.DateTime</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="org.joda.time.LocalDate">
+    <typeQualifiedName rdf:datatype="&xsd;string">org.joda.time.LocalDate</typeQualifiedName>
+  </JavaType>
+  <JavaType rdf:ID="org.joda.time.LocalDateTime">
+    <typeQualifiedName rdf:datatype="&xsd;string">org.joda.time.LocalDateTime</typeQualifiedName>
+  </JavaType>
+  <ProgrammingLanguage rdf:ID="java"/>
+  <ProgrammingLanguage rdf:ID="typescript"/>
+  <TypeScriptType rdf:ID="typescript_Individual">
+    <typeQualifiedName rdf:datatype="&xsd;string">Individual</typeQualifiedName>
+  </TypeScriptType>
+  <TypeScriptType rdf:ID="typescript_Individuals">
+    <typeQualifiedName rdf:datatype="&xsd;string">Individual[]</typeQualifiedName>
+  </TypeScriptType>
+  <TypeScriptType rdf:ID="typescript_any">
+    <typeQualifiedName rdf:datatype="&xsd;string">any</typeQualifiedName>
+  </TypeScriptType>
+  <TypeScriptType rdf:ID="typescript_anys">
+    <typeQualifiedName rdf:datatype="&xsd;string">any[]</typeQualifiedName>
+  </TypeScriptType>
+  <TypeScriptType rdf:ID="typescript_boolean">
+    <typeQualifiedName rdf:datatype="&xsd;string">boolean</typeQualifiedName>
+  </TypeScriptType>
+  <TypeScriptType rdf:ID="typescript_number">
+    <typeQualifiedName rdf:datatype="&xsd;string">number</typeQualifiedName>
+  </TypeScriptType>
+  <TypeScriptType rdf:ID="typescript_string">
+    <typeQualifiedName rdf:datatype="&xsd;string">string</typeQualifiedName>
+  </TypeScriptType>
+  <XSDToJavaMapping rdf:ID="dateJavaJodaMapping">
+    <targetType rdf:resource="#org.joda.time.LocalDate"/>
+    <xsdType rdf:resource="&xsd;date"/>
+  </XSDToJavaMapping>
+  <XSDToJavaMapping rdf:ID="dateJavaTimeMapping">
+    <targetType rdf:resource="#java.time.LocalDate"/>
+    <xsdType rdf:resource="&xsd;date"/>
+  </XSDToJavaMapping>
+  <XSDToJavaMapping rdf:ID="dateTimeJavaJodaLocalMapping">
+    <targetType rdf:resource="#org.joda.time.LocalDateTime"/>
+    <xsdType rdf:resource="&xsd;dateTime"/>
+  </XSDToJavaMapping>
+  <XSDToJavaMapping rdf:ID="dateTimeJavaJodaZonedMapping">
+    <targetType rdf:resource="#org.joda.time.DateTime"/>
+    <xsdType rdf:resource="&xsd;dateTime"/>
+  </XSDToJavaMapping>
+  <XSDToJavaMapping rdf:ID="dateTimeJavaTimeMapping">
+    <targetType rdf:resource="#java.time.temporal"/>
+    <xsdType rdf:resource="&xsd;dateTime"/>
+  </XSDToJavaMapping>
+  <owl:Class>
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#ClassField"/>
+      <rdf:Description rdf:about="#ObjectOrientedClass"/>
+      <rdf:Description rdf:about="#ClassMethod"/>
+    </owl:unionOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AbstractConceptsOption">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AddPrefixForNamespace">
+    <rdfs:subClassOf rdf:resource="#NamingOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AddPrefixToInstancesForNamespace">
+    <rdfs:subClassOf rdf:resource="#AddPrefixForNamespace"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AnnotateableElement">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Annotation">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AnnotationsOption">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AnnotationsPropagationOption">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Assignment">
+    <rdfs:subClassOf rdf:resource="#Statement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassField">
+    <owl:disjointWith rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:subClassOf rdf:resource="#AnnotateableElement"/>
+    <rdfs:subClassOf rdf:resource="#Field"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassFieldGetter">
+    <rdfs:subClassOf rdf:resource="#AnnotateableElement"/>
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassFieldSetter">
+    <rdfs:subClassOf rdf:resource="#AnnotateableElement"/>
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassFieldWithGetter">
+    <rdfs:subClassOf rdf:resource="#ClassField"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassFieldWithGetterAndSetter">
+    <rdfs:subClassOf rdf:resource="#ClassFieldWithGetter"/>
+    <rdfs:subClassOf rdf:resource="#ClassFieldWithSetter"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassFieldWithSetter">
+    <rdfs:subClassOf rdf:resource="#ClassField"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassMethod">
+    <owl:disjointWith rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:subClassOf rdf:resource="#AnnotateableElement"/>
+    <rdfs:subClassOf rdf:resource="#Method"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DefaultMapping">
+    <rdfs:subClassOf rdf:resource="#Mapping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DefaultNonDateXSDToJavaMapping">
+    <rdfs:subClassOf rdf:resource="#DefaultXSDToJavaMapping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DefaultXSDToJavaMapping">
+    <rdfs:subClassOf rdf:resource="#DefaultMapping"/>
+    <rdfs:subClassOf rdf:resource="#XSDToJavaMapping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DefaultXSDToTypeScriptMapping">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#TypeScriptType"/>
+        <owl:onProperty rdf:resource="#targetType"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#XSDMapping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DoubleGeneratorForODASEClientServerService">
+    <rdfs:comment rdf:datatype="&xsd;string">Double generator, where one generator is there for the server with ODASE dependencies, and the other generator is for a client independent of ODASE.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PolyGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DynamicClassField">
+    <rdfs:comment rdf:datatype="&xsd;string">A dynamic field is a field that is stored dynamically, and accessible via getField/setField</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassField"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DynamicPOJOPackageGenerator">
+    <rdfs:subClassOf rdf:resource="#POJOPackageGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DynamicPOJOPackageGeneratorJsonLDWithinJacksonJson">
+    <rdfs:subClassOf rdf:resource="#DynamicPOJOPackageGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ExternalObjectPropertyRangeConceptType">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#useConceptForExternalRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ExternalObjectPropertyRangeOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ExternalObjectPropertyRangeOption">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ExternalObjectPropertyRangeType">
+    <owl:disjointWith rdf:resource="#OmitPropertyOption"/>
+    <owl:disjointWith rdf:resource="#ReadOnlyPropertyOption"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#useTypeForExternalRange"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ExternalObjectPropertyRangeOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Field">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FieldWithSubPropertySetter">
+    <rdfs:subClassOf rdf:resource="#ClassFieldWithSetter"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ForceInherits">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ForceRangeTypeForPropertiesOption">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratedElement">
+    <owl:disjointWith rdf:resource="#Generator"/>
+    <owl:disjointWith rdf:resource="#GeneratorOption"/>
+    <owl:disjointWith rdf:resource="#Mapping"/>
+    <owl:disjointWith rdf:resource="&rdf;Property"/>
+    <owl:disjointWith rdf:resource="&rdfs;Class"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratedForConcept">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#correspondsToConcept"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#GeneratedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratedForProperty">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#correspondsToProperty"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#GeneratedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Generator">
+    <owl:disjointWith rdf:resource="#GeneratedElement"/>
+    <owl:disjointWith rdf:resource="#GeneratorOption"/>
+    <owl:disjointWith rdf:resource="#Mapping"/>
+    <owl:disjointWith rdf:resource="&rdf;Property"/>
+    <owl:disjointWith rdf:resource="&rdfs;Class"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorCompiler">
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+    <rdfs:subClassOf rdf:resource="#GeneratorForConcepts"/>
+    <rdfs:subClassOf rdf:resource="#GeneratorForProperties"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorForConcepts">
+    <owl:disjointWith rdf:resource="#PolyGenerator"/>
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorForInstances">
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorForInstancesOfConcepts">
+    <rdfs:subClassOf rdf:resource="#GeneratorForConcepts"/>
+    <rdfs:subClassOf rdf:resource="#GeneratorForInstances"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorForOntologyNamespace">
+    <rdfs:comment xml:lang="en">Generator which generates for all the concepts and properties within that namespace</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#GeneratorForConcepts"/>
+    <rdfs:subClassOf rdf:resource="#GeneratorForProperties"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorForProperties">
+    <owl:disjointWith rdf:resource="#PolyGenerator"/>
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorMostCompiler">
+    <rdfs:subClassOf rdf:resource="#GeneratorCompiler"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorOption">
+    <owl:disjointWith rdf:resource="#GeneratedElement"/>
+    <owl:disjointWith rdf:resource="#Generator"/>
+    <owl:disjointWith rdf:resource="#Mapping"/>
+    <owl:disjointWith rdf:resource="&rdf;Property"/>
+    <owl:disjointWith rdf:resource="&rdfs;Class"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorUsingDefaultMappings">
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorUsingNonDateDefaultMappings">
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratorUsingODASEDependencies">
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="InterfaceMethod">
+    <rdfs:subClassOf rdf:resource="#Method"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JPACollectionTableAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#NameAnnotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#javax.persistence.CollectionTable"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="JPAColumnAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#NameAnnotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#javax.persistence.Column"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="JPAElementCollectionAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Annotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#javax.persistence.ElementCollection"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="JPAJoinTableAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#NameAnnotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#javax.persistence.JoinTable"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="JPAPojoPackageGenerator">
+    <rdfs:subClassOf rdf:resource="#POJOPackageGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JPARelationshipTypeAnnotation">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom>
+          <owl:Class>
+            <owl:oneOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="#javax.persistence.OneToOne"/>
+              <rdf:Description rdf:about="#javax.persistence.ManyToOne"/>
+              <rdf:Description rdf:about="#javax.persistence.ManyToMany"/>
+              <rdf:Description rdf:about="#javax.persistence.OneToMany"/>
+            </owl:oneOf>
+          </owl:Class>
+        </owl:allValuesFrom>
+        <owl:onProperty rdf:resource="#annotationType"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#Annotation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JPATableAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#NameAnnotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#javax.persistence.Table"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="JacksonJsonPojoPackageGenerator">
+    <rdfs:subClassOf rdf:resource="#POJOPackageGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaAnnotationType">
+    <rdfs:subClassOf rdf:resource="#JavaType"/>
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedInterface"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaClass">
+    <owl:disjointWith rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#JavaClass"/>
+        <owl:onProperty rdf:resource="#inherits"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="&xsd;int">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="#inherits"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#JavaType"/>
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedClass"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaElement">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaGenerator">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#java"/>
+        <owl:onProperty rdf:resource="#generatesForLanguage"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#JavaClass"/>
+        <owl:onProperty rdf:resource="#generatesClass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaImport">
+    <rdfs:subClassOf rdf:resource="#JavaElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaPackageGenerator">
+    <rdfs:subClassOf rdf:resource="#GeneratorForConcepts"/>
+    <rdfs:subClassOf rdf:resource="#JavaGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaParameterizedType">
+    <rdfs:subClassOf rdf:resource="#JavaType"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaSingleParameterizedType">
+    <rdfs:subClassOf rdf:resource="#JavaParameterizedType"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaStaticNestedClass">
+    <rdfs:subClassOf rdf:resource="#JavaClass"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JavaType">
+    <rdfs:subClassOf rdf:resource="#JavaElement"/>
+    <rdfs:subClassOf rdf:resource="#Type"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LiteralAssignment">
+    <rdfs:subClassOf rdf:resource="#Assignment"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MappedSuperClassAbstractConceptsOption">
+    <rdfs:subClassOf rdf:resource="#AbstractConceptsOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Mapping">
+    <owl:disjointWith rdf:resource="#GeneratedElement"/>
+    <owl:disjointWith rdf:resource="#Generator"/>
+    <owl:disjointWith rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Method">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NameAnnotation">
+    <rdfs:subClassOf rdf:resource="#Annotation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NamingOption">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectOrientedClass">
+    <owl:disjointWith rdf:resource="#ClassField"/>
+    <owl:disjointWith rdf:resource="#ClassMethod"/>
+    <owl:disjointWith rdf:resource="#JavaClass"/>
+    <rdfs:subClassOf rdf:resource="#AnnotateableElement"/>
+    <rdfs:subClassOf rdf:resource="#Type"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectOrientedElement">
+    <rdfs:subClassOf rdf:resource="#GeneratedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectOrientedGenerator">
+    <rdfs:subClassOf rdf:resource="#GeneratorForConcepts"/>
+    <rdfs:subClassOf rdf:resource="#GeneratorForProperties"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectOrientedInterface">
+    <rdfs:subClassOf rdf:resource="#Type"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OmitPropertyOption">
+    <owl:disjointWith rdf:resource="#ExternalObjectPropertyRangeType"/>
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="POJOPackageGenerator">
+    <rdfs:subClassOf rdf:resource="#JavaPackageGenerator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PolyGenerator">
+    <owl:disjointWith rdf:resource="#GeneratorForConcepts"/>
+    <owl:disjointWith rdf:resource="#GeneratorForProperties"/>
+    <rdfs:comment xml:lang="en">Generator aggregating multiple generators</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#Generator"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ProgrammingLanguage"/>
+  <owl:Class rdf:ID="RangeDatatypeAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Annotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#odase.annotations.RangeDatatype"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#SimpleAnnotation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ReadOnlyPropertyOption">
+    <owl:disjointWith rdf:resource="#ExternalObjectPropertyRangeType"/>
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RootIndividualTypeOption">
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SetterCallForLiterals">
+    <rdfs:subClassOf rdf:resource="#SetterCallForValues"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SetterCallForStaticGetters">
+    <rdfs:subClassOf rdf:resource="#SetterCallForValues"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SetterCallForValues">
+    <rdfs:subClassOf rdf:resource="#Statement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleAnnotation">
+    <rdfs:subClassOf rdf:resource="#Annotation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleAnnotationType">
+    <rdfs:subClassOf rdf:resource="#JavaAnnotationType"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SourceTypeAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Annotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#odase.annotations.SourceType"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#SimpleAnnotation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SourceURIAnnotation">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Annotation"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:resource="#odase.annotations.SourceURI"/>
+            <owl:onProperty rdf:resource="#annotationType"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#SimpleAnnotation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Statement">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticArrayAssignment">
+    <rdfs:subClassOf rdf:resource="#Assignment"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticClassMethod">
+    <rdfs:subClassOf rdf:resource="#ClassMethod"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticField">
+    <rdfs:subClassOf rdf:resource="#Field"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticGetter">
+    <rdfs:subClassOf rdf:resource="#StaticClassMethod"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticGetterProxyMethod">
+    <rdfs:subClassOf rdf:resource="#StaticGetter"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticIndividualLookupByKeys">
+    <rdfs:subClassOf rdf:resource="#StaticClassMethod"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticInitializationBlock">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticLazyNewIndividualMethod">
+    <rdfs:subClassOf rdf:resource="#StaticGetter"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SubPropertySetterOption">
+    <rdfs:comment rdf:datatype="&xsd;string">Allows to specify for a the setter of a property, to put the value in a given sub-property</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#GeneratorOption"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Type">
+    <rdfs:subClassOf rdf:resource="#ObjectOrientedElement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TypeScriptGenerator">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#typescript"/>
+        <owl:onProperty rdf:resource="#generatesForLanguage"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#GeneratorForConcepts"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TypeScriptType">
+    <rdfs:subClassOf rdf:resource="#Type"/>
+  </owl:Class>
+  <owl:Class rdf:ID="UnprocessedThing"/>
+  <owl:Class rdf:ID="ValueAssignement">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Assignment"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;string">value</owl:hasValue>
+            <owl:onProperty rdf:resource="#assignedInto"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="XSDMapping">
+    <rdfs:subClassOf rdf:resource="#Mapping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="XSDToJavaMapping">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:allValuesFrom rdf:resource="#JavaType"/>
+        <owl:onProperty rdf:resource="#targetType"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#XSDMapping"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="annotationValue">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#SimpleAnnotation"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="assignedInto">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Assignment"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="className">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="fieldName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Field"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="instanceName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="forNamespace">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#AddPrefixForNamespace"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="generatesForNamespace">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#GeneratorForOntologyNamespace"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="generatesInPackage">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#JavaPackageGenerator"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="importsNamespace">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#JavaImport"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="inPackage">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ObjectOrientedClass"/>
+          <rdf:Description rdf:about="#ObjectOrientedInterface"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="interfaceName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ObjectOrientedInterface"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="isAbstract">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="javaAccessModifier">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#JavaClass"/>
+    <rdfs:range>
+      <owl:DataRange>
+        <owl:oneOf>
+          <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">protected</rdf:first>
+            <rdf:rest>
+            <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">public</rdf:first>
+            <rdf:rest>
+            <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">private</rdf:first>
+            <rdf:rest rdf:resource="&rdf;nil"/>
+            </rdf:Description>
+            </rdf:rest>
+            </rdf:Description>
+            </rdf:rest>
+          </rdf:Description>
+        </owl:oneOf>
+      </owl:DataRange>
+    </rdfs:range>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="jpaColumnName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#JPAColumnAnnotation"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+    <rdfs:subPropertyOf rdf:resource="#nameValue"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="jpaTableName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#JPATableAnnotation"/>
+          <rdf:Description rdf:about="#JPACollectionTableAnnotation"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;string"/>
+    <rdfs:subPropertyOf rdf:resource="#nameValue"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="literalValueToAssign">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#LiteralAssignment"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="literalValueToSet">
+    <rdfs:domain rdf:resource="#SetterCallForLiterals"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="methodBody">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Method"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="methodName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Method"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="nameValue">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#NameAnnotation"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="prefixToAdd">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#AddPrefixForNamespace"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="relationshipCascadingType">
+    <rdfs:domain rdf:resource="#JPARelationshipTypeAnnotation"/>
+    <rdfs:range>
+      <owl:DataRange>
+        <owl:oneOf>
+          <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">PERSIST</rdf:first>
+            <rdf:rest>
+            <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">REMOVE</rdf:first>
+            <rdf:rest>
+            <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">MERGE</rdf:first>
+            <rdf:rest>
+            <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">REFRESH</rdf:first>
+            <rdf:rest>
+            <rdf:Description>
+            <rdf:first rdf:datatype="&xsd;string">ALL</rdf:first>
+            <rdf:rest rdf:resource="&rdf;nil"/>
+            </rdf:Description>
+            </rdf:rest>
+            </rdf:Description>
+            </rdf:rest>
+            </rdf:Description>
+            </rdf:rest>
+            </rdf:Description>
+            </rdf:rest>
+          </rdf:Description>
+        </owl:oneOf>
+      </owl:DataRange>
+    </rdfs:range>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="typeQualifiedName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Type"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="valueToAssign">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Assignment"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="valuesToAssign">
+    <rdfs:domain rdf:resource="#StaticArrayAssignment"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="annotationType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Annotation"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="correspondsToConcept">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The one main concept corresponding</rdfs:comment>
+    <rdfs:domain rdf:resource="#GeneratedForConcept"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#correspondsTo"/>
+    <rdfs:subPropertyOf rdf:resource="#generatedFromConcept"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="correspondsToProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#GeneratedForProperty"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:subPropertyOf rdf:resource="#correspondsTo"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="fieldType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Field"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="forceToType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ForceRangeTypeForPropertiesOption"/>
+          <rdf:Description rdf:about="#ForceInherits"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="forcesInheritsFor">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ForceInherits"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="getsField">
+    <owl:inverseOf rdf:resource="#gottenBy"/>
+    <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassFieldGetter"/>
+    <rdfs:range rdf:resource="#ClassField"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="gottenBy">
+    <owl:inverseOf rdf:resource="#getsField"/>
+    <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassField"/>
+    <rdfs:range rdf:resource="#ClassFieldGetter"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasClientGenerator">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#DoubleGeneratorForODASEClientServerService"/>
+    <rdfs:range rdf:resource="#Generator"/>
+    <rdfs:subPropertyOf rdf:resource="#aggregatesGenerator"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasRawType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#JavaParameterizedType"/>
+    <rdfs:range rdf:resource="#JavaType"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasServerGenerator">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#DoubleGeneratorForODASEClientServerService"/>
+    <rdfs:range rdf:resource="#Generator"/>
+    <rdfs:subPropertyOf rdf:resource="#aggregatesGenerator"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="inClass">
+    <owl:inverseOf rdf:resource="#classContains"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Field"/>
+          <rdf:Description rdf:about="#ObjectOrientedClass"/>
+          <rdf:Description rdf:about="#ObjectOrientedInterface"/>
+          <rdf:Description rdf:about="#ClassMethod"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#JavaClass"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="individualToCreate">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#StaticLazyNewIndividualMethod"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="literalConversionTargetType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#LiteralAssignment"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="parameterType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#JavaSingleParameterizedType"/>
+    <rdfs:range rdf:resource="#JavaType"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="rangeDatatype">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#RangeDatatypeAnnotation"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="returnType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Method"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="setBy">
+    <owl:inverseOf rdf:resource="#setsField"/>
+    <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassField"/>
+    <rdfs:range rdf:resource="#ClassFieldSetter"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="setsField">
+    <owl:inverseOf rdf:resource="#setBy"/>
+    <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassFieldSetter"/>
+    <rdfs:range rdf:resource="#ClassField"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="setsFor">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#SetterCallForValues"/>
+    <rdfs:range rdf:resource="#ClassFieldSetter"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="setsSubProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#FieldWithSubPropertySetter"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="setsValueInProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#SubPropertySetterOption"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="setterOfProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#SubPropertySetterOption"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="simpleAnnotationType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#SimpleAnnotationType"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="sourceType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">values allowed are rdf:Property or owl:Class</rdfs:comment>
+    <rdfs:domain rdf:resource="#SourceTypeAnnotation"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="staticGetterProxiesFor">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#StaticGetterProxyMethod"/>
+    <rdfs:range rdf:resource="#StaticGetter"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="staticGetterReturns">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#StaticGetter"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="targetType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#XSDMapping"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="useConceptForExternalRange">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ExternalObjectPropertyRangeConceptType"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="useIndividualTypeForRoots">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#RootIndividualTypeOption"/>
+          <rdf:Description rdf:about="#ObjectOrientedGenerator"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="useTypeForExternalNonFunctional">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ObjectOrientedGenerator"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="useTypeForExternalRange">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ObjectOrientedGenerator"/>
+          <rdf:Description rdf:about="#ExternalObjectPropertyRangeType"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="xsdType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#XSDMapping"/>
+  </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="containsStaticNested">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#JavaClass"/>
+    <rdfs:range rdf:resource="#JavaStaticNestedClass"/>
+    <rdfs:subPropertyOf rdf:resource="#classContains"/>
+  </owl:InverseFunctionalProperty>
+  <owl:ObjectProperty rdf:ID="aggregatesGenerator">
+    <rdfs:domain rdf:resource="#PolyGenerator"/>
+    <rdfs:range rdf:resource="#Generator"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="aggregatesGeneratorSharingContext">
+    <rdfs:comment rdf:datatype="&xsd;string">aggregates generators, and sharing context, meaning that there can be cross-references (sub-class for instance) between the generated elements of the generators aggregated</rdfs:comment>
+    <rdfs:domain rdf:resource="#PolyGenerator"/>
+    <rdfs:range rdf:resource="#Generator"/>
+    <rdfs:subPropertyOf rdf:resource="#aggregatesGenerator"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="annotateConcept">
+    <rdfs:domain rdf:resource="#AnnotationsOption"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="annotateElement">
+    <rdfs:domain rdf:resource="#AnnotationsOption"/>
+    <rdfs:range rdf:resource="#AnnotateableElement"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="annotateWith">
+    <rdfs:domain rdf:resource="#AnnotationsOption"/>
+    <rdfs:range rdf:resource="#Annotation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="annotationAssignment">
+    <rdfs:domain rdf:resource="#Annotation"/>
+    <rdfs:range rdf:resource="#Assignment"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="classContains">
+    <owl:inverseOf rdf:resource="#inClass"/>
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ObjectOrientedClass"/>
+          <rdf:Description rdf:about="#ObjectOrientedInterface"/>
+          <rdf:Description rdf:about="#ClassMethod"/>
+          <rdf:Description rdf:about="#Field"/>
+          <rdf:Description rdf:about="#StaticInitializationBlock"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="classContainsField">
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range rdf:resource="#Field"/>
+    <rdfs:subPropertyOf rdf:resource="#classContains"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="classContainsMethod">
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range rdf:resource="#ClassMethod"/>
+    <rdfs:subPropertyOf rdf:resource="#classContains"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="classContainsStaticBlock">
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range rdf:resource="#StaticInitializationBlock"/>
+    <rdfs:subPropertyOf rdf:resource="#classContains"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="classGivesAccessTo">
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="compiledMethod">
+    <rdfs:domain rdf:resource="#ObjectOrientedInterface"/>
+    <rdfs:range rdf:resource="#Method"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="compilesForConcept">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#GeneratorCompiler"/>
+          <rdf:Description rdf:about="#GeneratorForConcepts"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#generatesForConcept"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="compilesForProperty">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#GeneratorCompiler"/>
+          <rdf:Description rdf:about="#GeneratorForProperties"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:subPropertyOf rdf:resource="#generatesForProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="correspondsTo">
+    <rdfs:subPropertyOf rdf:resource="#generatedFrom"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="extends">
+    <rdfs:domain rdf:resource="#ObjectOrientedInterface"/>
+    <rdfs:range rdf:resource="#ObjectOrientedInterface"/>
+    <rdfs:subPropertyOf rdf:resource="#extensionOf"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="extensionOf">
+    <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+    <rdfs:domain rdf:resource="#ObjectOrientedInterface"/>
+    <rdfs:range rdf:resource="#ObjectOrientedInterface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="forceTypeForProperty">
+    <rdfs:domain rdf:resource="#ForceRangeTypeForPropertiesOption"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatedBy">
+    <rdfs:domain rdf:resource="#GeneratedElement"/>
+    <rdfs:range rdf:resource="#Generator"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatedFrom">
+    <rdfs:comment rdf:datatype="&xsd;string">All the ontology elements used for the generation</rdfs:comment>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatedFromConcept">
+    <rdfs:range rdf:resource="&owl;Class"/>
+    <rdfs:subPropertyOf rdf:resource="#generatedFrom"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesAnnotationType">
+    <rdfs:domain rdf:resource="#ObjectOrientedGenerator"/>
+    <rdfs:range rdf:resource="#JavaAnnotationType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesClass">
+    <rdfs:domain rdf:resource="#ObjectOrientedGenerator"/>
+    <rdfs:range rdf:resource="#ObjectOrientedClass"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesClassForConcept">
+    <rdfs:comment rdf:datatype="&xsd;string">generator will generate a class for the concept. This is different to generatesForConcept, as states that something will be generated to represent the concept, while generatesClassForConcept states that an actual OO class will be generated for the concept.</rdfs:comment>
+    <rdfs:domain rdf:resource="#ObjectOrientedGenerator"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesForConcept">
+    <rdfs:domain rdf:resource="#GeneratorForConcepts"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesForInstance">
+    <rdfs:domain rdf:resource="#GeneratorForInstances"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesForLanguage">
+    <rdfs:domain rdf:resource="#Generator"/>
+    <rdfs:range rdf:resource="#ProgrammingLanguage"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesForProperty">
+    <rdfs:domain rdf:resource="#GeneratorForProperties"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesInlineForConcept">
+    <rdfs:domain rdf:resource="#ObjectOrientedGenerator"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesInterface">
+    <rdfs:domain rdf:resource="#TypeScriptGenerator"/>
+    <rdfs:range rdf:resource="#ObjectOrientedInterface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesInstance">
+    <rdfs:domain rdf:resource="#TypeScriptGenerator"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatesWithOption">
+    <rdfs:domain rdf:resource="#Generator"/>
+    <rdfs:range rdf:resource="#GeneratorOption"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasInitializationStatement">
+    <rdfs:domain rdf:resource="#StaticInitializationBlock"/>
+    <rdfs:range rdf:resource="#Statement"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="implementsInterface">
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range rdf:resource="#ObjectOrientedInterface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inherits">
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:range rdf:resource="#ObjectOrientedClass"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="initializesValues">
+    <rdfs:domain rdf:resource="#StaticLazyNewIndividualMethod"/>
+    <rdfs:range rdf:resource="#SetterCallForValues"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inlinesCorrespondingConcept">
+    <rdfs:domain rdf:resource="#ObjectOrientedClass"/>
+    <rdfs:subPropertyOf rdf:resource="#generatedFromConcept"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="interfaceContainsField">
+    <rdfs:domain rdf:resource="#ObjectOrientedInterface"/>
+    <rdfs:range rdf:resource="#Field"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="interfaceContainsInstance">
+    <rdfs:domain rdf:resource="#ObjectOrientedInterface"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="interfaceContainsMethod">
+    <rdfs:domain rdf:resource="#ObjectOrientedInterface"/>
+    <rdfs:range rdf:resource="#InterfaceMethod"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="isAnnotatedWith">
+    <rdfs:domain rdf:resource="#AnnotateableElement"/>
+    <rdfs:range rdf:resource="#Annotation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="looksupAmongIndividuals">
+    <rdfs:domain rdf:resource="#StaticIndividualLookupByKeys"/>
+    <rdfs:range rdf:resource="#StaticLazyNewIndividualMethod"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="looksupBy">
+    <rdfs:domain rdf:resource="#StaticIndividualLookupByKeys"/>
+    <rdfs:range rdf:resource="#ClassField"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="makesConceptAbstract">
+    <rdfs:domain rdf:resource="#AbstractConceptsOption"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="propagateAnnotation">
+    <rdfs:domain rdf:resource="#AnnotationsPropagationOption"/>
+    <rdfs:range rdf:resource="&owl;AnnotationProperty"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="propertyOmitted">
+    <rdfs:domain rdf:resource="#OmitPropertyOption"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="propertyReadOnly">
+    <rdfs:domain rdf:resource="#ReadOnlyPropertyOption"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="sourceURI">
+    <rdfs:domain rdf:resource="#SourceURIAnnotation"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="subClassForAnnotation">
+    <rdfs:range rdf:resource="#JavaType"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="usesMapping">
+    <rdfs:domain rdf:resource="#Generator"/>
+    <rdfs:range rdf:resource="#Mapping"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="valueToSetFromStaticGetter">
+    <rdfs:domain rdf:resource="#SetterCallForStaticGetters"/>
+    <rdfs:range rdf:resource="#StaticGetter"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about=""/>
+  <swrl:Builtin rdf:ID="compileProperty">
+    <rdfs:comment rdf:datatype="&xsd;string"></rdfs:comment>
+  </swrl:Builtin>
+</rdf:RDF>

@@ -1,0 +1,6 @@
+ontology <http://www.infrabel.be/onto-masterplan/ontologies/hedwig.swd>.
+
+import <http://www.missioncriticalit.com/ontologies/hedwig.owl> as h.
+import <http://www.mesea.fr/onto-maintenance/ontologies/main/businessModel.owl> as bm.
+
+bm: h:java_class_name "BusinessModel".

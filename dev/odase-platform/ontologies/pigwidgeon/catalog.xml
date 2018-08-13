@@ -1,0 +1,4 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri name="http://www.missioncriticalit.com/ontologies/pigwidgeon.owl" uri="pigwidgeon.owl"/>
+    <uri name="http://www.missioncriticalit.com/ontologies/pigwidgeon.swd" uri="pigwidgeon.swd"/>
+</catalog>

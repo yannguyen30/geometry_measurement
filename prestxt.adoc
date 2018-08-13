@@ -1,0 +1,116 @@
+= Ontology in railway presentation: Demo of track deviation
+:toc: left
+:toclevels: 4
+:sectnums:
+
+== Context
+
+Here is the context, we have A company who does track maintenance on high-speed rail. Their mission is to guarantee the security and performance of railway track line.
+
+They use a machine(track recording car) to measure the geometry along the track line, and based on the measurement, they can decide, for a measurment point, whether it needs to do an immediate maintenance or it could wait or it needs to do a track speed reduction, etc.
+
+Knowing where to do the maintenance in an efficient and precise way is very crucial for the company in order to keep trains running in high speed without interruption and in the best security.
+
+This is not easy to do! In fact, using mathematical approach and regular materials makes things hard to do, takes a lot of time and does not offer the flexibility when context need to be changed or extended.
+
+They come to us and ask for solutions. We are going to see how ontology will be using to resolve their problem.
+
+== Ontology, What is it?
+Ontology mainly consists of two things:
+
+* The first one is Business model. Client's businees's knowledge such as vocabulary, concept and relations between these are going to be transformed into classes and relations between classes in order to create the business model.
+* The second one is business rules that are behavior and constraints being added into the business's model
+
+In summary, your domain is described entirely with ontology using classes, relations and rules. (From which, results will be generated.)
+
+== Transformation: from business to ontology
+
+In practice, how do we do this?
+
+The development process is divided into 3 principal steps:
+
+  . First step is to gather the client's knowledge from which business specification are determined.
+  . Then, Based on these specifications, the second step is to model different classes and relations between them.
+  . Finally, rules will be written to infer the final results.
+
+== Specification
+=== First
+Let's start with the first step.
+
+The company provides us a set of track's deviation values which are measured at every 20 cm along the track's line. We call them measurement points.
+
+A degradation point is determined as a local maximum or minimum point compared to its previous and folling points.
+
+Depending on its value, there are several degradation point's types:
+
+. Nominal: values between -2 and 2 not included, which describes a tolerant value and no things special need to be done.
+. Alert: has a values between -3 and 3, excluding nominal points. It describes a warning points
+. Intervention: values between -5 and 5, excluding nominal and alert points. These points require intervention of the maintenance team on the track in order to keep line smooth.
+. Slowdown point: values beyond -5 and 5, excluding all previous point's types. These points cause serious problem as the train driver must slowdown train's speed to avoid dangereous situations.
+
+=== Second
+
+This table represents an example of track's deviation measurements:
+
+Let's first focus on the first line, at first col, we have the track's line name. At the secode one, we have rails's label. From the third one, we have  measured distances. They start with a distance of 20 cm, increase each time by 20 cm and terminate at a distance of 200 cm.
+
+The table's body represents deviation values. These are created artificially and can vary from -5 to 7.
+
+== Model
+
+The second step is to define different classes and relations based on previous specifications. ( it's up to Callum to mention Protégé or not).
+
+Let's think about it. What can we have as classes? We have track, which is composed of rail. Along each rail, there are measurement points which contains a deviation value measured at a certain distance. A Measurement can be preceded or be followed by another Measurement.
+
+Things become more interesting when a measurement has turned into a degradation point(which is a particular case of a measurement point). It could be nominal, alert, intervention or slowdown as types depending on its deviation value.
+
+== Rules
+
+=== First
+
+Once the model has been designed, we can now start to add behavior and constraints to the model by writing the rule.( Because the model represents just the concept and vocabulary, and there is no behavior and constraints between them have been etablished. Rules will add this missing piece to the plan).
+
+In this example, we can see how a degradation point is defined. Graphically, they are the blue circles located at the extreme points of the curve. Ontologically, it is defined like this.
+The rule starts with its name and is written with a few keywords, such as: if, and, then. Those in violet with the question mark are variable. It is read like this:
+[quote]
+_____
+A degradation point is defined as a measurement for which its deviation value is greater or smaller than both its previous and following measurements.
+_____
+
+We can see the way the rule is written is pretty similar with its text definition and therefore pretty straight forwards to understand.
+
+=== Second
+
+Doing the same exercice, we can define nominal point and alert point.
+
+[quote]
+____
+A nominal point is a degradation point with a deviation value strictly smaller than 2 and strictly greater than -2.
+____
+
+[quote]
+____
+An alert point is a degradation point with a deviation value strictly smaller than 3 and strictly greater than -3 and not a nominal point.
+____
+
+In these rules, we see that we can define the value's type with `xsd:float`.
+
+== Results
+
+As explained previously, once business model and business rules have been defined. The results is obtained in a quite straight forwards way. That means Degradation points have been determined. They are also defined following each type. Here is it, represented graphically for each rail.
+
+The colored lines in green, orange, and violet represent respectively alert, intervention and slowdown points.
+
+Each graph can be very different from one to each other. To illustrate it, we have 2 graphs here. We can see that while graph 1 has 2 slowdowns, 1 intervention and 1 alert points; graph 2 has 2 interventions, 1 alert, 1 slowdown.
+
+== Conclusion
+
+We see until now, ontology can solve a problem in question. But why it is a better alternative compare to other solutions?
+
+To find out, Let's take a look at our workforce for this problem.
+
+* We make use in total 8 classes for the business model.
+* We have written 5 rules for the business rules. Which makes in total 50 lines.
+* It takes us from 3 to 4 days to accomplish the task, knowing that we have 0 knowledge at the beginning.
+
+Another thing to remark is that by using business rules rather than other approach such as mathematical one, we can easily adapt to a new context which makes thing very flexible. For example: we can easily add a new rule to define a new degradation's type: `If a point is normal point and its corresponding point in the other rail of the same track is an alert point, then it is a AttentionPoint`. Conclusion: Ontology is flexible, fast and easy.

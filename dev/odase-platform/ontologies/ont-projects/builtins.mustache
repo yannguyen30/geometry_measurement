@@ -1,0 +1,11 @@
+import <http://ontologies.missioncriticalit.com/builtins/all_builtins.swd> as ab.
+
+{{#is a ab:OntologyWithBuiltins}}
+* {{.}}
+{{#ab:definesBuiltin}}
+{{#is a ab:DocumentedBuiltin}}
+** {{ab:hasLocalName}}{{#rdfs:label}}    ({{.}}){{/rdfs:label}}
+{{#rdfs:comment}}{{.}}{{/rdfs:comment}}
+{{/is a ab:DocumentedBuiltin}}
+{{/ab:definesBuiltin}}
+{{/is a ab:OntologyWithBuiltins}}

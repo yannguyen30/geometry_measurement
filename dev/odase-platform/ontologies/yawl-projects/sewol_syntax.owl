@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY sewol "http://ontologies.missioncriticalit.com/sewol.owl#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="file:/C:/cygwin/home/mva/mc/odase-platform/dev/platform/ontologies/yawl-projects/sewol_syntax.owl"
+    xmlns="file:/C:/cygwin/home/mva/mc/odase-platform/dev/platform/ontologies/yawl-projects/sewol_syntax.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:sewol="&sewol;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <CaseClass rdf:about="&sewol;Case"/>
+  <TaskClass rdf:about="&sewol;Task"/>
+  <owl:Class rdf:ID="CaseClass">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&owl;Class"/>
+          <owl:Restriction>
+            <owl:onProperty rdf:resource="&rdfs;subClassOf"/>
+            <owl:someValuesFrom rdf:resource="#CaseClass"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="Conjunction"/>
+  <owl:Class rdf:ID="FunctionalQuery"/>
+  <owl:Class rdf:ID="QuantificationVar"/>
+  <owl:Class rdf:ID="SimpleClassMembership">
+    <rdfs:subClassOf rdf:resource="#FunctionalQuery"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SwordConjunction">
+    <rdfs:subClassOf rdf:resource="#Conjunction"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TaskClass">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="&owl;Class"/>
+          <owl:Restriction>
+            <owl:onProperty rdf:resource="&rdfs;subClassOf"/>
+            <owl:someValuesFrom rdf:resource="#TaskClass"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="VariableAndQuery">
+    <rdfs:subClassOf rdf:resource="#FunctionalQuery"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="quantifiesVar">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#QuantificationVar"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="query">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#VariableAndQuery"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="queryVariable">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#VariableAndQuery"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="swordConjunction">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#SwordConjunction"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="correspondingProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#QuantificationVar"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="queriesClass">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#SimpleClassMembership"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="contains">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#CaseClass"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#CaseClass"/>
+          <rdf:Description rdf:about="#TaskClass"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+  </owl:InverseFunctionalProperty>
+  <owl:ObjectProperty rdf:ID="antecedent">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#CaseClass"/>
+          <rdf:Description rdf:about="#TaskClass"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Conjunction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="availableIf">
+    <rdfs:subPropertyOf rdf:resource="#antecedent"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="canBeExecutedBy">
+    <rdfs:domain rdf:resource="#TaskClass"/>
+    <rdfs:range rdf:resource="#FunctionalQuery"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="canFinishIf">
+    <rdfs:domain rdf:resource="#TaskClass"/>
+    <rdfs:range rdf:resource="#Conjunction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="cannotFinishIf">
+    <rdfs:domain rdf:resource="#TaskClass"/>
+    <rdfs:range rdf:resource="#Conjunction"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="mustBeEnabledBy">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#CaseClass"/>
+          <rdf:Description rdf:about="#TaskClass"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#FunctionalQuery"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="quantifiedByVar">
+    <rdfs:domain rdf:resource="#CaseClass"/>
+    <rdfs:range rdf:resource="#QuantificationVar"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="repeatFor">
+    <rdfs:subPropertyOf rdf:resource="#antecedent"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://ontologies.missioncriticalit.com/sewol.owl"/>
+  </owl:Ontology>
+</rdf:RDF>

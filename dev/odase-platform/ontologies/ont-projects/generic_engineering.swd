@@ -1,0 +1,13 @@
+ontology <http://www.missioncriticalit.com/ontologies/generic_engineering.swd>.
+
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://www.missioncriticalit.com/ontologies/persistence.owl> as p.
+
+if tbox:isOWLClass(?c)
+then ?c p:canBeReorderedInRules true.
+
+if tbox:isOWLObjectProperty(?p)
+then ?p p:canBeReorderedInRules true.
+
+if tbox:isOWLDatatypeProperty(?p)
+then ?p p:canBeReorderedInRules true.

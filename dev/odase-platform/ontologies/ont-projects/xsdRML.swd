@@ -1,0 +1,208 @@
+ontology <http://ontologies.missioncriticalit.com/xsdRML.swd>.
+
+import <http://semweb.mmlab.be/ns/rml> as rml.
+import <http://www.w3.org/ns/r2rml> as rr.
+import <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl> as uri.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl> as aggr.
+prefix ql <http://semweb.mmlab.be/ns/ql#>.
+prefix xpath <https://www.w3.org/TR/xpath-3#>.
+
+# This ontology allows to define simple, direct RML for xml/xpath mappings
+# You can define a Class being also a xsd:Element, give its xsd:name, and potentially define its keys, 
+#  which will lead to mappings that go for all the elements in the xml with that name, 
+#  with an uri template corresponding to its keys (you must define the keys mapping, see later)
+# You can define that an owl:DatatypeProperty is an xsd:Attribute (with xsd:name), 
+#  which will make mapping using the attribute value with the type of the range (no conversion is applied)
+# You can define that an owl:DatatypeProperty is an xsd:Element (with xsd:name), 
+#  which will make mapping using the element text with the type of the range (no conversion is applied)
+# You can define that an owl:ObjectProperty is an xsd:Element (with xsd:name), 
+#  which will make the mapping search for mapping for individuals of the range type within the element
+#  example <A id="a"><p><B id="b1"/><B id="b2"/></p>... 
+#  if p is a property and element, and B is a Class and Element, then triples a p b1, a p b2 will be generated
+# You can define that an owl:DatatypeProperty is an rr:ObjectMap with a rml:reference, which will use the xpath to get the value 
+# You can define that an owl:ObjectProperty is an rr:RefObjectMap with a rml:reference, which will look for mappings of the range
+#  and match the elements given by the reference with the elements corresponding to the values of the range mapping
+# You can define that an owl:ObjectProperty that is an rr:ObjectMap with a rr:template to match existing instances 
+#  (not necessarily mapped instances, these instances may exists outside the mappings).
+
+
+
+class xsd:Node with 
+    xsd:name range xsd:string single,
+    mapsToClass range owl:Class,
+    mapsToObjectProperty range owl:ObjectProperty,
+    mapsToDatatypeProperty range owl:DatatypeProperty.
+    
+class xsd:Element extends xsd:Node.
+class xsd:Attribute extends xsd:Node.
+
+class rr:TriplesMap with
+    rr:iterateOverElement object.# XXX xsd range xsd:Element.
+
+if ?node is a xsd:Node
+then
+    (if ?node is a owl:Class then ?node mapsToClass ?node)
+    (if ?node is a owl:ObjectProperty then ?node mapsToObjectProperty ?node)
+    (if ?node is a owl:DatatypeProperty then ?node mapsToDatatypeProperty ?node)
+.
+
+
+if ?e is a xsd:Element and ?e mapsToClass ?c
+    and ?e xsd:name ?name
+    and swrlb:stringConcat(?iterator, "//", ?name) # XXX Namespace awareness or not, option
+    and ?tm function of[rr:TriplesMap, ?e, ?c]
+    and ?ls function of[rml:LogicalSource, ?e, ?c]
+    and ?sm function of[rr:SubjectMap, ?e, ?c]
+then ?tm is a rr:TriplesMap
+    and ?tm rr:iterateOverElement ?e
+    and ?tm rml:logicalSource ?ls
+    and ?ls is a rml:LogicalSource
+    and ?ls rml:referenceFormulation ql:XPath
+    and ?ls rml:source <XXX> # XXX
+    and ?ls rml:iterator ?iterator
+    and ?tm rr:subjectMap ?sm
+    and ?sm is a rr:SubjectMap
+    and ?sm rr:class ?c
+    and (if tbox:hasKeys(?c, ?keys, ?_)
+            and ?keysTemplate = aggr:joinList{?xpath, ?sep | ?sep = "}/{"
+                                                    and tbox:hasKeys(?c, ?keys, ?property) and ?pm rr:predicate ?property 
+                                                    and ?pm rr:objectMap ?om and ?om rml:reference ?xpath}
+            and swrlb:stringConcat(?template, "urn:", ?name, ":{", ?keysTemplate, "}")
+            # XXX and swrlb:stringConcat(?iterator, "//", ?name)
+        then ?sm rr:template ?template)
+    and (if NAF(tbox:hasKeys(?c, ?keys, ?_))
+            and swrlb:stringConcat(?template, "urn:", ?name, ":{generate-id(.)}")
+        then ?sm rr:template ?template).
+
+if ?a is a xsd:Attribute and ?a mapsToDatatypeProperty ?p
+    and ?a xsd:name ?name
+    and swrlb:stringConcat(?xpath, "@", ?name)
+    and ?p rdfs:range ?range
+    and ?pom function of[rr:PredicateObjectMap, ?a, ?p] # XXX domain?
+    and ?om function of[rr:ObjectMap, ?a, ?p]
+then ?pom is a rr:PredicateObjectMap
+    and ?pom rr:predicate ?p
+    and ?pom rr:objectMap ?om
+    and ?om is a rr:ObjectMap
+    and ?om rml:reference ?xpath
+    and ?om rr:termType rr:Literal
+    and ?om rr:datatype ?range
+    and
+        (if looseDomain(?domain, ?p) and ?sm rr:class ?domain and ?tm rr:subjectMap ?sm
+        then ?tm rr:predicateObjectMap ?pom).
+
+if ?e is a xsd:Element and ?e mapsToDatatypeProperty ?p
+    and ?e xsd:name ?name
+    and swrlb:stringConcat(?xpath, ?name, "/text()")
+    and ?p rdfs:range ?range
+    and ?pom function of[rr:PredicateObjectMap, ?e, ?p] # XXX domain?
+    and ?om function of[rr:ObjectMap, ?e, ?p]
+then ?pom is a rr:PredicateObjectMap
+    and ?pom rr:predicate ?p
+    and ?pom rr:objectMap ?om
+    and ?om is a rr:ObjectMap
+    and ?om rml:reference ?xpath
+    and ?om rr:termType rr:Literal
+    and ?om rr:datatype ?range
+    and
+        (if looseDomain(?domain, ?p) and ?sm rr:class ?domain and ?tm rr:subjectMap ?sm
+        then ?tm rr:predicateObjectMap ?pom).
+
+if ?p is a rr:ObjectMap and ?p is a owl:DatatypeProperty
+    and ?p rdfs:range ?range
+    and ?pom function of[rr:PredicateObjectMap, ?p] # XXX domain?
+then ?pom is a rr:PredicateObjectMap
+    and ?pom rr:predicate ?p
+    and ?pom rr:objectMap ?p
+    and ?p rr:termType rr:Literal
+    and ?p rr:datatype ?range
+    and
+        (if looseDomain(?domain, ?p) and ?sm rr:class ?domain and ?tm rr:subjectMap ?sm
+        then ?tm rr:predicateObjectMap ?pom).
+
+
+if ?e is a xsd:Element and ?e mapsToObjectProperty ?p
+    and ?e xsd:name ?name
+    and NAF(?p is a rr:ObjectMap)
+    and NAF(?e mapsToClass ?_) # if it maps both to an object property for the same element, then it is not <prop_elem><instance_elem>
+    and ?p rdfs:range ?range
+    and ?rangesm rr:class ?range and ?rangetm rr:subjectMap ?rangesm and ?rangetm rr:iterateOverElement ?e
+    and swrlb:stringConcat(?child, ?name, "/*")
+    and ?pom function of[rr:PredicateObjectMap, ?rangetm, ?e, ?p] # XXX domain?
+    and ?om function of[rr:RefObjectMap, ?rangetm, ?e, ?p]
+    and ?join function of[rr:Join, ?rangetm, ?e, ?p]
+then ?pom is a rr:PredicateObjectMap
+    and ?pom rr:predicate ?p
+    and ?pom rr:objectMap ?om
+    and ?om is a rr:RefObjectMap
+    and ?om rr:parentTriplesMap ?rangetm
+    and ?om rr:joinCondition ?join
+    and ?join is a rr:Join
+    and ?join rr:child ?child
+    and ?join rr:parent "."
+    and
+        (if looseDomain(?domain, ?p) and ?sm rr:class ?domain and ?tm rr:subjectMap ?sm
+        then ?tm rr:predicateObjectMap ?pom).
+
+if ?e is a xsd:Element and ?e mapsToObjectProperty ?p
+    and ?e mapsToClass ?range
+    and ?e xsd:name ?name
+    and NAF(?p is a rr:ObjectMap)
+    and ?rangesm rr:class ?range and ?rangetm rr:subjectMap ?rangesm  and ?rangetm rr:iterateOverElement ?e
+    and ?pom function of[rr:PredicateObjectMap, ?rangetm, ?e, ?p] # XXX domain?
+    and ?om function of[rr:RefObjectMap, ?rangetm, ?e, ?p]
+    and ?join function of[rr:Join, ?rangetm, ?e, ?p]
+then ?pom is a rr:PredicateObjectMap
+    and ?pom rr:predicate ?p
+    and ?pom rr:objectMap ?om
+    and ?om is a rr:RefObjectMap
+    and ?om rr:parentTriplesMap ?rangetm
+    and ?om rr:joinCondition ?join
+    and ?join is a rr:Join
+    and ?join rr:child ?name
+    and ?join rr:parent "."
+    and
+        (if looseDomain(?domain, ?p) and ?sm rr:class ?domain and ?tm rr:subjectMap ?sm
+        then ?tm rr:predicateObjectMap ?pom).
+
+
+# you can define an object property that is a RefObjectMap with a reference, to join with instances generated by the range triples map
+if ?p is a rr:RefObjectMap and ?p is a owl:ObjectProperty
+    and ?p rdfs:range ?range
+    and ?p rml:reference ?reference
+    and ?rangesm rr:class ?range and ?rangetm rr:subjectMap ?rangesm
+    and swrlb:stringConcat(?child, ?reference, "/*")
+    and ?pom function of[rr:PredicateObjectMap, ?p] # XXX domain?
+    and ?om function of[rr:RefObjectMap, ?p]
+    and ?join function of[rr:Join, ?p]
+then ?pom is a rr:PredicateObjectMap
+    and ?pom rr:predicate ?p
+    and ?pom rr:objectMap ?om
+    and ?om is a rr:RefObjectMap
+    and ?om rr:parentTriplesMap ?rangetm
+    and ?om rr:joinCondition ?join
+    and ?join is a rr:Join
+    and ?join rr:child ?child
+    and ?join rr:parent "."
+    and
+        (if looseDomain(?domain, ?p) and ?sm rr:class ?domain and ?tm rr:subjectMap ?sm
+        then ?tm rr:predicateObjectMap ?pom).
+
+# you can define an object property that is an ObjectMap with a template to match existing instances
+if ?p is a rr:ObjectMap and ?p is a owl:ObjectProperty
+    and ?p rr:template ?_
+    and ?pom function of[rr:PredicateObjectMap, ?p] # XXX domain?
+then ?pom is a rr:PredicateObjectMap
+    and ?pom rr:predicate ?p
+    and ?pom rr:objectMap ?p
+    and ?p rr:termType rr:IRI
+    and
+        (if looseDomain(?domain, ?p) and ?sm rr:class ?domain and ?tm rr:subjectMap ?sm
+        then ?tm rr:predicateObjectMap ?pom).
+
+
+predicate looseDomain. #(?domain, ?p)
+if tbox:isInDomainOf(?domain, ?p) then looseDomain(?domain, ?p).
+if tbox:isInDomainOf(?directdomain, ?p) and tbox:isSubClassOf(?directdomain, ?domain) then looseDomain(?domain, ?p).
+

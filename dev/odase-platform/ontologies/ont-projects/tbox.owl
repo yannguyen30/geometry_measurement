@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl#"
+  xml:base="http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl">
+  <owl:Ontology rdf:about=""/>
+  <swrl:Builtin rdf:ID="hasOWLAnnotationProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasRDFSComment">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasOWLDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasRDFSIsDefinedBy">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isRDFSIsDefinedBy">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isRDFSSeeAlsoAnnotation">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasRDFSLabel">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasRDFSSeeAlso">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasOWLVersionInfo">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLVersionInfoAnnotation">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isRDFSComment">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isRDFSProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isOWLOntology">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isOWLClass">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is an OWL named class. If the argument is unbound, bind it to all named classes in the ontology.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLNamedClass">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLProperty">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is a property. If the argument is unbound, bind it to all the properties in the ontology.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLObjectProperty">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is an object property. If the argument is unbound, bind it to all the object properties in the ontology.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLDatatypeProperty">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is a data property. If the argument is unbound, bind it to all the data properties in the ontology.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLTransitiveProperty">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is a transitive property. </rdfs:comment>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isOWLFunctionalProperty">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is a functional property.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLSymmetricProperty">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is a symmetric property.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLInverseFunctionalProperty">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if a single argument is an inverse functional property.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasOWLAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isOWLAllDifferentsAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLAllValuesFromRestriction">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLAnnotationProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLDifferentFromAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLDisjointWithAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLEnumeratedDatatypeAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLEquivalentClassAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLSymmetricPropertyAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLDifferentIndividualsAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLEquivalentPropertyAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLInDomainOfAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLInRangeOfAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLInverseOfAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLSameAsAxiom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isOWLRestriction">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLHasValueRestriction">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLMinCardinalityRestriction">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLCardinalityRestriction">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLMaxCardinalityRestriction">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isOWLClassDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLOneOfDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLComplementOfDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLUnionOfDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isOWLIntersectionOfDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+
+  <swrl:Builtin rdf:ID="isInDirectDomainOf">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Check that the first class argument is in the domain of the second property argument (excluding superproperties). If the first argument is unbound and the second argument is bound, bind the first argument to the domain(s) of the second property argument (if any exist). If the first class argument is bound and the second argument is unbound, bind the second argument to the properties that have the class in their domain (if any exist). An error is thrown if both arguments are unbound.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isDatavalue">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasMaxCardinality">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasMaxCardinality(?max, ?property, ?class) succeed if the property has a max cardinality in the context of the concept.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasMinCardinality">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasMinCardinality(?min, ?property, ?class) succeed if the property has a min cardinality in the context of the concept.</rdfs:comment>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="hasCardinality">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="onIndividual">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasValue">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="onProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isDirectSubClassOf">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isInverseFunctionalPropertyDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isRDFSLabelAnnotation">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="isInDirectRangeOf">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if the first class argument is in the range of the second property argument excluding its superproperties. If the first argument is unbound, bind it to the range of the second argument (if any exist).</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="equalTo">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="onDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hasFirstyProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isEquivalentProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isInDomainOf">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Check that the first class argument is in the domain of the second property argument (including its superproperties). If the first argument is unbound and the second argument is bound, bind the first argument to the domain(s) of the second property argument (if any exist). If the first class argument is bound and the second argument is unbound, bind the second argument to the properties that have the class in their domain (if any exist). An error is thrown if both arguments are unbound.</rdfs:comment>
+  </swrl:Builtin>
+      
+  <swrl:Builtin rdf:ID="hasSecondProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isInverseOf">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Check that the first property argument is inverse of the second argument.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isSubClassOf">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CCheck that the first class argument is a subclass of the second class argument. If the first argument is unbound, bind it to the subclasses of the second argument (if any exist).</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isDatatypeProperty">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isDirectSubPropertyOf">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isSomeValuesFrom">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isTransitivePropertyDescription">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isComplementOf">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isDirectSuperClassOf">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isDisjointWith">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if the two class or property arguments represent classes or properties that are disjoint with each other. If the first argument is unbound, bind it to the disjoint properties or classes of the second argument (if any exist).</rdfs:comment>
+  </swrl:Builtin>
+  
+  <swrl:Builtin rdf:ID="isSuperPropertyOf">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if the first property argument is a superproperty of the second property argument. If the first argument is unbound, bind it to the super properties of the second argument (if any exist).</rdfs:comment>
+  </swrl:Builtin>
+
+      <swrl:Builtin rdf:ID="isInRangeOf">
+<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if the first class argument is in the range of the second property argument (including its superproperties). If the first argument is unbound, bind it to the range of the second argument (if any exist). </rdfs:comment>
+  </swrl:Builtin>
+
+    <swrl:Builtin rdf:ID="isSubPropertyOf">
+<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Determine if the first property argument is a subproperty of the second property argument. If the first argument is unbound, bind it to the sub properties of the second argument (if any exist).</rdfs:comment>
+  </swrl:Builtin>
+
+    <swrl:Builtin rdf:ID="isSuperClassOf">
+<rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Check that the first class argument is a superclass of the second class argument. If the first argument is unbound, bind it to the superclasses of the second argument (if any exist). </rdfs:comment>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="notEqualTo">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="isDirectSuperPropertyOf">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="onValue">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+  </swrl:Builtin>
+
+  <swrl:Builtin rdf:ID="hasKeys">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hasKeys(?class, ?keys, ?property) is true for each ?class being an owl class for which there are hasKey defined, for each keys set, ?keys is bound to something representing that set, and ?property is bound to each property of that keys set.</rdfs:comment>
+  </swrl:Builtin>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4, Build 108)  http://protege.stanford.edu -->

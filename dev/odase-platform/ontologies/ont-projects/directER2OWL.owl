@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY sqwrl "http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/directER2OWL.owl"
+    xmlns="http://ontologies.missioncriticalit.com/directER2OWL.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:sqwrl="&sqwrl;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrla="&swrla;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <DefaultXsdSqlTypeMapping rdf:ID="default_mapping_date">
+    <mappingForSqlType rdf:datatype="&xsd;string">DATE</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;date"/>
+  </DefaultXsdSqlTypeMapping>
+  <DefaultXsdSqlTypeMapping rdf:ID="default_mapping_decimal">
+    <mappingForSqlType rdf:datatype="&xsd;string">DECIMAL</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;decimal"/>
+  </DefaultXsdSqlTypeMapping>
+  <DefaultXsdSqlTypeMapping rdf:ID="default_mapping_int">
+    <mappingForSqlType rdf:datatype="&xsd;string">INTEGER</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;int"/>
+  </DefaultXsdSqlTypeMapping>
+  <DefaultXsdSqlTypeMapping rdf:ID="default_mapping_integer">
+    <mappingForSqlType rdf:datatype="&xsd;string">BIGINT</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;integer"/>
+  </DefaultXsdSqlTypeMapping>
+  <DefaultXsdSqlTypeMapping rdf:ID="default_mapping_string_1024">
+    <mappingForSqlType rdf:datatype="&xsd;string">VARCHAR(1024)</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;string"/>
+  </DefaultXsdSqlTypeMapping>
+  <XsdSqlTypeMapping rdf:ID="mapping_boolean_boolean">
+    <mappingForSqlType rdf:datatype="&xsd;string">BOOLEAN</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;boolean"/>
+  </XsdSqlTypeMapping>
+  <XsdSqlTypeMapping rdf:ID="mapping_boolean_number">
+    <mappingForSqlType rdf:datatype="&xsd;string">NUMBER(1)</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;boolean"/>
+  </XsdSqlTypeMapping>
+  <XsdSqlTypeMapping rdf:ID="mapping_dateTime_timestamp">
+    <mappingForSqlType rdf:datatype="&xsd;string">TIMESTAMP</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;dateTime"/>
+  </XsdSqlTypeMapping>
+  <XsdSqlTypeMapping rdf:ID="mapping_string_4096">
+    <mappingForSqlType rdf:datatype="&xsd;string">VARCHAR(4096)</mappingForSqlType>
+    <mappingForXsdType rdf:resource="&xsd;string"/>
+  </XsdSqlTypeMapping>
+  <owl:AnnotationProperty rdf:ID="sqlName">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:AnnotationProperty>
+  <owl:Class>
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="#ColumnDerivedFromProperty"/>
+      <rdf:Description rdf:about="#ColumnDerivedFromInverseProperty"/>
+    </owl:unionOf>
+  </owl:Class>
+  <owl:Class rdf:ID="Column">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#columnName"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnClass">
+    <rdfs:subClassOf rdf:resource="#ColumnDerivedFromClass"/>
+    <rdfs:subClassOf rdf:resource="&owl;Class"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnDerivedFromClass">
+    <owl:disjointWith rdf:resource="#ColumnDerivedFromInverseProperty"/>
+    <owl:disjointWith rdf:resource="#ColumnDerivedFromProperty"/>
+    <rdfs:subClassOf rdf:resource="#Column"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnDerivedFromInverseProperty">
+    <owl:disjointWith rdf:resource="#ColumnDerivedFromClass"/>
+    <owl:disjointWith rdf:resource="#ColumnDerivedFromProperty"/>
+    <rdfs:subClassOf rdf:resource="#Column"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnDerivedFromProperty">
+    <owl:disjointWith rdf:resource="#ColumnDerivedFromClass"/>
+    <owl:disjointWith rdf:resource="#ColumnDerivedFromInverseProperty"/>
+    <rdfs:subClassOf rdf:resource="#Column"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnForInverseProperty">
+    <rdfs:subClassOf rdf:resource="#ColumnDerivedFromInverseProperty"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnForProperty">
+    <rdfs:subClassOf rdf:resource="#ColumnDerivedFromProperty"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnInverseProperty">
+    <rdfs:subClassOf rdf:resource="#ColumnDerivedFromInverseProperty"/>
+    <rdfs:subClassOf rdf:resource="&owl;InverseFunctionalProperty"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ColumnProperty">
+    <rdfs:subClassOf rdf:resource="#ColumnForProperty"/>
+    <rdfs:subClassOf rdf:resource="&owl;FunctionalProperty"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Database"/>
+  <owl:Class rdf:ID="DefaultXsdSqlTypeMapping">
+    <rdfs:subClassOf rdf:resource="#XsdSqlTypeMapping"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FilteredValueColumnDerivedFromProperty">
+    <rdfs:subClassOf rdf:resource="#ColumnDerivedFromProperty"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ForeignKeyColumn">
+    <rdfs:subClassOf rdf:resource="#Column"/>
+  </owl:Class>
+  <owl:Class rdf:ID="KeyConstraint"/>
+  <owl:Class rdf:ID="Row">
+    <rdfs:comment xml:lang="en">Row is the owl:Thing for things that are in a database</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Table">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#tableName"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TableClass">
+    <rdfs:subClassOf rdf:resource="#Table"/>
+    <rdfs:subClassOf rdf:resource="&owl;Class"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TableProperty">
+    <rdfs:subClassOf rdf:resource="#Table"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+  </owl:Class>
+  <owl:Class rdf:ID="URIColumn">
+    <rdfs:subClassOf rdf:resource="#Column"/>
+  </owl:Class>
+  <owl:Class rdf:ID="XsdSqlTypeMapping"/>
+  <owl:DatatypeProperty rdf:ID="columnName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Column"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="filteredForIndex">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#FilteredValueColumnDerivedFromProperty"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="filteredForLanguage">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#FilteredValueColumnDerivedFromProperty"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="forcedColumnName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Column"/>
+    <rdfs:subPropertyOf rdf:resource="#columnName"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="forcedSqlType">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Column"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="forcedTableName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Table"/>
+    <rdfs:subPropertyOf rdf:resource="#tableName"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="isNotNull">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Column"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="mappingForSqlType">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#XsdSqlTypeMapping"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="sqlType">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Column"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="tableName">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Table"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="tableRowTemplate">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#TableClass"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="templatePrefix">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Database"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="useDefaultSqlToXsdMapping">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Database"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="useSqlTypeForUri">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Database"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="columnOfTable">
+    <owl:inverseOf rdf:resource="#containsColumn"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Column"/>
+    <rdfs:range rdf:resource="#Table"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="columnOfTableClass">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ColumnProperty"/>
+    <rdfs:range rdf:resource="#TableClass"/>
+    <rdfs:subPropertyOf rdf:resource="#columnOfTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="derivedFromClass">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ColumnDerivedFromClass"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="derivedFromInverseProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ColumnDerivedFromInverseProperty"/>
+    <rdfs:range rdf:resource="&owl;ObjectProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="derivedFromProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ColumnDerivedFromProperty"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="forInverseProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ColumnForInverseProperty"/>
+    <rdfs:range rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="#derivedFromInverseProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="forProperty">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ColumnForProperty"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+    <rdfs:subPropertyOf rdf:resource="#derivedFromProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasPrimaryKey">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Table"/>
+    <rdfs:range rdf:resource="#KeyConstraint"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isForeignKeyOf">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ForeignKeyColumn"/>
+    <rdfs:range rdf:resource="#Column"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="mappingForXsdType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#XsdSqlTypeMapping"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="tableOf">
+    <owl:inverseOf rdf:resource="#storesTable"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Table"/>
+    <rdfs:range rdf:resource="#Database"/>
+  </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="containsColumn">
+    <owl:inverseOf rdf:resource="#columnOfTable"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Table"/>
+    <rdfs:range rdf:resource="#Column"/>
+  </owl:InverseFunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="rowCanBeUniquelyIdentifiedBy">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#TableClass"/>
+    <rdfs:range rdf:resource="#ColumnProperty"/>
+  </owl:InverseFunctionalProperty>
+  <owl:ObjectProperty rdf:ID="appliesDataTypeMapping">
+    <rdfs:domain rdf:resource="#Database"/>
+    <rdfs:range rdf:resource="#XsdSqlTypeMapping"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="constrainsColumn">
+    <rdfs:domain rdf:resource="#KeyConstraint"/>
+    <rdfs:range rdf:resource="#Column"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasURIColumn">
+    <rdfs:domain rdf:resource="#Table"/>
+    <rdfs:range rdf:resource="#URIColumn"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasUniqueKey">
+    <rdfs:domain rdf:resource="#Table"/>
+    <rdfs:range rdf:resource="#KeyConstraint"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="storesTable">
+    <owl:inverseOf rdf:resource="#tableOf"/>
+    <rdfs:domain rdf:resource="#Database"/>
+    <rdfs:range rdf:resource="#Table"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl"/>
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl"/>
+  </owl:Ontology>
+  <rdf:Description rdf:about="&owl;FunctionalProperty">
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+  </rdf:Description>
+  <swrl:Imp rdf:ID="self-derived-class">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:classPredicate rdf:resource="#ColumnClass"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:argument2 rdf:resource="#c"/>
+          <swrl:propertyPredicate rdf:resource="#derivedFromClass"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="self-derived-property">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:classPredicate rdf:resource="#ColumnProperty"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:argument2 rdf:resource="#p"/>
+          <swrl:propertyPredicate rdf:resource="#derivedFromProperty"/>
+        </swrl:IndividualPropertyAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Variable rdf:ID="c"/>
+  <swrl:Variable rdf:ID="p"/>
+</rdf:RDF>

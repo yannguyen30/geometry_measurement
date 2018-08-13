@@ -1,0 +1,15 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.michaelbaranov</groupId>
+  <artifactId>microba</artifactId>
+  <packaging>jar</packaging>
+  <version>0.4.4.3</version>
+  <url>http://microba.sourceforge.net/</url>
+  <licenses>
+    <license>
+      <name>BSD license</name>
+      <url>http://microba.sourceforge.net/license.txt</url>
+    </license>
+  </licenses>
+</project>
+

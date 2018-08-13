@@ -1,0 +1,102 @@
+:- module_uri <http://www.missioncriticalit.com/vizon/view.swd>.
+
+:- import_ontology <http://www.missioncriticalit.com/vizon/view.owl>.
+:- import_ontology <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl>.
+:- import_ontology <http://www.w3.org/2003/11/swrlb>.
+:- import_ontology <http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl>.
+:- import_ontology <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl>.
+:- import_ontology <http://www.w3.org/2000/01/rdf-schema>.
+:- import_ontology <http://www.w3.org/2002/07/owl>.
+
+:- prefix view <http://www.missioncriticalit.com/vizon/view.owl#>.
+:- prefix aggr <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl#>.
+:- prefix conv <http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl#>.
+:- prefix indiv_bt <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl#>.
+
+
+
+@:automatic_svg_size
+view:AutomaticSizeViewAsSVG(?vo),
+view:outputs(?vo, ?v),
+aggr:countDistinct(?nc, ?v, view:shows_class),
+aggr:countDistinct(?nr, ?v, view:shows_rule),
+swrlb:add(?ne, ?nc, ?nr),
+swrlb:multiply(?surf, 62500, ?ne),
+conv:float_int(?surff, ?surf),
+swrlb:pow(?hf, ?surff, "0.5"^^xsd:float),
+swrlb:floor(?hff, ?hf),
+conv:float_int(?hff, ?h),
+swrlb:add(?w, ?h, 250)
+->
+view:width(?vo, ?w), view:height(?vo, ?h).
+
+/*
+@:GroupOfViewForOntology_labels_1
+view:GroupOfViewForOntology(?gov),
+view:groups(?gov, ?v),
+aggr:countDistinct(?ns, ?v, view:shows_class),
+view:shows_class(?v, ?c),
+indiv_bt:splitUri(?v, ?vns, ?vln)
+->
+rdfs:label(?v, ?vln).
+*/
+
+@:GroupOfViewForOntology_labels_2
+view:GroupOfViewForOntology(?gov),
+view:groups(?gov, ?v),
+aggr:countDistinct(1, ?v, view:shows),
+view:shows(?v, ?cc),
+view:configures(?cc, ?c),
+indiv_bt:splitUri(?c, ?cns, ?cln)
+->
+rdfs:label(?v, ?cln).
+
+@:GroupOfViewForOntology_labels_4
+view:GroupOfViewForOntology(?gov),
+view:groups(?gov, ?v),
+aggr:countDistinct(1, ?v, view:shows),
+view:shows(?v, ?cc),
+view:configures(?cc, ?c),
+rdfs:label(?c, ?l)
+->
+rdfs:label(?v, ?l).
+
+
+
+@:GroupOfViewForOntology_labels_3
+view:GroupOfViewForOntology(?gov),
+view:groups(?gov, ?v),
+view:SimpleRuleView(?v),
+aggr:countDistinct(1, ?v, view:simply_shows_rule),
+view:simply_shows_rule(?v, ?r),
+rdfs:label(?r, ?label)
+->
+rdfs:label(?v, ?label).
+
+/*
+does not work because owl:imports is an OntologyProperty (not object nor data)
+@:ontologies_structure_svg
+view:GroupOfViewForOntology(?gov),
+indiv_bt:splitUri(?gov, ?govns, ?govln),
+view:views_for(?gov, ?ons),
+indiv_bt:indiv_uri(?ontology, ?ons, ""^^xsd:string),
+indiv_bt:individualDependsOn(?v, ?govns, "imports"),
+indiv_bt:individualDependsOn(?vo, ?govns, "imports", "svg"),
+indiv_bt:individualDependsOn(?vo, "http://www.missioncriticalit.com/vizon/view.owl#", ?v),
+owl:imports(?ontology, ?otherOntology)
+->
+view:SimpleInstanceView(?v),
+view:simply_shows_instance(?v, ?ontology),
+view:shows_instances_relationship(?v, "true"^^xsd:boolean),
+view:ViewAsSVG(?vo),
+view:outputs(?vo, ?v).
+*/
+
+if ?iv is a view:InstanceView
+and ?iv view:shows_instance ?ic
+and ?ic view:configures_instance ?i
+and ?op is a owl:ObjectProperty
+then
+    ?ic view:shows_object_property ?op.
+
+

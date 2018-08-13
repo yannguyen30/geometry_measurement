@@ -1,0 +1,8 @@
+<catalog id="odase" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <nextCatalog catalog="hedwig/catalog.xml"/>
+    <nextCatalog catalog="pigwidgeon/catalog.xml"/>
+    <nextCatalog catalog="ont-projects/catalog.xml"/>
+    <nextCatalog catalog="workbench/catalog.xml"/>
+    <nextCatalog catalog="yawl-projects/catalog.xml"/>
+    <nextCatalog catalog="vizon/catalog.xml"/>
+</catalog>

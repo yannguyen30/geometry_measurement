@@ -1,0 +1,452 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://www.w3.org/ns/r2rml"
+    xmlns="http://www.w3.org/ns/r2rml#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Class rdf:ID="BaseTableOrView">
+    <rdfs:subClassOf rdf:resource="#LogicalTable"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BlankNode">
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#Join"/>
+    <owl:disjointWith rdf:resource="#Literal"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#PredicateObjectMap"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdf:type rdf:resource="#TermType"/>
+    <rdfs:comment xml:lang="en">Denotes a blank node, used with termType</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="GraphMap">
+    <rdfs:comment xml:lang="en">Represents a graph map.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#TermMap"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IRI">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#Join"/>
+    <owl:disjointWith rdf:resource="#Literal"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#PredicateObjectMap"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdf:type rdf:resource="#TermType"/>
+    <rdfs:comment xml:lang="en">Denotes an IRI, used with termpType.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Join">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdfs:comment xml:lang="en">Represents a join condition.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="#child"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="#parent"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#child"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#parent"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Literal">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdf:type rdf:resource="#TermType"/>
+    <rdfs:comment xml:lang="en">Denotes a Literal, used with termType.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="LogicalTable">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#Join"/>
+    <owl:disjointWith rdf:resource="#Literal"/>
+    <owl:disjointWith rdf:resource="#PredicateObjectMap"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdfs:comment xml:lang="en">Represents a logical table.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ObjectMap">
+    <rdfs:comment xml:lang="en">Represents an object map.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+        <owl:onProperty rdf:resource="#object"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+        <owl:onProperty rdf:resource="#datatype"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+        <owl:onProperty rdf:resource="#language"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+        <owl:onProperty rdf:resource="#object"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#TermMap"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PredicateMap">
+    <rdfs:comment xml:lang="en">Represents a predicate map.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#predicate"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#TermMap"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PredicateObjectMap">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdfs:comment xml:lang="en">Represents a predicate-object map.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#objectMap"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:onProperty rdf:resource="#predicateMap"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="R2RMLView">
+    <rdfs:subClassOf rdf:resource="#LogicalTable"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RefObjectMap">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#Join"/>
+    <owl:disjointWith rdf:resource="#Literal"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdfs:comment xml:lang="en">Denotes a reference to an object map.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#joinCondition"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#parentTriplesMap"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SubjectMap">
+    <rdfs:comment xml:lang="en">Represents a subject map.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+        <owl:onProperty rdf:resource="#class"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#TermMap"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TermMap">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#Join"/>
+    <owl:disjointWith rdf:resource="#Literal"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#PredicateObjectMap"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+    <rdfs:comment xml:lang="en">A function that generates an RDF term from a logical table row.</rdfs:comment>
+    <rdfs:label xml:lang="en">Term Map</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TermType">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#Join"/>
+    <owl:disjointWith rdf:resource="#Literal"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#PredicateObjectMap"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TriplesMap"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TriplesMap">
+    <owl:disjointWith rdf:resource="#BlankNode"/>
+    <owl:disjointWith rdf:resource="#IRI"/>
+    <owl:disjointWith rdf:resource="#Join"/>
+    <owl:disjointWith rdf:resource="#Literal"/>
+    <owl:disjointWith rdf:resource="#LogicalTable"/>
+    <owl:disjointWith rdf:resource="#PredicateObjectMap"/>
+    <owl:disjointWith rdf:resource="#RefObjectMap"/>
+    <owl:disjointWith rdf:resource="#TermMap"/>
+    <owl:disjointWith rdf:resource="#TermType"/>
+    <rdfs:comment xml:lang="en">Represents a triples map.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#subjectMap"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="child">
+    <rdfs:comment xml:lang="en">Names a column in the child table of a join.</rdfs:comment>
+    <rdfs:domain rdf:resource="#Join"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="column">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment xml:lang="en">Name of a column in the logical table. When generating RDF triples from a logical table row, value from the specified column is used as the subject, predicate, or object (based upon the specific domain).</rdfs:comment>
+    <rdfs:domain rdf:resource="#TermMap"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="inverseExpression">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment xml:lang="en">An expression that allows, at query processing time, use of index-based access to the the (underlying) relational tables, instead of simply retrieving the table rows first and then applying a filter. This property is useful for retrieval based on conditions involving subject, predicate, or object generated from logical table column(s) and involves some transformation.</rdfs:comment>
+    <rdfs:domain rdf:resource="#TermMap"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="language">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment xml:lang="en">Specified the language for the object component for the generated triple from a logical table row.</rdfs:comment>
+    <rdfs:domain rdf:resource="#ObjectMap"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="parent">
+    <rdfs:comment xml:lang="en">Names a column in the parent table of a join.</rdfs:comment>
+    <rdfs:domain rdf:resource="#Join"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="sqlQuery">
+    <rdfs:comment xml:lang="en">A valid SQL query.</rdfs:comment>
+    <rdfs:domain rdf:resource="#R2RMLView"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="tableName">
+    <rdfs:comment xml:lang="en">Schema-qualified name of a table or view.</rdfs:comment>
+    <rdfs:domain rdf:resource="#BaseTableOrView"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="template">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment xml:lang="en">A template (format string) to specify how to generate a value for a subject, predicate, or object, using one or more columns from a logical table row.</rdfs:comment>
+    <rdfs:domain rdf:resource="#TermMap"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="datatype">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment xml:lang="en">Specifies the datatype of the object component for the generated triple from a logical table row.</rdfs:comment>
+    <rdfs:domain rdf:resource="#ObjectMap"/>
+    <rdfs:range rdf:resource="&rdfs;Datatype"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="logicalTable">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment xml:lang="en">Definition of logical table to be mapped.</rdfs:comment>
+    <rdfs:domain rdf:resource="#TriplesMap"/>
+    <rdfs:range rdf:resource="#LogicalTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="object">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment xml:lang="en">Specifies the object for the generated triple from the logical table row.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ObjectMap"/>
+          <owl:Restriction>
+            <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:maxCardinality>
+            <owl:onProperty rdf:resource="#column"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="termType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment xml:lang="en">A string indicating whether subject or object generated using the value from column name specified for rr:column should be an IRI reference, blank node, or a literal.</rdfs:comment>
+    <rdfs:domain rdf:resource="#TermMap"/>
+    <rdfs:range rdf:resource="#TermType"/>
+  </owl:FunctionalProperty>
+  <owl:ObjectProperty rdf:ID="class">
+    <rdfs:comment xml:lang="en">The subject value generated for a logical table row will be asserted as an instance of this RDFS class.</rdfs:comment>
+    <rdfs:domain rdf:resource="#SubjectMap"/>
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="constant"/>
+  <owl:ObjectProperty rdf:ID="graph">
+    <rdfs:comment xml:lang="en">An IRI reference for use as the graph name of all triples generated with the GraphMap.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#GraphMap"/>
+          <owl:Restriction>
+            <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:maxCardinality>
+            <owl:onProperty rdf:resource="#template"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="graphMap">
+    <rdfs:comment xml:lang="en">Specifies a GraphMap. When used with a SubjectMap element, all the RDF triples generated from a logical row will be stored in the specified named graph. Otherwise, the RDF triple generated using the (predicate, object) pair will be stored in the specified named graph.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#PredicateObjectMap"/>
+          <rdf:Description rdf:about="#SubjectMap"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#GraphMap"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="joinCondition">
+    <rdfs:comment xml:lang="en">Specifies the join condition for joining the child logical table with the parent logical table of the foreign key constraint.</rdfs:comment>
+    <rdfs:domain rdf:resource="#RefObjectMap"/>
+    <rdfs:range rdf:resource="#Join"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="objectMap">
+    <rdfs:comment xml:lang="en">An ObjectMap element to generate the object component of the (predicate, object) pair from a logical table row.</rdfs:comment>
+    <rdfs:domain rdf:resource="#PredicateObjectMap"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ObjectMap"/>
+          <rdf:Description rdf:about="#RefObjectMap"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="parentTriplesMap">
+    <rdfs:comment xml:lang="en">Specifies the TriplesMap element corresponding to the parent logical table of the foreign key constraint.</rdfs:comment>
+    <rdfs:domain rdf:resource="#RefObjectMap"/>
+    <rdfs:range rdf:resource="#TriplesMap"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="predicate">
+    <rdfs:comment xml:lang="en">Specifies the predicate for the generated triple from the logical table row.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="#PredicateMap"/>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:maxCardinality>
+                <owl:onProperty rdf:resource="#column"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+          <rdf:Description rdf:about="#PredicateObjectMap"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="predicateMap">
+    <rdfs:comment xml:lang="en">A PredicateMap element to generate the predicate component of the (predicate, object) pair from a logical table row.</rdfs:comment>
+    <rdfs:domain rdf:resource="#PredicateObjectMap"/>
+    <rdfs:range rdf:resource="#PredicateMap"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="predicateObjectMap">
+    <rdfs:comment xml:lang="en">A PredicateObjectMap element to generate (predicate, object) pair from a logical table row.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#TriplesMap"/>
+          <rdf:Description rdf:about="&owl;Thing"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#PredicateObjectMap"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="sqlVersion">
+    <rdfs:comment xml:lang="en">An identifier for a SQL version.</rdfs:comment>
+    <rdfs:domain rdf:resource="#R2RMLView"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="subject">
+    <rdfs:comment xml:lang="en">An IRI reference for use as subject for all the RDF triples generated from a logical table row.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#SubjectMap"/>
+          <owl:Restriction>
+            <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:maxCardinality>
+            <owl:onProperty rdf:resource="#column"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="subjectMap">
+    <rdfs:comment xml:lang="en">A SubjectMap element to generate a subject from a logical table row.</rdfs:comment>
+    <rdfs:domain rdf:resource="#TriplesMap"/>
+    <rdfs:range rdf:resource="#SubjectMap"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about=""/>
+  <owl:Thing rdf:ID="SQL2008">
+    <rdfs:comment xml:lang="en">Core SQL 2008</rdfs:comment>
+  </owl:Thing>
+  <owl:Thing rdf:ID="defaultGraph">
+    <rdfs:comment xml:lang="en">Denotes a default graph</rdfs:comment>
+  </owl:Thing>
+</rdf:RDF>

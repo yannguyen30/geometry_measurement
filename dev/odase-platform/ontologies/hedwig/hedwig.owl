@@ -1,0 +1,3885 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/hedwig.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/hedwig.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <Backend rdf:ID="plain_mercury">
+    <rdfs:comment rdf:datatype="&xsd;string">Generate plain Mercury code.  For the static evaluation method this means generate insts and fact tables for classes and generate fact tables for properties.</rdfs:comment>
+  </Backend>
+  <Backend rdf:ID="rdf_store">
+    <rdfs:comment rdf:datatype="&xsd;string">Generate Mercury code that queries an RDF store which may be stored in an external database.</rdfs:comment>
+  </Backend>
+  <CastPredFactTable rdf:ID="standard_cast_pred_fact_table">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.to_${class_local_name}</qualified_name>
+  </CastPredFactTable>
+  <CastPredStaticStore rdf:ID="standard_cast_pred_static_store">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.to_${class_local_name}</qualified_name>
+  </CastPredStaticStore>
+  <CastPredWithSource rdf:ID="standard_cast_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.to_${class_local_name}</qualified_name>
+  </CastPredWithSource>
+  <ClassAssertPredWithSource rdf:ID="standard_class_assert_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.assert_${class_local_name}</qualified_name>
+  </ClassAssertPredWithSource>
+  <ClassDeletePredWithSource rdf:ID="standard_class_delete_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.delete_${class_local_name}</qualified_name>
+  </ClassDeletePredWithSource>
+  <ClassFactTablePred rdf:ID="standard_class_fact_table_pred">
+    <qualified_name rdf:datatype="&xsd;string">${package}.class_facts.${class_ns_abbrev}.${class_local_name}.${class_local_name}</qualified_name>
+  </ClassFactTablePred>
+  <ClassInsertPredWithSource rdf:ID="standard_class_insert_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.insert_${class_local_name}</qualified_name>
+  </ClassInsertPredWithSource>
+  <ClassListQueryFuncWithSource rdf:ID="standard_class_list_query_func_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.all_${class_local_name}</qualified_name>
+  </ClassListQueryFuncWithSource>
+  <ClassQueryPredFactTable rdf:ID="standard_class_query_pred_fact_table">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}</qualified_name>
+  </ClassQueryPredFactTable>
+  <ClassQueryPredStaticStore rdf:ID="standard_class_query_pred_static_store">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}</qualified_name>
+  </ClassQueryPredStaticStore>
+  <ClassQueryPredWithSource rdf:ID="standard_class_query_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}</qualified_name>
+  </ClassQueryPredWithSource>
+  <ClassURIFunc rdf:ID="standard_class_uri_func">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}_uri</qualified_name>
+  </ClassURIFunc>
+  <DontGenerateIndicator rdf:ID="dont_generate">
+    <qualified_name rdf:datatype="&xsd;string">dont_generate</qualified_name>
+  </DontGenerateIndicator>
+  <EvaluationMethod rdf:ID="dynamic">
+    <rdfs:comment rdf:datatype="&xsd;string">The class or property is evaluated at runtime using only information available in the available owl ontologies.</rdfs:comment>
+  </EvaluationMethod>
+  <EvaluationMethod rdf:ID="omit">
+    <rdfs:comment rdf:datatype="&xsd;string">Don&apos;t generate any code for this class or property.</rdfs:comment>
+  </EvaluationMethod>
+  <EvaluationMethod rdf:ID="static">
+    <rdfs:comment rdf:datatype="&xsd;string">The values of the class or property are inferred statically (not at runtime).</rdfs:comment>
+  </EvaluationMethod>
+  <EvaluationMethod rdf:ID="vocabulary">
+    <rdfs:comment rdf:datatype="&xsd;string">Generate only the Property_uri and Class_uri functions.</rdfs:comment>
+  </EvaluationMethod>
+  <ExplorePred rdf:ID="standard_explore_pred">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.explore_${class_local_name}</qualified_name>
+  </ExplorePred>
+  <IndivToResourceFunc rdf:ID="standard_indiv_to_resource_func">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}_to_resource</qualified_name>
+  </IndivToResourceFunc>
+  <Inst rdf:ID="standard_inst">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}</qualified_name>
+  </Inst>
+  <NewbornCastPred rdf:ID="standard_newborn_cast_pred">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.newborn_to_${class_local_name}</qualified_name>
+  </NewbornCastPred>
+  <NewbornUpcastPred rdf:ID="standard_newborn_upcast_pred">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.newborn_upcast_to_${class_local_name}</qualified_name>
+  </NewbornUpcastPred>
+  <PropertyDeleteAllPredWithSource rdf:ID="standard_property_delete_all_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.delete_all_${property_local_name}</qualified_name>
+  </PropertyDeleteAllPredWithSource>
+  <PropertyFactTablePred rdf:ID="standard_property_fact_table_pred">
+    <qualified_name rdf:datatype="&xsd;string">${package}.facts.${property_ns_abbrev}.${property_local_name}.${property_local_name}</qualified_name>
+  </PropertyFactTablePred>
+  <PropertyInsertPredWithSource rdf:ID="standard_property_insert_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.insert_${property_local_name}</qualified_name>
+  </PropertyInsertPredWithSource>
+  <PropertyInverseListQueryFuncWithSource rdf:ID="standard_property_inverse_list_query_func_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.inv_${property_local_name}</qualified_name>
+  </PropertyInverseListQueryFuncWithSource>
+  <PropertyListQueryFuncFactTable rdf:ID="standard_property_list_query_func_fact_table">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.all_${property_local_name}</qualified_name>
+  </PropertyListQueryFuncFactTable>
+  <PropertyListQueryFuncStaticStore rdf:ID="standard_property_list_query_func_static_store">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.all_${property_local_name}</qualified_name>
+  </PropertyListQueryFuncStaticStore>
+  <PropertyListQueryFuncWithSource rdf:ID="standard_property_list_query_func_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.all_${property_local_name}</qualified_name>
+  </PropertyListQueryFuncWithSource>
+  <PropertyQueryPredFactTable rdf:ID="standard_property_query_pred_fact_table">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.${property_local_name}</qualified_name>
+  </PropertyQueryPredFactTable>
+  <PropertyQueryPredStaticStore rdf:ID="standard_property_query_pred_static_store">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.${property_local_name}</qualified_name>
+  </PropertyQueryPredStaticStore>
+  <PropertyQueryPredWithSource rdf:ID="standard_property_query_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.${property_local_name}</qualified_name>
+  </PropertyQueryPredWithSource>
+  <PropertySetAllPredWithSource rdf:ID="standard_property_set_all_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.set_all_${property_local_name}</qualified_name>
+  </PropertySetAllPredWithSource>
+  <PropertySetPredWithSource rdf:ID="standard_property_set_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.set_${property_local_name}</qualified_name>
+  </PropertySetPredWithSource>
+  <PropertyURIFunc rdf:ID="standard_property_uri_func">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.${property_local_name}_uri</qualified_name>
+  </PropertyURIFunc>
+  <PropertyUnsetPredWithSource rdf:ID="standard_property_unset_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${domain_ns_abbrev}.${domain_local_name}.${property_ns_abbrev}.unset_${property_local_name}</qualified_name>
+  </PropertyUnsetPredWithSource>
+  <ResourceToClassIndivPredFactTable rdf:ID="standard_resource_to_class_indiv_pred_fact_table">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.resource_to_${class_local_name}</qualified_name>
+  </ResourceToClassIndivPredFactTable>
+  <ResourceToClassIndivPredStaticStore rdf:ID="standard_resource_to_class_indiv_pred_static_store">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.resource_to_${class_local_name}</qualified_name>
+  </ResourceToClassIndivPredStaticStore>
+  <ResourceToClassIndivPredWithSource rdf:ID="standard_resource_to_class_indiv_pred_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.resource_to_${class_local_name}</qualified_name>
+  </ResourceToClassIndivPredWithSource>
+  <SubclassSelectorFuncFactTable rdf:ID="standard_subclass_selector_func_fact_table">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.downcast_${class_local_name}</qualified_name>
+  </SubclassSelectorFuncFactTable>
+  <SubclassSelectorFuncStaticStore rdf:ID="standard_subclass_selector_func_static_store">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.downcast_${class_local_name}</qualified_name>
+  </SubclassSelectorFuncStaticStore>
+  <SubclassSelectorFuncWithSource rdf:ID="standard_subclass_selector_func_with_source">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.downcast_${class_local_name}</qualified_name>
+  </SubclassSelectorFuncWithSource>
+  <SubclassSelectorType rdf:ID="standard_subclass_selector_type">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}_subclass</qualified_name>
+  </SubclassSelectorType>
+  <Type rdf:ID="standard_type">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}</qualified_name>
+  </Type>
+  <TypeClass rdf:ID="standard_typeclass">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.${class_local_name}</qualified_name>
+  </TypeClass>
+  <UpcastPred rdf:ID="standard_upcast_pred">
+    <qualified_name rdf:datatype="&xsd;string">${package}.${class_ns_abbrev}.${class_local_name}.upcast_to_${class_local_name}</qualified_name>
+  </UpcastPred>
+  <owl:AnnotationProperty rdf:ID="csharp_attribute_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified attribute name to use for an owl property.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="csharp_datatype">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The fully qualified C# type to use for an rdf type.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="csharp_datatype_converter">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">A fragment of C# code to initialize an instance of odase.DatatypeConverter
+that will be used to convert between native Java objects and odase.Literal.  Put this annotation on a datatype you want to use the converter on.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="csharp_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified C# name to use for a namespace or OWL class.  If a namespace doesn&apos;t have a csharp_name annotation, then no class will be generated for the namespace.  If an OWL class doesn&apos;t have a csharp_name annotation, then the C# class name will be the same as the OWL class.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="ontology_csharp_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified C# name to use for the ontology class. If there is no such name provided, the csharp_name with &apos;Model&apos; suffix will be used.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="ontology_inherits_from">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">By default the generated class for the ontology/namespace will inherit from BaseOntology, unless there is a value for this annotation, it will inherit in the OO-sense from the given class.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="ontology_constructor_args">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">When constructing the class which implements the Odase.Ontology interface, what are the arguments to pass to the constructor.  If this property is not set, then the default value of "Odase.Model model" is used.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="ontology_base_constructor_args">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">When constructing the class which implements the Odase.Ontology interface, what are the arguments to pass to the base constructor.  If this property is not set, then the default value of "model" is used.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="wcf_namespace">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The namespace of the WCF DataContract to use.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="csharp_uri_field_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified name to use for the constant field generated for this URI.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="dont_generate_all_instances_function">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Class with this annotation to prevent hedwig to generate the all instances function/method/predicate for this Class.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="dont_generate_all_asserted_instances_function">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Class with this annotation to prevent hedwig to generate the all asserted instances function/method/predicate for this Class.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="dont_generate_new_instance_function">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Class with this annotation to prevent hedwig to generate the new instance function/method/predicate for this Class.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="dont_generate_assert_instance_function">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Class with this annotation to prevent hedwig to generate the assert instance function/method/predicate for this Class.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="functional_uri_concept">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Class with this annotation to state that individuals of this concept have a functional uri, meaning that you cannot set the individual resource.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="public_default_constructor">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Class with this annotation to true to have the default constructor (alternatively known as the parameterless constructor) being public.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="is_waqs_server_entity">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Is this class an entity managed by WAQS on the server.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="is_waqs_client_entity">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Is this class an entity managed by WAQS on the client.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="dont_generate_property">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Property in the context of a Class with this annotation to prevent hedwig to generate the the function/method/predicate for this Property-Class.</rdfs:comment>
+    <rdfs:domain rdf:resource="#Restriction"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="use_encapsulated">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Property in the context of a Class with this annotation such that hedwig will generate the function/method/predicate for this Property-Class calling an encapsulated type. For instance if the generated class C encapsulates an A, then you can annotate C properties with this to call A property.</rdfs:comment>
+    <rdfs:domain rdf:resource="#Restriction"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="use_encapsulated_functional_uri">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Property in the context of a Class with this annotation such that hedwig will generate the function/method/predicate for this Property-Class calling an encapsulated type, and calling FromResource and ToResource on the value. For instance if the generated class C encapsulates an A, then you can annotate C properties with this to call A property. Note that this annotation is exclusive with use_encapsulated (use one or the other).</rdfs:comment>
+    <rdfs:domain rdf:resource="#Restriction"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="property_collection_type">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Property in the context of a Class with this annotation such that hedwig will generate the function/method/predicate returning the given collection type (example: List).</rdfs:comment>
+    <rdfs:domain rdf:resource="#Restriction"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="encapsulate">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The generated class will have a property generated with the given type, such that it can be used as an encapsulated class/concept.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="dont_generate_asserted_property">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Annotate a Property in the context of a Class with this annotation to prevent hedwig to generate the function/method/predicate for this Property (or Property-Class) in the context of asserted values only.</rdfs:comment>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Restriction"/>
+          <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#Class"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="from_rdf_literal_pred">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This annotation can be placed on type resources (for example &xsd;double).  It gives the (fully module qualified) name of a predicate for converting values of type rdf.literal to the user specified type.  The predicate should have the signature :- pred &lt;pred_name&gt;(rdf.literal::in, &lt;type_name&gt;::out) is semidet.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="java_attribute_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified attribute name to use for an owl property.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="java_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified Java name for the URI, used for individuals, properties, classes, namespaces, etc. .</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="java_class_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified Java class name to use for a namespace or OWL class.  If a namespace doesn&apos;t have a java_class_name annotation, then no class will be generated for the namespace.  If an OWL class doesn&apos;t have a java_class_name annotation, then the Java class name will be the same as the OWL class.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="java_datatype">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The fully qualified Java type to use for an rdf type.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="java_datatype_converter">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">A fragment of Java code to initialize an instance of odase.DatatypeConverter
+that will be used to convert between native Java objects and odase.Literal.  Put this annotation on a datatype you want to use the converter on.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="java_uri_field_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The unqualified name to use for the constant field generated for this URI.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="module_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This annotation should be applied to owl:Ontology resources.  It tells hedwig what module name to use for code it generates for the ontology.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="object_oriented_inherits_from">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">By default the generated class will inherit from Individual, unless there is a value for this annotation, the it will inherit in the OO-sense from the generated class corresponding.</rdfs:comment>
+    <rdfs:domain rdf:resource="&owl;Class"/>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="schema_prefix">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Place this annotation on namespaces to have a schema
+    generated for the namespace when the --generate-schema option is given.
+    The value is a prefix to use for all objects (tables, views, etc) created for classes and properties in the namespace.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="sql_datatype">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The SQL datatype to use for a datatype.
+    Place this annotation on a datatype URI (for example &xsd;double).</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="table_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">The name of the table to generate for a class or property.
+    By default the table will be the local name of the class or property URI with the schema prefix prepended
+    (see hedwig:schema_prefix annotation).
+    Use this annotation to override the default for a specific class or property.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="to_rdf_literal_func">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This annotation can be placed on type resources (for example &xsd;double).  It gives the (fully module qualified) name of a function for converting values of the user specified type
+to rdf.literal.  The function should have the signature :- func &lt;func_name&gt;(&lt;type_name&gt;) = rdf.literal.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="type_name">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This annotation should be placed on type resources (for example &xsd;double).  It tells hedwig what Mercury type to use for resource.  The type name should be fully module qualified, unless it is a builtin type.</rdfs:comment>
+  </owl:AnnotationProperty>
+  <owl:AnnotationProperty rdf:ID="updates_only_for_persistedIn">
+    <rdf:type rdf:resource="&owl;DatatypeProperty"/>
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">For a namespace or a Class, the updates methods/properties will only be generated for the concepts and properties/concepts if there is there is some value for the annotation http://www.missioncriticalit.com/ontologies/persistence.owl#persistedIn.</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:AnnotationProperty>
+  <owl:Class rdf:ID="Backend">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:oneOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#plain_mercury"/>
+          <rdf:Description rdf:about="#rdf_store"/>
+        </owl:oneOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="&xsd;string">This class is meant to only be used as the range of the backend annotation.  It tells hedwig what sort of code should be generated for the class or property.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="CastPredFactTable">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to cast any individual to an instance of the class.
+The predicate will fail if the given individual is not an instance of the class.
+
+The signature of the predicate is:
+
+:- pred &lt;name&gt;(individual(C)::in, individual(&lt;class_type&gt;)::out) is semidet.
+
+where &lt;class_type&gt; is the generated type for the OWL (RDFS) class.
+
+The predicate will query a Mercury fact table to work out if the
+individual is a member of the class or not.
+
+See also ClassFactTablePred and Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CastPredStaticStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to cast any individual to an instance of the class.
+The predicate will fail if the given individual is not an instance of the class.
+
+The signature of the predicate is:
+
+:- pred &lt;name&gt;(individual(C)::in, individual(&lt;class_type&gt;)::out) is semidet.
+
+where &lt;class_type&gt; is the generated type for the OWL (RDFS) class.
+
+The predicate will query a static rdf store to work out if the
+individual is a member of the class or not.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CastPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to cast any individual to an instance of the class.
+The predicate will fail if the given individual is not an instance of the class.
+
+The signature of the predicate is:
+
+:- pred &lt;name&gt;(S::in, individual(C)::in, individual(&lt;class_type&gt;)::out) is semidet &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generated type for the OWL (RDFS) class.
+
+The predicate will query the given source to work out if the
+individual is a member of the class or not.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassAssertPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for asserting that an individual is a member of a particular class.
+
+The predicate has the following signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(C)::out, newborn(&lt;class_type&gt;)::out, updates::di, updates::uo) is det &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generated type for the class.
+
+The effect of calling this predicate is to cause an update to be added to the threaded
+updates arguments.  This update will insert a triple that asserts that the given
+individual is a member of the class. The updates will be executed on the ontology
+when the transaction ends
+(see the section called &quot;Transactions&quot; for more information on transactions).
+
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassDeletePredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for removing instances from the class.
+
+The signature of this predicate is:
+
+:- pred &lt;name&gt;(S::in, individual(&lt;class_type&gt;)::in, updates::di, updates::uo) is det &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generated type for the class.
+
+Calling the delete predicate causes a deletion of the given individual to be posted.
+The deletion will be executed at the end of the transaction. After the transaction
+the individual will no longer be a member of the class (or any subclasses of the
+class), but it may still be an instance of any ancestor classes.
+
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassFactTablePred">
+    <rdfs:comment rdf:datatype="&xsd;string">A unary fact table predicate containing all the classes
+instances.
+
+The signature of this predicate is:
+
+:- pred &lt;name&gt;(rdf.resource).
+:- mode &lt;name&gt;(out(&lt;class_inst&gt;)) is nondet.
+:- mode &lt;name&gt;(ground &gt;&gt; &lt;class_inst&gt;) is semidet.
+
+where &lt;class_inst&gt; is the generated inst for the class.
+
+See also Inst.
+
+The type rdf.resource is defined in the module rdf.m in the MC
+libs repository.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassInsertPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for adding new instances to the class.
+
+The predicate has the following signature:
+
+:- pred &lt;name&gt;(S::in, newborn(&lt;class_type&gt;)::out, updates::di, updates::uo) is det &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generated type for the class.
+
+Calling this predicate does two things. Firstly it generates a new value of the
+type newborn(&lt;class_type&gt;). This value represents the newly inserted individual.
+Secondly it adds an update to the threaded updates arguments. The update will
+insert a triple that asserts that the new individual is an instance of the class. The
+pair of updates arguments keep track of what updates have been posted. The
+updates will be executed on the ontology when the transaction ends
+(see the section called &quot;Transactions&quot; for more information on transactions).
+
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassItem">
+    <rdfs:subClassOf rdf:resource="#Item"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassItemDomain"/>
+  <owl:Class rdf:ID="ClassListQueryFuncWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A function that can be used to retrieve all
+the individuals that belong to the class as a list.
+
+The signature of this predicate is:
+
+:- func &lt;name&gt;(S) = list(individual(&lt;class_type&gt;)) &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generated type for the class.
+
+The function will look in a supplied source for the instances
+of the class.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassQueryPredFactTable">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to non-deterministically retrieve all
+the individuals that belong to the class.
+
+The signature of this predicate is:
+
+:- pred &lt;name&gt;(individual(&lt;class_type&gt;)::out) is nondet.
+
+where &lt;class_type&gt; is the generated type for the class.
+
+The predicate will look in a generated fact table for the instances
+of the class.
+
+See also ClassFactTablePred and Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassQueryPredStaticStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to non-deterministically retrieve all
+the individuals that belong to the class.
+
+The signature of this predicate is:
+
+:- pred &lt;name&gt;(individual(&lt;class_type&gt;)::out) is nondet.
+
+where &lt;class_type&gt; is the generated type for the class.
+
+The predicate will look in a static rdf store for the instances
+of the class.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassQueryPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to non-deterministically retrieve all
+the individuals that belong to the class.
+
+The signature of this predicate is:
+
+:- pred &lt;name&gt;(S::in, individual(&lt;class_type&gt;)::out) is nondet &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generated type for the class.
+
+The predicate will look in a supplied source for the instances
+of the class.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ClassURIFunc">
+    <rdfs:comment rdf:datatype="&xsd;string">A constant function that returns the URI of the class as a string.
+
+This function is only generated for non-anonymous classes.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DontGenerateIndicator">
+    <rdfs:comment rdf:datatype="&xsd;string">This class&apos;s only member is used to explicitely turn off generation of an item for a class or property.  This is useful when you want to generate an item for all classes/properties in a namespace except one.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#Item"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Dynamic">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dynamic"/>
+        <owl:onProperty rdf:resource="#evaluation_method"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <owl:equivalentClass rdf:resource="#DynamicRdfStore"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DynamicRdfStore">
+    <owl:equivalentClass rdf:resource="#Dynamic"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_cast_pred_with_source"/>
+        <owl:onProperty rdf:resource="#cast_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_assert_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_delete_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_insert_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_query_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_explore_pred"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_indiv_to_resource_func"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_newborn_cast_pred"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_newborn_upcast_pred"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_delete_all_with_source"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_insert_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_list_query_func_with_source"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_query_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_set_all_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_set_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_unset_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_resource_to_class_indiv_pred_with_source"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_with_source"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_type"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_typeclass"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_upcast_pred"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EvaluationMethod">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:oneOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#dynamic"/>
+          <rdf:Description rdf:about="#omit"/>
+          <rdf:Description rdf:about="#static"/>
+          <rdf:Description rdf:about="#vocabulary"/>
+        </owl:oneOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:comment rdf:datatype="&xsd;string">This class is meant to only be used as the range of the evaluation_method annotation.  It specifies the operational semantics of the class or property the annotation is on.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ExplorePred">
+    <rdfs:comment rdf:datatype="&xsd;string">A function for retrieving all the property values of an individual in the
+current ontology.
+
+This function has the signature:
+
+:- func &lt;name&gt;([S,] individual(&lt;class_type&gt;)) = rdf.individual &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generated type for the class.
+
+This function returns an rdf.individual value which contains all the triples that
+have the given individual as their subject.
+
+This function simply calls the generated property query predicates
+that have the class as their domain.  If any of the property query
+predicates require a source argument, then this function will also
+require a source argument.
+
+See also Type, ClassQueryPredFactTable, ClassQueryPredStaticStore and
+ClassQueryPredWithSource.
+
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+The rdf.individual type is defined in the rdf.m module in the MC libs repository.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ExternalItem">
+    <rdfs:comment xml:lang="en">External items will not be generated, but other generated code may refer to external items.  External items could be generated by separate invocations of hedwig, or could be hand written.  Hedwig will not check that external items exist.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#Item"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IndivToResourceFunc">
+    <rdfs:comment rdf:datatype="&xsd;string">A function that can be used to retrieve the resource of an individual.
+
+The signature of this function is:
+
+:- func &lt;name&gt;(individual(C)::in) = (rdf.resource::out[(&lt;class_inst&gt;)]) is det
+    &lt;= &lt;class_typeclass&gt;(C).
+
+where &lt;class_inst&gt; is the generated inst for the class and &lt;class_typeclass&gt;
+is the generated typeclass for the class.  If the inst for the class is not generated
+then the output will be ground.
+
+See also Inst and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Inst">
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Item">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ClassItem"/>
+          <rdf:Description rdf:about="#PropertyItem"/>
+        </owl:unionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#qualified_name"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Namespace"/>
+  <owl:Class rdf:ID="NewbornCastPred">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for casting newborns created in a previous transaction to
+individuals in the current ontology.
+
+This predicate has the signature:
+
+:- pred &lt;name&gt;(S::in, newborn(C)::in, individual(&lt;class_type&gt;)::out) is semidet &lt;= hedwig_query_source(S).
+
+where &lt;class_type&gt; is the generate type for the class.
+
+When new individuals are added to the ontology, they are given the type
+newborn/1. In order to use newborns in queries, one must first convert
+them to the individual/1 type using the above predicate
+(see the section called &quot;Transactions&quot; for more information). The reason
+new individuals are not given the individual type is to prevent queries
+on the new individuals before they are added to the underlying store.
+
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NewbornUpcastPred">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to cast any newborn to a newborn
+that is a member of the class. This predicate is deterministic,
+since the typeclass constraints on the predicate ensure that the
+newborn must always be a member of the class.
+
+This predicate has the signature:
+
+:- pred &lt;name&gt;( newborn(C)::in, newborn(&lt;class_type&gt;)::out) is det &lt;= &lt;class_typeclass&gt;(C).
+
+where &lt;class_type&gt; is the type generated for the class and &lt;class_typeclass&gt;
+is the typeclass generated for the class.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Omit">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#omit"/>
+        <owl:onProperty rdf:resource="#evaluation_method"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PlainMercury">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#plain_mercury"/>
+        <owl:onProperty rdf:resource="#backend"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <owl:equivalentClass rdf:resource="#StaticPlainMercury"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyDeleteAllPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate to all the values values of a property.
+
+It has the signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(D)::in, updates::di, updates::uo) is det
+    &lt;= ( &lt;domain_typeclass&gt;(D), hedwig_query_source(S) ).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+See also TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyFactTablePred">
+    <rdfs:comment rdf:datatype="&xsd;string">A binary fact table predicate containing all the entailed facts of
+the property.
+
+For object properties the signature is:
+
+:- pred &lt;name&gt;(rdf.resource, rdf.resource).
+
+while for datatype properties it is:
+
+:- pred &lt;name&gt;(rdf.resource, &lt;range_datatype&gt;).
+
+where &lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+For every inst generated for subclasses of the domain
+of the property a mode like the following will be generated:
+
+:- mode &lt;name&gt;(in(&lt;domain_inst&gt;), out(&lt;range_inst&gt;))
+
+See also Inst.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyInsertPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate to insert a value for a property.
+
+For object properties this predicate has the signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(D)::in, new_or_old(R)::in, updates::di, updates::uo) is det
+    &lt;= ( &lt;domain_typeclass&gt;(D), &lt;range_typeclass&gt;(R), hedwig_query_source(S) ).
+
+while for datatype properties it has the signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(D)::in, &lt;range_datatype&gt;::in, updates::di, updates::uo)
+    is det &lt;= ( &lt;domain_typeclass&gt;(D), hedwig_query_source(S) ).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_insert_pred_with_source
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for any restricted subdomains
+that have generated typeclasses.
+
+This predicate schedules the insertion of a new  triple for the property in
+the current ontology.  If the triple already exists then an exception
+is thrown.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyInverseListQueryFuncWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A function for querying the inverse of a property.
+
+For object properties the signature is:
+
+:- func &lt;name&gt;(S, individual(C)) = list(individual(&lt;domain_class&gt;))
+    &lt;= ( &lt;range_typeclass&gt;(C), hedwig_query_source(S) ).
+
+while for datatype properties the signature is:
+
+:- func &lt;name&gt;(S, &lt;range_datatype&gt;) =  list(individual(&lt;domain_class&gt;))
+    &lt;= hedwig_query_source(S).
+
+where &lt;range_typeclass&gt; is the generated typeclass for the
+range.
+
+&lt;domain_type&gt; is the generated type for the domain (subdomain).
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+This predicate will look in the supplied source for values of the property.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyItem">
+    <rdfs:subClassOf rdf:resource="#Item"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyItemDomain"/>
+  <owl:Class rdf:ID="PropertyListQueryFuncFactTable">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for querying a property and return the values in a list.
+
+For object properties the signature is:
+
+:- func &lt;name&gt;(individual(C)) = individual(&lt;range_class&gt;) &lt;= &lt;domain_typeclass&gt;(C).
+
+while for datatype properties the signature is:
+
+:- pred &lt;name&gt;(individual(C)) = &lt;range_datatype&gt; &lt;= &lt;domain_typeclass&gt;(C).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_list_query_pred_fact_table
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for all subdomains
+that have generated typeclasses.
+
+This predicate will look in a Mercury fact table predicate for
+the values of the property.
+
+See also Type, TypeClass and PropertyFactTablePred.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyListQueryFuncStaticStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for querying a property and return the values in a list.
+
+For object properties the signature is:
+
+:- func &lt;name&gt;(individual(C)) = individual(&lt;range_class&gt;) &lt;= &lt;domain_typeclass&gt;(C).
+
+while for datatype properties the signature is:
+
+:- pred &lt;name&gt;(individual(C)) = &lt;range_datatype&gt; &lt;= &lt;domain_typeclass&gt;(C).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_list_query_pred_static_store
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for all subdomains
+that have generated typeclasses.
+
+This predicate will look in a static rdf store for
+the values of the property.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyListQueryFuncWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for querying a property and return the values in a list.
+
+For object properties the signature is:
+
+:- func &lt;name&gt;(S, individual(C)) = individual(&lt;range_class&gt;) &lt;= ( &lt;domain_typeclass&gt;(C),
+    hedwig_query_source(S) ).
+
+while for datatype properties the signature is:
+
+:- func &lt;name&gt;(S, individual(C)) = &lt;range_datatype&gt; &lt;= ( &lt;domain_typeclass&gt;(C),
+    hedwig_query_source(S) ).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_list_query_pred_static_store
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for all subdomains
+that have generated typeclasses.
+
+This predicate will look in a the supplied source for
+the values of the property.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyQueryPredFactTable">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for querying a property.
+
+For object properties the signature is:
+
+:- pred &lt;name&gt;(individual(C)::in, individual(&lt;range_class&gt;)::out) is &lt;determinism&gt;
+    &lt;= &lt;domain_typeclass&gt;(C).
+
+while for datatype properties the signature is:
+
+:- pred &lt;name&gt;(individual(C)::in, &lt;range_datatype&gt;::out) is &lt;determinism&gt;
+    &lt;= &lt;domain_typeclass&gt;(C).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_query_pred_fact_table
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for all subdomains
+that have generated typeclasses.
+
+The determinism of the predicate depends on the cardinality
+of the property with respect to the subdomain. If the property must
+have exactly one value then the determinism will be det. If the
+property can have zero or one values, then the determinism is
+semidet. If the property must have at least one value, but
+possibly more, then the determinism is multi. If the property may
+have zero or more values, then the determinism is nondet.
+
+This predicate will look in a Mercury fact table predicate for
+values of the property.
+
+See also Type, TypeClass and PropertyFactTablePred.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyQueryPredStaticStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for querying a property.
+
+For object properties the signature is:
+
+:- pred &lt;name&gt;(individual(C)::in, individual(&lt;range_class&gt;)::out) is &lt;determinism&gt;
+    &lt;= &lt;domain_typeclass&gt;(C).
+
+while for datatype properties the signature is:
+
+:- pred &lt;name&gt;(individual(C)::in, &lt;range_datatype&gt;::out) is &lt;determinism&gt;
+    &lt;= &lt;domain_typeclass&gt;(C).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_query_pred_static_store
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for all subdomains
+that have generated typeclasses.
+
+The determinism of the predicate depends on the cardinality
+of the property with respect to the subdomain. If the property must
+have exactly one value then the determinism will be det. If the
+property can have zero or one values, then the determinism is
+semidet. If the property must have at least one value, but
+possibly more, then the determinism is multi. If the property may
+have zero or more values, then the determinism is nondet.
+
+This predicate will look in a static rdf store for values of the property.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyQueryPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate for querying a property.
+
+For object properties the signature is:
+
+:- pred &lt;name&gt;(S::in, individual(C)::in, individual(&lt;range_class&gt;)::out)
+    is &lt;determinism&gt; &lt;= ( &lt;domain_typeclass&gt;(C), hedwig_query_source(S) ).
+
+while for datatype properties the signature is:
+
+:- pred &lt;name&gt;(S::in, individual(C)::in, &lt;range_datatype&gt;::out)
+    is &lt;determinism&gt; &lt;= ( &lt;domain_typeclass&gt;(C), hedwig_query_source(S) ).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_query_pred_with_source
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for all subdomains
+that have generated typeclasses.
+
+The determinism of the predicate depends on the cardinality
+of the property with respect to the subdomain. If the property must
+have exactly one value then the determinism will be det. If the
+property can have zero or one values, then the determinism is
+semidet. If the property must have at least one value, but
+possibly more, then the determinism is multi. If the property may
+have zero or more values, then the determinism is nondet.
+
+This predicate will look in the supplied source for values of the property.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertySetAllPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate to set multiple values for a property.
+
+For object properties this predicate has the signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(D)::in, list(new_or_old(R))::in, updates::di, updates::uo) is det
+    &lt;= ( &lt;domain_typeclass&gt;(D), &lt;range_typeclass&gt;(R), hedwig_query_source(S) ).
+
+while for datatype properties it has the signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(D)::in, list(&lt;range_datatype&gt;)::in, updates::di, updates::uo)
+    is det &lt;= ( &lt;domain_typeclass&gt;(D), hedwig_query_source(S) ).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_set_all_pred_with_source
+annotation, then a predicate will always be generated for the domain of
+the property.  Predicates will *also* be generated for any subdomains
+that have generated typeclasses.
+
+This predicate schedules the replacing of the values for the property in
+the current ontology by the given values.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertySetPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate to set the value of a property.
+
+If the property is an object property, then this predicate has the signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(D)::in, new_or_old(R)::in, updates::di, updates::uo) is det
+    &lt;= ( &lt;domain_typeclass&gt;(D), &lt;range_typeclass&gt;(R), hedwig_query_source(S) ).
+
+otherwise, if the property is a datatype property, then it has the signature:
+
+:- pred &lt;name&gt;(S::in, new_or_old(D)::in, &lt;range_datatype&gt;::in, updates::di, updates::uo) is det
+    &lt;= ( &lt;domain_typeclass&gt;(D), hedwig_query_source(S) ).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+&lt;range_type&gt; is the generated type for the range
+if the property is an object property.  If the range is restricted
+by any owl:allValuesFrom restrictions for the particular subdomain,
+then the restricted range will be used.
+
+&lt;range_datatype&gt; is the Mercury type for the range if the property is a datatype
+property.
+
+If a property is annotated with the property_set_pred_with_source
+annotation, then a predicate will be generated for the domain of
+the property only if it is functional for the domain.  Predicates will
+*also* be generated for any subdomains that have generated
+typeclasses as long as the property is functional for those
+subdomains.
+
+The predicate schedules the deletion of any old values of the property and the
+insertion of the new value.
+
+The new_or_old(C) type is defined as:
+
+:- type new_or_old(C) ---&gt; new(newborn(C)) ; old(individual(C)).
+
+The new_or_old type is used here so that property values for
+newly added or existing individuals can be set.
+
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type and Typeclass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyURIFunc">
+    <rdfs:comment rdf:datatype="&xsd;string">This constant function returns the uri of the property as a string.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PropertyUnsetPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate to delete a property value.
+
+The signature of this predicate is:
+
+:- pred &lt;name&gt;(S::in, individual(D)::in, updates::di, updates::uo) is det
+    &lt;= ( &lt;domain_typeclass&gt;(D), hedwig_query_source(S) ).
+
+where &lt;domain_typeclass&gt; is the generated typeclass for the
+domain (or subdomain).
+
+If a property is annotated with the property_unset_pred_with_source
+annotation, then a predicate will be generated for the domain of
+the property only if it is functional for the domain.  Predicates will
+*also* be generated for any subdomains that have generated
+typeclasses as long as the property is functional for those
+subdomains.
+
+This predicate schedules the deletion of any values for the given individual.
+
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#PropertyItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RdfStore">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#rdf_store"/>
+        <owl:onProperty rdf:resource="#backend"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="ResourceToClassIndivPredFactTable">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to construct an individual of the class from a
+value of the type rdf.resource.
+
+The signature of  this predicate is:
+
+:- pred &lt;name&gt;(rdf.resource::in(&lt;class_inst&gt;), individual(&lt;class_type&gt;)::out) is det.
+
+Where &lt;class_inst&gt; is the generated inst for the class and
+&lt;class_type&gt; is the generated type for the class.  The inst is used
+to ensure that the supplied resource is always an instance of the
+class.
+
+See also Inst and Type.
+
+The rdf.resource type is defined in the rdf.m module in the MC libs repository.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ResourceToClassIndivPredStaticStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to construct an individual of the class from a
+value of the type rdf.resource.
+
+The signature of  this predicate is:
+
+:- pred &lt;name&gt;(rdf.resource::in, individual(&lt;class_type&gt;)::out) is semidet.
+
+Where &lt;class_type&gt; is the generated type for the class.
+
+The predicate will look in a static rdf store to work out if the resource
+is an instance of the class.  If it isn&apos;t, the predicate fails.
+
+See also Type.
+
+The rdf.resource type is defined in the rdf.m module in the MC libs repository.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ResourceToClassIndivPredWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to construct an individual of the class from a
+value of the type rdf.resource.
+
+The signature of  this predicate is:
+
+:- pred &lt;name&gt;(S::in, rdf.resource::in, individual(&lt;class_type&gt;)::out) is semidet
+    &lt;= hedwig_query_source(S).
+
+Where &lt;class_type&gt; is the generated type for the class.
+
+The predicate will look in the supplied source to work out if the
+resource is an instance of the class.  If it isn&apos;t, the predicate fails.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also Type.
+
+The rdf.resource type is defined in the rdf.m module in the MC libs repository.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RestrictedProperty">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#domain"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#property"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleFactTable">
+    <rdfs:comment rdf:datatype="&xsd;string">Properties and classes that are made members of this class will get code to query Mercury fact tables.  The explore predicate is not generated.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_cast_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_fact_table_pred"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_query_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_indiv_to_resource_func"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_inst"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_fact_table_pred"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_list_query_func_fact_table"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_query_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_resource_to_class_indiv_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_fact_table"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_type"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_typeclass"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_upcast_pred"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleReadOnlyWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">Properties and classes that are made members of this class will get code to query an explicit source.  The explore predicate is not generated.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_cast_pred_with_source"/>
+        <owl:onProperty rdf:resource="#cast_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_list_query_func_with_source"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_query_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_indiv_to_resource_func"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_inverse_list_query_func_with_source"/>
+        <owl:onProperty rdf:resource="#property_inverse_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_list_query_func_with_source"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_query_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_resource_to_class_indiv_pred_with_source"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_with_source"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_type"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_typeclass"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_upcast_pred"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleStaticStore">
+    <rdfs:comment rdf:datatype="&xsd;string">Properties and classes that are made members of this class will get code to query a hidden static store.  The explore predicate is not generated.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_cast_pred_static_store"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_query_pred_static_store"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_indiv_to_resource_func"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_list_query_func_static_store"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_query_pred_static_store"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_resource_to_class_indiv_pred_static_store"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_static_store"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_type"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_typeclass"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_upcast_pred"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SimpleUpdatableWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">Properties and classes that are made members of this class will get code to query and update an explicit source.  The explore predicate is not generated.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_cast_pred_with_source"/>
+        <owl:onProperty rdf:resource="#cast_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_assert_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_delete_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_insert_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_list_query_func_with_source"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_query_pred_with_source"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_indiv_to_resource_func"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_newborn_cast_pred"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_newborn_upcast_pred"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_delete_all_with_source"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_insert_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_inverse_list_query_func_with_source"/>
+        <owl:onProperty rdf:resource="#property_inverse_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_list_query_func_with_source"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_query_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_set_all_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_set_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_unset_pred_with_source"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_resource_to_class_indiv_pred_with_source"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_with_source"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_type"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_typeclass"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_upcast_pred"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Static">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#static"/>
+        <owl:onProperty rdf:resource="#evaluation_method"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticPlainMercury">
+    <owl:equivalentClass rdf:resource="#PlainMercury"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_cast_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_fact_table_pred"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_query_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_explore_pred"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_indiv_to_resource_func"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_inst"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_fact_table_pred"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_list_query_func_fact_table"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_query_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_resource_to_class_indiv_pred_fact_table"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_fact_table"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_fact_table"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_type"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_typeclass"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_upcast_pred"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="StaticRdfStore">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#RdfStore"/>
+          <rdf:Description rdf:about="#Static"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_cast_pred_static_store"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_query_pred_static_store"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_explore_pred"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_indiv_to_resource_func"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_list_query_func_static_store"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_query_pred_static_store"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_resource_to_class_indiv_pred_static_store"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_static_store"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_func_static_store"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_subclass_selector_type"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_type"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_typeclass"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_upcast_pred"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SubclassSelectorFuncFactTable">
+    <rdfs:comment rdf:datatype="&xsd;string">A function that can be used to generate a subclass selector from an individual.
+The subclass selector can then be used to switch on the subclass the individual
+belongs to.
+
+The signature of the predicate is:
+
+:- func &lt;name&gt;(individual(C)) = &lt;subclass_selector_type&gt;
+  &lt;= &lt;typeclass&gt;(C).
+
+where &lt;typeclass&gt; is the generated typeclass for the OWL class
+and &lt;subclass_selector_type&gt; is the generated subclass selector
+type.
+
+This function is only generated when the class is equivalent to exactly one union
+of named classes and all of the classes in that union are disjoint.
+
+The function will look in a generated fact table to work out what
+subclass the individual belongs to.
+
+See also SubclassSelectorType and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SubclassSelectorFuncStaticStore">
+    <rdfs:comment rdf:datatype="&xsd;string">A function that can be used to generate a subclass selector from an individual.
+The subclass selector can then be used to switch on the subclass the individual
+belongs to.
+
+The signature of the predicate is:
+
+:- func &lt;name&gt;(individual(C)) = &lt;subclass_selector_type&gt;
+  &lt;= &lt;typeclass&gt;(C).
+
+where &lt;typeclass&gt; is the generated typeclass for the OWL class
+and &lt;subclass_selector_type&gt; is the generated subclass selector
+type.
+
+This function is only generated when the class is equivalent to exactly one union
+of named classes and all of the classes in that union are disjoint.
+
+The function will look in a static rdf store to work out what
+subclass the individual belongs to.
+
+See also SubclassSelectorType and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SubclassSelectorFuncWithSource">
+    <rdfs:comment rdf:datatype="&xsd;string">A function that can be used to generate a subclass selector from an individual.
+The subclass selector can then be used to switch on the subclass the individual
+belongs to.
+
+The signature of the predicate is:
+
+:- func &lt;name&gt;(S, individual(C)) = &lt;subclass_selector_type&gt;
+  &lt;= (&lt;typeclass&gt;(C), hedwig_query_source(S) ).
+
+where &lt;typeclass&gt; is the generated typeclass for the OWL class
+and &lt;subclass_selector_type&gt; is the generated subclass selector
+type.
+
+This function is only generated when the class is equivalent to exactly one union
+of named classes and all of the classes in that union are disjoint.
+
+The function will look in a supplied source to work out what
+subclass the individual belongs to.
+The hedwig_query_source/1 typeclass is defined in the hedwig_api module.
+
+See also SubclassSelectorType and TypeClass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SubclassSelectorType">
+    <rdfs:comment rdf:datatype="&xsd;string">A discriminated union type that can be used to switch on which subclass a particular
+individual belongs to.
+
+A separate functor is generated for each subclass of the corresponding owl class.
+This type is only generated when the class is equivalent to exactly one union of a set
+of named classes and all of the classes in that union are disjoint.
+
+For a class that is the union of the disjoint classes Subclass1, Subclass2 and Subclass3,
+the generated type will look something like the following:
+
+:- type &lt;type_name&gt;
+    ---&gt;    &apos;Subclass1&apos;(individual(&apos;Subclass1&apos;))
+    ;            &apos;Subclass2&apos;(individual(&apos;Subclass2&apos;))
+    ;            &apos;Subclass3&apos;(individual(&apos;Subclass3&apos;)).
+
+See also SubclassSelectorFuncFactTable, SubclassSelectorFuncStaticStore and SubclassSelectorFuncWithSource.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Type">
+    <rdfs:comment rdf:datatype="&xsd;string">A Mercury type corresponding to the OWL class.
+
+The type is used by various class and property predicates.
+
+The type will be made an instance of any typeclasses generated
+for superclasses of the OWL (or RDFS) class.
+These instance declarations will be made in the same module
+as the type declaration.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TypeClass">
+    <rdfs:comment rdf:datatype="&xsd;string">A Mercury typeclass corresponding to the OWL class.
+
+The typeclass is used by various class and property predicates.
+
+The generated types for any subclasses of this OWL class will be
+made instances of this typeclass.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="UpcastPred">
+    <rdfs:comment rdf:datatype="&xsd;string">A predicate that can be used to cast individuals that are members of
+subclasses to members of the class.
+
+This predicate is deterministic, since the typeclass constraints on the
+predicate ensure that the individual must always be a member of the class.
+
+This predicate has the signature:
+
+:- pred &lt;name&gt;( individual(C)::in, individual(&lt;class_type&gt;)::out) is det
+    &lt;= &lt;class_typeclass&gt;(C).
+
+where &lt;class_type&gt; is the generated type for the class and
+&lt;class_typeclass&gt; is the generated typeclass for the class.
+
+See also TypeClass and Type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="#ClassItem"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Vocabulary">
+    <owl:equivalentClass>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#vocabulary"/>
+        <owl:onProperty rdf:resource="#evaluation_method"/>
+      </owl:Restriction>
+    </owl:equivalentClass>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#cast_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_assert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_delete_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#class_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#explore_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#indiv_to_resource_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#inst"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_cast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#newborn_upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_delete_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_fact_table_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_insert_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_list_query_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_query_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_all_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_set_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#property_unset_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#resource_to_class_indiv_pred_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_fact_table"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_static_store"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_func_with_source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#subclass_selector_type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#type"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#typeclass"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#dont_generate"/>
+        <owl:onProperty rdf:resource="#upcast_pred"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_class_uri_func"/>
+        <owl:onProperty rdf:resource="#class_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:hasValue rdf:resource="#standard_property_uri_func"/>
+        <owl:onProperty rdf:resource="#property_uri_func"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="qualified_name">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Item"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="backend">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This annotation is only meant to be applied to classes or properties.  It tells hedwig where data about the class or property should be stored.  The declarative semantics of the generated code should be the same irrespective of the backend.</rdfs:comment>
+    <rdfs:range rdf:resource="#Backend"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="cast_pred_fact_table">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#CastPredFactTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="cast_pred_static_store">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#CastPredStaticStore"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="cast_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#CastPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_assert_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassAssertPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_delete_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassDeletePredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_fact_table_pred">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassFactTablePred"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_insert_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassInsertPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_list_query_func_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassListQueryFuncWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_query_pred_fact_table">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassQueryPredFactTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_query_pred_static_store">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassQueryPredStaticStore"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_query_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassQueryPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="class_uri_func">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ClassURIFunc"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="domain">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#RestrictedProperty"/>
+    <rdfs:range rdf:resource="&rdfs;Class"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="evaluation_method">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This annotation is meant only to be applied to classes or properties.  It tells hediwg about the intended semantics of the class or property.  Hedwig uses this information, in combination with the backend annoation, to decide what sort of code to generate for the class or property.</rdfs:comment>
+    <rdfs:range rdf:resource="#EvaluationMethod"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="explore_pred">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ExplorePred"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="indiv_to_resource_func">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#IndivToResourceFunc"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="inst">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#Inst"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="newborn_cast_pred">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#NewbornCastPred"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="newborn_upcast_pred">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#NewbornUpcastPred"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#RestrictedProperty"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_delete_all_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyDeleteAllPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_fact_table_pred">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyFactTablePred"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_insert_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyInsertPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_inverse_list_query_func_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:range rdf:resource="#PropertyInverseListQueryFuncWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_list_query_func_fact_table">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyListQueryFuncFactTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_list_query_func_static_store">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyListQueryFuncStaticStore"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_list_query_func_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyListQueryFuncWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_query_pred_fact_table">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyQueryPredFactTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_query_pred_static_store">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyQueryPredStaticStore"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_query_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyQueryPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_set_all_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertySetAllPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_set_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertySetPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_unset_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyUnsetPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="property_uri_func">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#PropertyItemDomain"/>
+    <rdfs:range rdf:resource="#PropertyURIFunc"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="resource_to_class_indiv_pred_fact_table">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ResourceToClassIndivPredFactTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="resource_to_class_indiv_pred_static_store">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ResourceToClassIndivPredStaticStore"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="resource_to_class_indiv_pred_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#ResourceToClassIndivPredWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="subclass_selector_func_fact_table">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#SubclassSelectorFuncFactTable"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="subclass_selector_func_static_store">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#SubclassSelectorFuncStaticStore"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="subclass_selector_func_with_source">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#SubclassSelectorFuncWithSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="subclass_selector_type">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#SubclassSelectorType"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="type">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#Type"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="typeclass">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#TypeClass"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="upcast_pred">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#ClassItemDomain"/>
+    <rdfs:range rdf:resource="#UpcastPred"/>
+  </owl:FunctionalProperty>
+  <owl:Ontology rdf:about="">
+    <evaluation_method rdf:resource="#omit"/>
+  </owl:Ontology>
+  <owl:Thing rdf:ID="default">
+    <rdfs:comment xml:lang="en">Besides classes, properties and namespaces, item annotations can also be placed on the default individual.  Any such annotations will be used for classes or properties that don&apos;t have an annotation, or whose namespaces don&apos;t have an annotation.</rdfs:comment>
+  </owl:Thing>
+</rdf:RDF>

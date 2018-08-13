@@ -1,0 +1,16 @@
+import <http://www.missioncriticalit.com/ontologies/suggestDisjoints.swd> as sd.
+
+{{#is a sd:DisjointSuggestions}}
+# from {{{.}}}
+{{#sd:suggestDisjointActual}}
+
+# from Class <{{{sd:root}}}>
+<{{{.}}}> is a owl:AllDisjointClasses;
+    owl:members(
+{{#sd:disClass}}
+    <{{{.}}}>
+{{/sd:disClass}}
+).
+{{/sd:suggestDisjointActual}}
+
+{{/is a sd:DisjointSuggestions}}

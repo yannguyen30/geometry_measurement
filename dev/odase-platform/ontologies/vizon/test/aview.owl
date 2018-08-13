@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns="http://www.missioncriticalit.com/vizon/aview.owl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:p1="http://www.missioncriticalit.com/vizon/test01.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:sqwrl="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:ns0="http://www.missioncriticalit.com/vizon/view.owl#"
+    xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
+  xml:base="http://www.missioncriticalit.com/vizon/aview.owl">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl"/>
+    <owl:imports rdf:resource="http://www.missioncriticalit.com/vizon/view.owl"/>
+  </owl:Ontology>
+  <ns0:View rdf:about="http://test.com#theview">
+    <ns0:shows>
+      <ns0:ClassConfig rdf:ID="cc9">
+        <ns0:configures rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+      </ns0:ClassConfig>
+    </ns0:shows>
+    <ns0:shows>
+      <ns0:ClassConfig rdf:ID="cc8">
+        <ns0:configures rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#B"/>
+      </ns0:ClassConfig>
+    </ns0:shows>
+    <ns0:shows_data_properties rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_data_properties>
+    <ns0:shows>
+      <ns0:ClassConfig rdf:ID="cc5">
+        <ns0:configures rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#D"/>
+      </ns0:ClassConfig>
+    </ns0:shows>
+    <ns0:shows>
+      <ns0:ClassConfig rdf:ID="cc3">
+        <ns0:configures rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#City"/>
+      </ns0:ClassConfig>
+    </ns0:shows>
+    <ns0:shows>
+      <ns0:ClassConfig rdf:ID="cc4">
+        <ns0:configures rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#Country"/>
+      </ns0:ClassConfig>
+    </ns0:shows>
+    <ns0:shows>
+      <ns0:ClassConfig rdf:ID="cc2">
+        <ns0:configures rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#C"/>
+      </ns0:ClassConfig>
+    </ns0:shows>
+    <ns0:shows_sub_class_relationship rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_sub_class_relationship>
+    <ns0:shows_object_properties rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_object_properties>
+    <ns0:shows>
+      <ns0:ClassConfig rdf:ID="cc1">
+        <ns0:configures rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#A"/>
+      </ns0:ClassConfig>
+    </ns0:shows>
+  </ns0:View>
+  <ns0:GroupOfViewForOntology rdf:ID="GroupOfViewForOntology_1">
+    <ns0:views_for rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >http://www.missioncriticalit.com/vizon/test01.owl</ns0:views_for>
+  </ns0:GroupOfViewForOntology>
+  <ns0:SimpleViewAllSubClasses rdf:ID="SimpleViewAllSubClasses_3">
+    <ns0:simply_shows_subclasses_of rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#City"/>
+    <ns0:shows_sub_class_relationship rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_sub_class_relationship>
+    <ns0:simply_shows_subclasses_of rdf:resource="http://www.missioncriticalit.com/vizon/test01.owl#B"/>
+    <ns0:shows_classes_equivalent_condition rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_classes_equivalent_condition>
+    <ns0:shows_object_properties rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_object_properties>
+    <ns0:output_as>
+      <ns0:AutomaticSizeViewAsSVG rdf:ID="AutomaticSizeViewAsSVG_4">
+        <ns0:outputs rdf:resource="#SimpleViewAllSubClasses_3"/>
+      </ns0:AutomaticSizeViewAsSVG>
+    </ns0:output_as>
+    <ns0:output_as>
+      <ns0:ViewAsHTML rdf:ID="ViewAsHTML_2">
+        <ns0:embeds rdf:resource="#AutomaticSizeViewAsSVG_4"/>
+        <ns0:outputs rdf:resource="#SimpleViewAllSubClasses_3"/>
+      </ns0:ViewAsHTML>
+    </ns0:output_as>
+    <ns0:shows_classes_necessary_condition rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_classes_necessary_condition>
+    <ns0:shows_data_properties rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</ns0:shows_data_properties>
+  </ns0:SimpleViewAllSubClasses>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.4.4, Build 579)  http://protege.stanford.edu -->

@@ -1,0 +1,9 @@
+ontology <http://www.missioncriticalit.com/ontologies/baseBuiltins.swd>.
+import <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl> as aggr.
+import <http://www.missioncriticalit.com/ontologies/builtins/time_builtins.owl> as time.
+import <http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl> as conv.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://www.missioncriticalit.com/ontologies/spreadsheet_builtins.owl> as excel.
+import <http://www.missioncriticalit.com/ontologies/builtins/financial_builtins.owl> as fin.
+import <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl> as indiv.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/abox.owl> as abox.

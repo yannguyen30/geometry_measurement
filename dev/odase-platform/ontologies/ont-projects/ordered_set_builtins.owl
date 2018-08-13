@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://www.missioncriticalit.com/ontologies/builtins/ordered_set_builtins.owl#"
+  xml:base="http://www.missioncriticalit.com/ontologies/builtins/ordered_set_builtins.owl">
+  <owl:Ontology rdf:about=""/>
+  <swrl:Builtin rdf:ID="successor">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">successor({?ta, ?tb, ... | ?ta p ?x and...}, ?elementa, ?elementb, ?successora, ?successorb) will take the tuples resulting from the given expression, sort the tuples (based on swrlb order), and bind element_ and successor_ to each element of the sorted set and their successor, if it has any. Note that in the future (NYI), the ordering relation will be passed as a parameter. Until then, the order is actually total between tuples.</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="rank">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">rank({?ta, ?tb, ... | ?ta p ?x and...}, ?rank, ?elementa, ?elementb) will take the tuples resulting from the given expression, sort the tuples (based on swrlb order), and bind element_ and rank to each element of the sorted set and their rank in the ordered set. The rank is 0-based and represents the depth in a topological sort. Note that in the future (NYI), the ordering relation will be passed as a parameter. Until then, the order is actually total between tuples.</rdfs:comment>
+  </swrl:Builtin>
+</rdf:RDF>

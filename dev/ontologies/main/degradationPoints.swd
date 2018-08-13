@@ -1,0 +1,71 @@
+ontology <http://www.mesea.fr/onto-maintenance/ontologies/main/degradationPoints.swd>.
+
+import <http://www.mesea.fr/onto-maintenance/ontologies/main/businessModel.owl> as bm.
+
+
+rule measurement-is-degradation-points
+if ?m is a bm:Measurement
+    and ?m bm:followedByMeasurement ?nm
+    and ?m bm:precededByMeasurement ?pm
+    and ?m bm:deviationValue ?mValue
+    and ?nm bm:deviationValue ?nmValue
+    and ?pm bm:deviationValue ?pmValue
+then
+        (if ?mValue >= ?nmValue and ?mValue >= ?pmValue
+            then ?m is a bm:DegradationPoint)
+        and (if ?mValue =< ?nmValue and ?mValue =< ?pmValue
+            then ?m is a bm:DegradationPoint).            
+
+rule nominal-points
+if ?d is a bm:DegradationPoint 
+    and ?d bm:deviationValue ?value
+    and ?value > "-2"^^xsd:int and ?value < "2"^^xsd:int
+then ?d is a bm:NominalPoint.
+
+    
+
+rule alert-points
+if ?d is a bm:DegradationPoint 
+    and ?d bm:deviationValue ?value
+    and ?value > "-3"^^xsd:int and ?value < "3"^^xsd:int
+    and NAF (?d is a bm:NominalPoint)
+then ?d is a bm:AlertPoint.
+
+rule intervention-points
+if ?d is a bm:DegradationPoint 
+    and ?d bm:deviationValue ?value
+    and ?value > "-5"^^xsd:int and ?value < "5"^^xsd:int
+    and NAF (?d is a bm:NominalPoint)
+    and NAF (?d is a bm:AlertPoint)
+then ?d is a bm:InterventionPoint.
+
+
+rule slowdown-points
+if ?d is a bm:DegradationPoint 
+    and ?d bm:deviationValue ?value
+then
+    (if ?value >= "5"^^xsd:int
+    then ?d is a bm:SlowdownPoint)
+  and 
+    (if ?value =< "-5"^^xsd:int
+    then ?d is a bm:SlowdownPoint).
+
+rule degradationOfRailProperty
+if ?d is a bm:DegradationPoint
+    and ?d bm:isMeasurementOfRail ?rail
+then ?d bm:isDegradationPointOfRail ?rail.
+        
+rule attention-points
+if ?normalP is a bm:NominalPoint
+    and ?normalP bm:isDegradationPointOfRail ?rail1
+    and ?rail1 bm:belongsToTrack ?track
+    and ?track bm:composedOfRail ?rail2
+    and NAF(?rail1 = ?rail2)
+    and ?rail2 bm:hasDegradationPoint ?alertP
+    and ?alertP bm:distance ?distance2
+    and ?normalP bm:distance ?distance1
+    and ?distance1 = ?distance2
+    and ?alertP is a bm:AlertPoint
+then
+    ?normalP is a bm:AttentionPoint.
+    

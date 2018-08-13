@@ -1,0 +1,26 @@
+ontology <http://www.missioncriticalit.com/ontologies/xsdRestrictions.swd>.
+
+import <http://www.owl-ontologies.com/2005/08/07/xsp.owl> as xsp.
+
+class RestrictedDatatype extends rdfs:Datatype with
+    hasBaseType object single,
+    hasRestriction range XSDRestriction.
+
+class XSDRestriction with
+    facet object single,
+    value data single
+.
+
+
+
+if ?dt is a rdfs:Datatype
+    and xsp:facetsOfDatatype(?dt, ?base, ?facet, ?value)
+    and ?restriction function of [XSDRestriction, ?dt, ?facet]
+then ?dt is a RestrictedDatatype
+    and ?dt hasRestriction ?restriction
+    and ?dt hasBaseType ?base
+    and ?restriction is a XSDRestriction
+    and ?restriction facet ?facet
+    and ?restriction value ?value
+.
+    

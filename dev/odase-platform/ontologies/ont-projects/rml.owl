@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY ql "http://semweb.mmlab.be/ns/ql#">
+  <!ENTITY r2rml "http://www.w3.org/ns/r2rml#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://semweb.mmlab.be/ns/rml"
+    xmlns="http://semweb.mmlab.be/ns/rml#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:ql="&ql;"
+    xmlns:r2rml="&r2rml;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <ReferenceFormulation rdf:about="&ql;CSV"/>
+  <ReferenceFormulation rdf:about="&ql;JSONPath"/>
+  <ReferenceFormulation rdf:about="&ql;XPath"/>
+  <owl:Class rdf:ID="BaseSource">
+    <owl:disjointWith rdf:resource="#ReferenceFormulation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LogicalSource">
+    <owl:disjointWith rdf:resource="#ReferenceFormulation"/>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#iterator"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#referenceFormulation"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#source"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ReferenceFormulation">
+    <owl:disjointWith rdf:resource="#BaseSource"/>
+    <owl:disjointWith rdf:resource="#LogicalSource"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="iterator">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#LogicalSource"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="reference">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="&r2rml;TermMap"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="version">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#LogicalSource"/>
+    <rdfs:range rdf:resource="&xsd;string"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="logicalSource">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="&r2rml;TriplesMap"/>
+    <rdfs:range rdf:resource="#LogicalSource"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="referenceFormulation">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#LogicalSource"/>
+    <rdfs:range rdf:resource="#ReferenceFormulation"/>
+  </owl:FunctionalProperty>
+  <owl:ObjectProperty rdf:ID="source">
+    <rdfs:domain rdf:resource="#LogicalSource"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.w3.org/ns/r2rml"/>
+  </owl:Ontology>
+  <rdf:Description rdf:about="&r2rml;BaseTableOrView">
+    <rdfs:subClassOf rdf:resource="#BaseSource"/>
+  </rdf:Description>
+</rdf:RDF>

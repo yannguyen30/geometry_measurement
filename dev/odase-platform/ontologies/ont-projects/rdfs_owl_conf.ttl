@@ -1,0 +1,108 @@
+@prefix : <http://ontologies.missioncriticalit.com/rdfs_owl_conf#> .
+
+@prefix owl:       <http://www.w3.org/2002/07/owl#> .
+@prefix owl-aggr:  <http://missioncriticalit.com/owl-aggr.owl#> .
+@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:       <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix hedwig:   <http://www.missioncriticalit.com/ontologies/hedwig.owl#> .
+
+# This class defines what items are generated for the API.
+:ItemSet
+    a owl:Class ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:type ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${class_ns_abbrev}.${class_local_name}"
+        ]
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:typeclass ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${class_ns_abbrev}.${class_local_name}"
+        ]
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:cast_pred_with_source ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${class_ns_abbrev}.to_${class_local_name}"
+        ]
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:class_query_pred_with_source ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${class_ns_abbrev}.${class_local_name}"
+        ]
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:class_list_query_func_with_source ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${class_ns_abbrev}.all_${class_local_name}"
+        ]
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:property_list_query_func_with_source ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${domain_ns_abbrev}.${domain_local_name}.all_${property_local_name}"
+        ]
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:property_inverse_list_query_func_with_source ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${domain_ns_abbrev}.${domain_local_name}.inv_${property_local_name}"
+        ]
+    ] ;
+    rdfs:subClassOf [
+        a owl:Restriction ;
+        owl:onProperty hedwig:property_query_pred_with_source ;
+        owl:hasValue [
+            hedwig:qualified_name
+                "${package}.${domain_ns_abbrev}.${domain_local_name}.${property_local_name}"
+        ]
+    ] .
+
+owl:        a :ItemSet.
+owl-aggr:   a :ItemSet.
+rdf:        a :ItemSet.
+rdfs:       a :ItemSet.
+
+owl:        hedwig:module_name "owl".
+owl-aggr:   hedwig:module_name "owl_aggr".
+rdf:        hedwig:module_name "rdf".
+rdfs:       hedwig:module_name "rdfs".
+
+# xsd:nonNegativeInteger is used as the range of cardinality restrictions.
+xsd:nonNegativeInteger
+    hedwig:type_name             "int" ;
+    hedwig:to_rdf_literal_func   "hedwig_api.runtime.type_conversion.int_to_rdf_literal" ;
+    hedwig:from_rdf_literal_pred "hedwig_api.runtime.type_conversion.rdf_literal_to_int" .
+
+
+# Define an rdfs:superClassOf property which is the inverse of rdfs:subClassOf.
+
+rdfs:superClassOf a rdf:Property ;
+        rdfs:domain rdfs:Class ;
+        rdfs:range  rdfs:Class ;
+        owl:inverseOf rdfs:subClassOf.
+
+# Generate a fact table for rdfs:superClassOf.
+# This is currently used by the wax_hedwig parser.
+
+rdfs:superClassOf
+        hedwig:property_query_pred_fact_table [hedwig:qualified_name
+            "${package}.static.static_${property_local_name}" ] .

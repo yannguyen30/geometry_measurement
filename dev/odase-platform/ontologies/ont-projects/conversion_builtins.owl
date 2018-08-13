@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/builtins/conversion_builtins.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>
+  </owl:Ontology>
+  <swrl:Builtin rdf:ID="float_bool">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">float_bool(0.0, false)
+float_bool(1.0, true)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="string_bool">
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="int_bool">
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="string_int">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Deprecated due to non determinism when the string has leading 0's</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="string_integer">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Deprecated due to non determinism when the string has leading 0's</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="fixedSizeStringToInt">
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">fixedSizeStringToInt(?string,?int,?size) is true iff ?int is an xsd:int whose cannonical representation when padded with as many 0's on the left as needed to acheive a total number of characters (including a possible minus if ?int is less then 0) is equal to ?string</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="cannonicalStringToInt">
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cannonicalStringToInt(?string, ?int) is true iff ?int is an xsd:int whose cannonical representation (without leading of 0's) is equal to ?string</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="float_int">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">float_int(?f, ?i) is true iff ?f is a float with no fraction part and ?i is the integer part of ?f (?i is an xsd:int).</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="decimal_int">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Convert a decimal to an integer</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="decimal_integer">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">decimal_integer(?d, ?i) is true iff ?d is a decimal with no fraction part and ?i is the integer part of ?d (?i is an xsd:integer).</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="float_to_decimal">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">float_to_decimal(?precision, ?float, ?decimal)
+
+Convert a xsd:float to a xsd:decimal.  The float is rounded to the given precision.  ?precision and ?float must be bound.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="to_string">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">to_string(?any_literal_val, ?string_val)
+
+Convert any literal to an xsd:string.
+Note that this definition breaks the convention that SWRL builtins should
+      have the output argument first in the list of arguments.
+This was chosen to follow the convention of all other bultins in this module.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="gYearMonth">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gYearMonth(?gYearMonth, ?year, ?month)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dateTimeTime">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dateTimeTime(?dateTime, ?time) returns in the second argument the xsd:time part of the first xsd:dateTime argument.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="anyStringToLocalName">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anyStringToLocalName(?localName, ?string) returns in the first argument a valid local name corresponding to some string given in the second argument.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dateTimeDate">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dateTimeDate(?dateTime, ?date) returns in the second argument the xsd:date part of the first xsd:dateTime argument.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="roundDecimal">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">roundDecimal(?x, ?y, ?precision) iff ?x is ?y rounded to ?precision decimal places.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="floorDecimal">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">floorDecimal(?x, ?y, ?precision) iff ?x is ?y floored to ?precision decimal places.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="intFormat">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">intFormat(?formattedInt, ?int, ?formatString) returns in the first argument the formatted string which represents the xsd:int of the second argument, formatted using the format string (in the traditional C form) of the third argument.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="normalizeStringToPrintableASCII">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">normalizeStringToPrintableASCII(?normalized, string) replaces every character in string by closest printable ascii</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="replaceNonAlphaNumBy">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">replaceNonAlphaNumBy(?normalized, string, replacement) replaces every character in string which is not ascii alpha num by replacement</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="hexBinaryBitRangeToInt">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hexBinaryBitRangeToInt(?result, hexBinary, start, length) takes the bits from the binary represenented by the hex string from start, with a length, and convert to an integer, fails if the length is more than the capacity of int (32)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</swrlb:args>
+</swrl:Builtin>
+  <swrl:Builtin rdf:ID="hexBinaryBitRangeToLittleEndianInteger">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hexBinaryBitRangeToInteger(?result, hexBinary, start, length) takes the bits from the binary represenented by the hex string from start, with a length, and convert to an integer</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</swrlb:args>
+</swrl:Builtin>
+  <swrl:Builtin rdf:ID="binaryBitRangeToInt">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">binaryBitRangeToInt(?result, binary, start, length) takes the bits from the binary represenented by the string (001010...) from start, with a length, and convert to an integer, fails if the length is more than the capacity of int (32)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="binaryBitToBoolean">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">binaryBitToBoolean(?result, binary, index) takes the bits from the binary represenented by the string (001010...), pick the bit at index, and transform to boolean</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="castAs">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">castAs(?result,input, uri_type_string) takes a  typed literal as input, and casts it as the xsd type descrived  by the uri_type if the type of the input literal's type is a sub type of uri type, or if the base of the input literal is a super type of the uri_type and the value of the input literal complies with the possible restrictions of uri_type. Fails otherwise. </rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="stringLanguageLiteral">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">stringLanguageLiteral(string, lge, literal) succeeds if the first argument is a string typed literal with the same value as the third argument, and the third argument is a language tagged literal with the same language as the second argument.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="capitalizedWordsSplitAndJoin">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">capitalizedWordsSplitAndJoin(result, capitalizedWordsString, separator) succeeds if the first argument is a string that is made up of words separated at every capital letter and rejoined with the third argument.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="wordsToCamelCase">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">wordsToCamelCase(result, string, wordSeparatorRegExp) succeeds if the first argument is a CamelCase string that is constructed form words found un the second argument split up using the regular expression in the third argument. wordSeparatorRegExp(CamelCase, CAmEl-cAsE, -)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="changeCaseFirstLetter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">changeCaseFirstLetter(result, string) succeeds if the first argument is a the same string as the second argument, but with the first letter case being the opposite of the case of the first letter of the second argument.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="mergeOverlappingStrings">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mergeOverlappingStrings(result, string1, string2) succeeds if the first argument is a string the merge of string1 and string2 with the largest overlapping end of string1 and beginnning of string2 being merged. For instance mergeOverlappingStrings(abcdef, abcd, cdef).</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+</rdf:RDF>
+

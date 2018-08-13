@@ -1,0 +1,22 @@
+ontology <http://ontologies.missioncriticalit.com/service.swd>.
+
+import <http://ontologies.missioncriticalit.com/service.owl> as s.
+import <http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl> as uri.
+
+# Used by property validation generator
+
+class s:SemanticServiceFixedScope with
+    s:serviceLocalName range xsd:string single,
+    s:ignoredProperty range rdf:Property.
+
+if ?service is a s:SemanticServiceFixedScope
+    and uri:splitUri(?service, ?_, ?serviceLocalName)
+then
+    ?service s:serviceLocalName ?serviceLocalName.
+
+if ?service is a s:SemanticServiceFixedScope
+    and ?service s:serviceProducesProperty ?p
+    and NAF(?service s:serviceConsumesProperty ?p)
+    and NAF(?service s:serviceInspectsObjectProperty ?p)
+then
+    ?service s:ignoredProperty ?p.    

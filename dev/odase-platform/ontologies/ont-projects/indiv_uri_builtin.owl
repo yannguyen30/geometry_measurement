@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/builtins/indiv_uri_builtin.owl#"
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrl"/>
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>
+  </owl:Ontology>
+  <swrl:Builtin rdf:ID="indiv_uri">
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:deprecated>
+    <rdfs:comment rdf:datatype="&xsd;string">indiv_uri(?indiv, ?prefix, ?suffix)
+
+True iff the uri ?prefix concatenated with ?suffix can be used to uniquely identify the individual ?indiv.
+
+?prefix and ?suffix must be bound.
+
+The builtin may return incomplete results.</rdfs:comment>
+    <swrlb:args rdf:datatype="&xsd;int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="individualDependsOn"/>
+  <swrl:Builtin rdf:ID="individualDependsOnObjects">
+    <rdfs:comment rdf:datatype="&xsd;string">individualDependsOnObjects(?indiv, ?prefix, ?object*)
+True iff the uri ?prefix concatenated with a unique string generated from the list ?object* is
+used to uniquely identify the individual ?indiv.
+Allowed modes are individualDependsOnObjects(in, in, (out/in)*), individualDependsOnObjects(in/out, in, in*)
+</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="individualDependsOnObjectsInOuts">
+    <rdfs:comment rdf:datatype="&xsd;string">individualDependsOnObjectsInOuts(indiv, prefix, ?object*)
+        is the same as individualDependsOnObjects(indiv, prefix, ?object*), except that only the mode 
+        individualDependsOnObjects(in, in, (out/in)*) is supported, all other modes will lead to failure (not unbound).
+        Use this builtin with lots of caution, make sure you understand the consequences.
+</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="individualComposedFrom">
+      <rdfs:comment rdf:datatype="&xsd;string">individualComposedFrom(?result, sep_1, type_1, ?value_1, encoded_1, ..., sep_n, type_n, ?value_n, sep_n+1). For instance individualComposedFrom(?result, "s1", &lt;&gt;, ?x, false, "/", "http...#int", ?y, true, "/") corresponds to ?result composed from &lt;s1{[?x]}/{?y^^^xsd:int}/&gt;</rdfs:comment>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="splitUri">
+    <rdfs:comment rdf:datatype="&xsd;string">splitUri(?uri, ?ns, ?localName)
+
+True iff the uri ?uri consists of the namespace ?ns with local name ?localName.
+
+Either ?uri or ?ns and ?localName must be bound.
+</rdfs:comment>
+    <swrlb:args rdf:datatype="&xsd;int">3</swrlb:args>
+  </swrl:Builtin>
+</rdf:RDF>

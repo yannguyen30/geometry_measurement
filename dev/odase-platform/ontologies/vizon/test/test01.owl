@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/vizon/test01.owl"
+    xmlns="http://www.missioncriticalit.com/vizon/test01.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Class rdf:ID="A"/>
+  <owl:Class rdf:ID="B"/>
+  <owl:Class rdf:ID="C">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class>
+            <owl:unionOf rdf:parseType="Collection">
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;int">2</owl:minCardinality>
+                <owl:onProperty rdf:resource="#c2b"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:onProperty rdf:resource="#c2b"/>
+                <owl:someValuesFrom rdf:resource="#A"/>
+              </owl:Restriction>
+            </owl:unionOf>
+          </owl:Class>
+          <rdf:Description rdf:about="#B"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="City">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+        <owl:onProperty rdf:resource="#is_in_country"/>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Country"/>
+  <owl:Class rdf:ID="D">
+    <rdfs:subClassOf rdf:resource="#City"/>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="has_GNP">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Country"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="has_population">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#City"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="has_capital_city">
+    <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Country"/>
+    <rdfs:range rdf:resource="#City"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="is_in">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#City"/>
+    <rdfs:range rdf:resource="#Country"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="is_in_country">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#City"/>
+    <rdfs:range rdf:resource="#Country"/>
+  </owl:FunctionalProperty>
+  <owl:ObjectProperty rdf:ID="a2b">
+    <rdfs:domain rdf:resource="#A"/>
+    <rdfs:range rdf:resource="#B"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="a2c">
+    <rdfs:domain rdf:resource="#A"/>
+    <rdfs:range rdf:resource="#C"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="a2d">
+    <rdfs:domain rdf:resource="#A"/>
+    <rdfs:range rdf:resource="#D"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="c2b">
+    <rdfs:domain rdf:resource="#C"/>
+    <rdfs:range rdf:resource="#B"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="d2b">
+    <rdfs:domain rdf:resource="#D"/>
+    <rdfs:range rdf:resource="#B"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about=""/>
+</rdf:RDF>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/spreadsheet_builtins.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/spreadsheet_builtins.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:FunctionalProperty rdf:ID="filename">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">The spreadsheet filename.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="input_worksheet">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">The worksheet that contains the input cells.  The eval_spreadsheet builtin will use this to determine which labels refer to cells which are inputs.  This functionallity is depreceated.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:FunctionalProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrl"/>
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>
+  </owl:Ontology>
+  <swrl:Builtin rdf:ID="eval">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">eval(?spreadsheet, ?label_1, ?value_1, ..., ?label_n, ?value_n, ss:inputs, ?ilabel_1, ?ivalue_1, ..., ?ilabel_n, ?ivalue_n, ss:outputs, ?olabel_1, ?ovalue_1, ..., ?olabel_n, ?ovalue_n)
+
+Evaluate a spreadsheet with some input.
+
+?spreadsheet should be bound to a string that identifies the spreadsheet.
+
+All argument pairs after ss:inputs are treated as inputs.  That is if ?ilabel_x is a label in the ?spreadsheet then ?ivalue_x is set in the spreadsheet for that label.  ?ivalue_x must be bound to a value.
+
+All argument pairs after ss:outputs are treated as outputs. That is the ?ovalue_x is bound to the value after looking up ?olabel_x in the spreadsheet.  If ?olabel_x is already bound, then the swrl engine will check to see if the value is compatible with the value calculated by the spreadsheet.
+
+The following statement is still true, but this feature is depreceated and will be removed at a later date.
+
+if ?label_x is a label in the inputs_worksheet for the given ?spreadsheet then ?value_x is set in the spreadsheet before execution (i.e. is an input), otherwse ?value_x is bound to the value of cell pointed to by ?label_x after the executing the spreadsheet (i.e. is an output).  Input arguments must be bound when the builtin is called.  Output arguments can be bound or free.
+
+</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="lookup">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lookup(?spreadsheet, ?worksheet, ?key_column, ?key, ?output_column_1, ?output_1, ... ?output_column_n, ?output_n)
+
+Lookup values in a spreadsheet using one column as a key (similar to the excel VLOOKUP function).
+
+?spreadsheet should be bound to a string that identifies the spreadsheet.  ?worksheet should be bound to the worksheet name to do the lookup in (also a string).
+
+?key_column identifies the column containing the key.  It should be an int, starting at 1. This argument must always be bound.  The first row of the key column is always ignored (since this usually contains a heading for the column).
+
+?key is the value to match in the key column.  If this is bound then the rows whose values equal the key will be matched. If it is free, then it will be bound to all values in the column (except the first row).
+
+?output_column_&lt;i&gt; identifies a column containing values (int starting from 1) for the key.  This argument should always be bound.  ?output_&lt;i&gt; is the corresponding output value.  It may be bound or free.</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">6</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="decisionTable">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">decisionTable(?spreadsheet, ?worksheet, ?output_column, ?output, ?input_column_1, ?input_1, ... ?input_column_n, ?input_n)
+
+?spreadsheet should be bound to a string that identifies the spreadsheet.  ?worksheet should be bound to the worksheet name to do the lookup in (also a string).
+
+?input_column_x identifies the column containing one of the key to match.  It should be an int, starting at 1. This argument must always be bound.
+
+?input_x is the value to match in the corresponding column, it must be bound.
+
+?output_column identifies the column containing values (int starting from 1) for the output.  This argument should always be bound.  ?output is the corresponding output value.  It may be bound or free.</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</swrlb:minArgs>
+  </swrl:Builtin>
+</rdf:RDF>
+

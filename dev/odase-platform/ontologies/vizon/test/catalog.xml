@@ -1,0 +1,5 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+	<uri name="http://www.missioncriticalit.com/vizon/test01.owl" uri="test01.owl"/>
+	<nextCatalog catalog="../catalog.xml"/>
+</catalog>
+

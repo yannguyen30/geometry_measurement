@@ -1,0 +1,9 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="view" uri="http://www.missioncriticalit.com/vizon/view.owl"/>
+  <uri name="view2" uri="http://www.missioncriticalit.com/vizon/vizon_rules.swd"/>
+	<rewriteURI uriStartString="http://www.missioncriticalit.com/vizon/" rewritePrefix="./"/>
+	<nextCatalog catalog="../ont-projects/catalog.xml"/>
+	<nextCatalog catalog="../hedwig/catalog.xml"/>
+</catalog>
+
+ 

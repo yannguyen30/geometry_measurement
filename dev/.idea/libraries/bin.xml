@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="bin">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/odase-platform/bin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/odase-platform/bin" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/odase-platform/bin" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/odase-platform/bin" recursive="false" type="SOURCES" />
+  </library>
+</component>

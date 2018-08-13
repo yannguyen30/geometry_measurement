@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY sqwrl "http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/generateModel.owl"
+    xmlns="http://ontologies.missioncriticalit.com/generateModel.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:sqwrl="&sqwrl;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrla="&swrla;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Class rdf:ID="GeneratedClass">
+    <rdfs:subClassOf rdf:resource="#GeneratedEntity"/>
+    <rdfs:subClassOf rdf:resource="&owl;Class"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratedDatatypeProperty">
+    <rdfs:subClassOf rdf:resource="#GeneratedProperty"/>
+    <rdfs:subClassOf rdf:resource="&owl;DatatypeProperty"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratedEntity"/>
+  <owl:Class rdf:ID="GeneratedIndividual">
+    <rdfs:subClassOf rdf:resource="#GeneratedEntity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratedObjectProperty">
+    <rdfs:subClassOf rdf:resource="#GeneratedProperty"/>
+    <rdfs:subClassOf rdf:resource="&owl;ObjectProperty"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GeneratedProperty">
+    <rdfs:subClassOf rdf:resource="#GeneratedEntity"/>
+    <rdfs:subClassOf rdf:resource="&rdf;Property"/>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="domainUnionOf">
+    <owl:inverseOf rdf:resource="#hasInDomain"/>
+    <rdfs:domain rdf:resource="#GeneratedProperty"/>
+    <rdfs:range rdf:resource="&owl;Class"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="generatedFrom">
+    <rdfs:domain rdf:resource="#GeneratedEntity"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="hasInDomain">
+    <owl:inverseOf rdf:resource="#domainUnionOf"/>
+    <rdfs:domain rdf:resource="#GeneratedClass"/>
+    <rdfs:range rdf:resource="&rdf;Property"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="rangeUnionOf">
+    <rdfs:domain rdf:resource="#GeneratedProperty"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl"/>
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl"/>
+  </owl:Ontology>
+  <swrl:Imp rdf:ID="generatedClass">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:classPredicate rdf:resource="#GeneratedClass"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#c"/>
+          <swrl:classPredicate rdf:resource="&owl;Class"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="generatedDatatypeProperty">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:classPredicate rdf:resource="#GeneratedDatatypeProperty"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:classPredicate rdf:resource="&owl;DatatypeProperty"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Imp rdf:ID="generatedObjectProperty">
+    <swrl:body>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:classPredicate rdf:resource="#GeneratedObjectProperty"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:body>
+    <swrl:head>
+      <swrl:AtomList>
+        <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:argument1 rdf:resource="#p"/>
+          <swrl:classPredicate rdf:resource="&owl;ObjectProperty"/>
+        </swrl:ClassAtom>
+        </rdf:first>
+        <rdf:rest rdf:resource="&rdf;nil"/>
+      </swrl:AtomList>
+    </swrl:head>
+  </swrl:Imp>
+  <swrl:Variable rdf:ID="c"/>
+  <swrl:Variable rdf:ID="p"/>
+</rdf:RDF>

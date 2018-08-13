@@ -1,0 +1,19 @@
+ontology <http://www.missioncriticalit.com/ontologies/sword.swd>.
+
+class :SwordOntology extends owl:Ontology with
+	:prefix range :SwordPrefix,
+	:source range xsd:string single.
+
+class :SwordPrefix with
+	:namespaceName range xsd:string exactly 1,
+	:localName range xsd:string single.
+	
+class :SwordRule with
+	:inOntology range :SwordOntology single,
+	:startOffset range xsd:int single,
+	:endOffset range xsd:int single.
+
+class swrl:Imp with
+	:sourceReference range :SwordRule single.
+
+

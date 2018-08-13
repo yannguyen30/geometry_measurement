@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/builtins/time_builtins.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/builtins/time_builtins.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://www.w3.org/2003/11/swrlb"/>
+  </owl:Ontology>
+  <owl:DatatypeProperty rdf:ID="currentDateTime"/>
+  <swrl:Builtin rdf:ID="now">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">now(?now) ?now is the current date time (as xsd:dateTime)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="today">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">today(?today) ?today is the current date (as xsd:date)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="thisMonth">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">thisMonth(?thisMonth) ?thisMonth is the current year/month (as xsd:gYearMonth)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="ageInMonths">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ageInMonths(?numberOfMonths, ?startDate) returns the number of months between ?startDate and now. If the start date is zoned then the now is zoned as well. If we do not know the zone of the start date, the zone from the now is ignored (we suppose that the start date is from same zone as the now).</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="ageInYears">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ageInYears(?numberOfYears, ?startDate) returns the number of years between ?startDate and now. ageInYears(?numberOfYears, ?startDate, ?endDate) returns the number of years between ?startDate and ?endDate. If the start date is zoned then the now is zoned as well. If we do not know the zone of the start date, the zone from the now is ignored (we suppose that the start date is from same zone as the now).</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:minArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dayOfWeek">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dayOfWeek(?dateTime, ?day) returns the day of the week of the dateTime (as an xsd:dateTime or xsd:date), using http://www.w3.org/2006/time#DayOfWeek instances</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="everyDurationAccumulatingSinceUntil">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">everyDurationAccumulatingSinceUntil(?resultDate, startDate(Time), duration, endDate(Time)) returns every date within start/end at every duration starting with start, end may be included.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="durationFromNow">
+      <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">durationFromNow(resultDuration, date) resultDuration is the duration between now and date (absolute duration). If the date is not zoned, then we consider that the date is in the same zone as the today zone. date must be bound and can be xsd:date or xsd:dateTime</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="anyTime">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anyTime(?anyTime) ?anyTime is some literal that respresents the time and has the smallest resolution (implem/platform dependent, but it is at least 1 second).</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="everyDay">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">everyDay(?everyDay) ?everyDay is some literal that respresents is unique for each day in time.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="everyHour">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">everyHour(?everyHour) ?everyHour is some literal that respresents is unique for each hour in time.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="everyMonth">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">everyMonth(?everyMonth) ?everyMonth is some literal that respresents is unique for each month in time.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="everyYear">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">everyYear(?everyYear) ?everyYear is some literal that respresents is unique for each year in time.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</swrlb:args>
+  </swrl:Builtin>
+
+</rdf:RDF>

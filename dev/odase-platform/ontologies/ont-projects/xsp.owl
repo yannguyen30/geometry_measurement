@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xml:base="http://www.owl-ontologies.com/2005/08/07/xsp.owl"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+  <owl:Ontology rdf:about=""/>
+
+
+  <owl:AnnotationProperty rdf:ID="base"/>
+
+  <owl:AnnotationProperty rdf:ID="fractionDigits"/>
+
+  <owl:AnnotationProperty rdf:ID="length"/>
+
+  <owl:AnnotationProperty rdf:ID="maxExclusive"/>
+
+  <owl:AnnotationProperty rdf:ID="maxInclusive"/>
+
+  <owl:AnnotationProperty rdf:ID="maxLength"/>
+
+  <owl:AnnotationProperty rdf:ID="minExclusive"/>
+
+  <owl:AnnotationProperty rdf:ID="minInclusive"/>
+
+  <owl:AnnotationProperty rdf:ID="minLength"/>
+
+  <owl:AnnotationProperty rdf:ID="pattern"/>
+
+  <owl:AnnotationProperty rdf:ID="totalDigits"/>
+
+  <swrl:Builtin rdf:ID="facetsOfDatatype">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">facetsOfDatatype(?datatype,?baseType,?facetURI, ?value) succeeds iff the owl:Datatype ?datatype is based on ?baseType and restricted via owl:withRestrictions with a ?facet (defined in xsd) with a ?value on the collection of facet restrictions.
+    </rdfs:comment>
+  </swrl:Builtin>
+  
+</rdf:RDF>

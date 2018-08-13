@@ -1,0 +1,84 @@
+ontology <http://ontologies.missioncriticalit.com/directER2OWL.swd>.
+
+import <http://ontologies.missioncriticalit.com/directER2OWL.owl> as erowl.
+import <http://www.w3.org/ns/r2rml> as r2rml.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl> as aggr.
+
+# TODO: object property is functional only if the range is the only primary key of the table
+# XXX split into two files!!
+if ?tc is a erowl:TableClass
+then ?tc is a owl:Class.
+
+if ?tc1 is a erowl:TableClass
+    and ?tc1 erowl:tableOf ?db
+    and ?tc2 is a erowl:TableClass
+    and ?tc2 erowl:tableOf ?db
+    and ?tc1 \= ?tc2
+then ?tc1 owl:disjointWith ?tc2.
+
+
+
+if ?tc is a erowl:TableClass
+    then ?tc rdfs:subClassOf erowl:Row.
+
+# domains of column-properties
+if ?cp is a erowl:ColumnProperty
+    and ?cp erowl:columnOfTableClass ?tc
+then ?cp rdfs:domain ?tc.
+    
+if ?db erowl:useDefaultSqlToXsdMapping true
+    and ?tc erowl:tableOf ?db
+    and ?cp erowl:columnOfTableClass ?tc
+    and ?cp is a erowl:ColumnProperty
+    and ?cp erowl:sqlType ?type
+    and NAF(?cp is a erowl:ForeignKeyColumn)
+    and ?tc is a erowl:TableClass
+then
+    if swrlb:containsIgnoreCase(?type, "char")
+    then ?cp is a owl:DatatypeProperty and ?cp rdfs:range xsd:string
+    if swrlb:containsIgnoreCase(?type, "integer")
+    then ?cp is a owl:DatatypeProperty and ?cp rdfs:range xsd:integer
+    if swrlb:containsIgnoreCase(?type, "date")
+    then ?cp is a owl:DatatypeProperty and ?cp rdfs:range xsd:date
+    if swrlb:containsIgnoreCase(?type, "datetime")
+    then ?cp is a owl:DatatypeProperty and ?cp rdfs:range xsd:dateTime
+    if swrlb:containsIgnoreCase(?type, "timestamp")
+    then ?cp is a owl:DatatypeProperty and ?cp rdfs:range xsd:dateTime
+.
+
+if ?cp is a erowl:ForeignKeyColumn
+    and ?cp erowl:isForeignKeyOf ?rangeColumn
+    and ?rangeColumn erowl:columnOfTableClass ?tc
+then ?cp is a owl:ObjectProperty and ?cp rdfs:range ?tc
+.
+
+
+if ?tc erowl:tableOf ?db
+    and ?tc erowl:tableName ?tname
+then
+    (if ?tc erowl:hasURIColumn ?uriCol and ?uriCol erowl:columnName ?uriName
+        and swrlb:stringConcat(?template, "{", ?uriName, "}")
+    then ?tc erowl:tableRowTemplate ?template # XXX use column instead?
+    )
+    (if NAF(?tc erowl:hasURIColumn ?_) and ?db erowl:templatePrefix ?prefix
+    then
+            # there exists at least one primary key otherwise we don't know what to choose for template
+        if ?tc erowl:hasPrimaryKey ?pk and ?pk erowl:constrainsColumn ?cp0 and ?cp0 erowl:columnOfTableClass ?tc
+            and ?keysTemplate = aggr:joinList{?kt, ?sep, ?cp | ?sep = "/"
+                                    and ?pk erowl:constrainsColumn ?cp and ?cp erowl:columnOfTableClass ?tc
+                                    and ?cp erowl:columnName ?cpn and swrlb:stringConcat(?kt, "{", ?cpn, "}")}
+            and swrlb:stringConcat(?template, ?prefix, ?tname, "/", ?keysTemplate)
+        then ?tc erowl:tableRowTemplate ?template
+            # no primary key, but uniquely identified by something
+        if NAF(?tc erowl:hasPrimaryKey ?pk and ?pk erowl:constrainsColumn ?cp0 and ?cp0 erowl:columnOfTableClass ?tc)
+            and ?tc erowl:rowCanBeUniquelyIdentifiedBy ?cp1
+            and ?keysTemplate = aggr:joinList{?kt, ?sep, ?cp | ?sep = "/"
+                                    and ?tc erowl:rowCanBeUniquelyIdentifiedBy ?cp
+                                    and ?cp erowl:columnName ?cpn and swrlb:stringConcat(?kt, "{", ?cpn, "}")}
+            and swrlb:stringConcat(?template, ?prefix, ?tname, "/", ?keysTemplate)
+        then ?tc erowl:tableRowTemplate ?template
+    )
+.
+
+

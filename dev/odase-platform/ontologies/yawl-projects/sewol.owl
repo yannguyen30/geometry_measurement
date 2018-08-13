@@ -1,0 +1,392 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY sqwrl "http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrla "http://swrl.stanford.edu/ontologies/3.3/swrla.owl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/sewol.owl"
+    xmlns="http://ontologies.missioncriticalit.com/sewol.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:sqwrl="&sqwrl;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrla="&swrla;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <ActionType rdf:ID="cancel"/>
+  <ActionType rdf:ID="enable"/>
+  <ActionType rdf:ID="finish"/>
+  <ActionType rdf:ID="start"/>
+  <owl:Class rdf:ID="Action">
+    <rdfs:comment rdf:datatype="&xsd;string">An action is an operation which makes a task change status (from Available to Enabled, from Enabled to Started, etc.).</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="ActionType"/>
+  <owl:Class rdf:ID="Actor">
+    <rdfs:comment rdf:datatype="&xsd;string">A resource is the actor of an action.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="Case">
+    <rdfs:comment rdf:datatype="&xsd;string">A workflow defines a context in which tasks can be executed. It defines the conditions where a set of tasks can exists.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="CaseActive">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#CaseAvailable"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;boolean">false</owl:hasValue>
+            <owl:onProperty rdf:resource="#mustBeEnabled"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#CaseAvailable"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+            <owl:onProperty rdf:resource="#mustBeEnabled"/>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+            <owl:onProperty rdf:resource="#enabledOn"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="CaseAvailable">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Case"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+            <owl:onProperty rdf:resource="#hasValidPreconditions"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="CaseAvailableToEnable">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#CaseAvailable"/>
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+            <owl:onProperty rdf:resource="#mustBeEnabled"/>
+          </owl:Restriction>
+          <owl:Restriction>
+            <owl:cardinality rdf:datatype="&xsd;int">0</owl:cardinality>
+            <owl:onProperty rdf:resource="#enabledOn"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="Task">
+    <rdfs:comment rdf:datatype="&xsd;string">A task defines an action that can be executed in the context of a workflow.</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:ID="TaskAvailable">
+    <owl:disjointWith rdf:resource="#TaskFinished"/>
+    <owl:disjointWith rdf:resource="#TaskRunning"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+            <owl:onProperty rdf:resource="#hasValidPreconditions"/>
+          </owl:Restriction>
+          <rdf:Description rdf:about="#Task"/>
+          <owl:Restriction>
+            <owl:cardinality rdf:datatype="&xsd;int">0</owl:cardinality>
+            <owl:onProperty rdf:resource="#startedOn"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#TaskAvailableToEnable"/>
+          <rdf:Description rdf:about="#TaskAvailableToStart"/>
+        </owl:unionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="TaskAvailableToEnable">
+    <owl:disjointWith rdf:resource="#TaskAvailableToStart"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+            <owl:onProperty rdf:resource="#mustBeEnabled"/>
+          </owl:Restriction>
+          <rdf:Description rdf:about="#TaskAvailable"/>
+          <owl:Restriction>
+            <owl:cardinality rdf:datatype="&xsd;int">0</owl:cardinality>
+            <owl:onProperty rdf:resource="#enabledOn"/>
+          </owl:Restriction>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="TaskAvailableToStart">
+    <owl:disjointWith rdf:resource="#TaskAvailableToEnable"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="#TaskAvailable"/>
+              <owl:Restriction>
+                <owl:cardinality rdf:datatype="&xsd;int">1</owl:cardinality>
+                <owl:onProperty rdf:resource="#enabledOn"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:hasValue rdf:datatype="&xsd;boolean">true</owl:hasValue>
+                <owl:onProperty rdf:resource="#mustBeEnabled"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="#TaskAvailable"/>
+              <owl:Restriction>
+                <owl:hasValue rdf:datatype="&xsd;boolean">false</owl:hasValue>
+                <owl:onProperty rdf:resource="#mustBeEnabled"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:unionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+    <rdfs:subClassOf rdf:resource="#TaskAvailable"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TaskCanBeFinished">
+    <rdfs:subClassOf rdf:resource="#TaskRunning"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TaskFinished">
+    <owl:disjointWith rdf:resource="#TaskAvailable"/>
+    <owl:disjointWith rdf:resource="#TaskRunning"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Restriction>
+            <owl:minCardinality rdf:datatype="&xsd;int">1</owl:minCardinality>
+            <owl:onProperty rdf:resource="#finishedOn"/>
+          </owl:Restriction>
+          <rdf:Description rdf:about="#Task"/>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="TaskRunning">
+    <owl:disjointWith rdf:resource="#TaskAvailable"/>
+    <owl:disjointWith rdf:resource="#TaskFinished"/>
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:intersectionOf>
+          <rdf:Description>
+            <rdf:first rdf:resource="#Task"/>
+            <rdf:rest>
+            <rdf:Description>
+            <rdf:first>
+            <owl:Restriction>
+              <owl:minCardinality rdf:datatype="&xsd;int">1</owl:minCardinality>
+              <owl:onProperty rdf:resource="#startedOn"/>
+            </owl:Restriction>
+            </rdf:first>
+            <rdf:rest>
+            <rdf:List>
+            <rdf:first>
+            <owl:Restriction>
+              <owl:cardinality rdf:datatype="&xsd;int">0</owl:cardinality>
+              <owl:onProperty rdf:resource="#finishedOn"/>
+            </owl:Restriction>
+            </rdf:first>
+            <rdf:rest rdf:resource="&rdf;nil"/>
+            </rdf:List>
+            </rdf:rest>
+            </rdf:Description>
+            </rdf:rest>
+          </rdf:Description>
+        </owl:intersectionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:DatatypeProperty rdf:ID="canBeFinished">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#TaskRunning"/>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="enabledOn">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Task"/>
+          <rdf:Description rdf:about="#Case"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;dateTime"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="finishedOn">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Task"/>
+    <rdfs:range rdf:resource="&xsd;dateTime"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasCurrentTime">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Task"/>
+          <rdf:Description rdf:about="#Case"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;dateTime"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="hasValidPreconditions">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Task"/>
+          <rdf:Description rdf:about="#Case"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="isDoneAt">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Action"/>
+    <rdfs:range rdf:resource="&xsd;dateTime"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="mustBeEnabled">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Task"/>
+          <rdf:Description rdf:about="#Case"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="&xsd;boolean"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:ID="startedOn">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="#Task"/>
+    <rdfs:range rdf:resource="&xsd;dateTime"/>
+  </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:ID="assignedToForExecution">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Task"/>
+    <rdfs:range rdf:resource="#Actor"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasActionType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Action"/>
+    <rdfs:range rdf:resource="#ActionType"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="hasParentCase">
+    <owl:inverseOf rdf:resource="#hasChildCase"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Case"/>
+    <rdfs:range rdf:resource="#Case"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isDoneBy">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Action"/>
+    <rdfs:range rdf:resource="#Actor"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isDoneFor">
+    <owl:inverseOf rdf:resource="#hasActionHistory"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Action"/>
+    <rdfs:range rdf:resource="#Task"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="isMemberOfCase">
+    <owl:inverseOf rdf:resource="#hasTasks"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Task"/>
+    <rdfs:range rdf:resource="#Case"/>
+    <rdfs:subPropertyOf rdf:resource="#hasParentCase"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:ID="startedBy">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#TaskRunning"/>
+    <rdfs:range rdf:resource="#Actor"/>
+  </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="hasActionHistory">
+    <owl:inverseOf rdf:resource="#isDoneFor"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Task"/>
+    <rdfs:range rdf:resource="#Action"/>
+  </owl:InverseFunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="hasChildCase">
+    <owl:inverseOf rdf:resource="#hasParentCase"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Case"/>
+    <rdfs:range rdf:resource="#Case"/>
+  </owl:InverseFunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:ID="hasTasks">
+    <owl:inverseOf rdf:resource="#isMemberOfCase"/>
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="#Case"/>
+    <rdfs:range rdf:resource="#Task"/>
+  </owl:InverseFunctionalProperty>
+  <owl:ObjectProperty rdf:ID="canBeEnabledBy">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Task"/>
+          <rdf:Description rdf:about="#Case"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+    <rdfs:range rdf:resource="#Actor"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="canBeExecutedBy">
+    <rdfs:domain rdf:resource="#Task"/>
+    <rdfs:range rdf:resource="#Actor"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="cannotBeFinishedBecause">
+    <rdfs:domain rdf:resource="#TaskRunning"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="dependsOn">
+    <rdfs:domain>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#Task"/>
+          <rdf:Description rdf:about="#Case"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:domain>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="inContextOfCase">
+    <rdfs:domain rdf:resource="#Task"/>
+    <rdfs:range rdf:resource="#Case"/>
+  </owl:ObjectProperty>
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl"/>
+    <owl:imports rdf:resource="http://swrl.stanford.edu/ontologies/3.3/swrla.owl"/>
+  </owl:Ontology>
+</rdf:RDF>

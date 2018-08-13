@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY protege "http://protege.stanford.edu/plugins/owl/protege#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY swrl "http://www.w3.org/2003/11/swrl#">
+  <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+  <!ENTITY xsp "http://www.owl-ontologies.com/2005/08/07/xsp.owl#">
+]>
+<rdf:RDF
+    xml:base="http://ontologies.missioncriticalit.com/rowlbac.owl"
+    xmlns="http://ontologies.missioncriticalit.com/rowlbac.owl#"
+    xmlns:owl="&owl;"
+    xmlns:protege="&protege;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:swrl="&swrl;"
+    xmlns:swrlb="&swrlb;"
+    xmlns:xsd="&xsd;"
+    xmlns:xsp="&xsp;">
+  <owl:Class rdf:ID="Action">
+    <owl:equivalentClass>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="#ForbiddenAction"/>
+          <rdf:Description rdf:about="#PermittedAction"/>
+        </owl:unionOf>
+      </owl:Class>
+    </owl:equivalentClass>
+  </owl:Class>
+  <owl:Class rdf:ID="ForbiddenAction">
+    <owl:disjointWith rdf:resource="#PermittedAction"/>
+    <rdfs:subClassOf rdf:resource="#Action"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PermittedAction">
+    <owl:disjointWith rdf:resource="#ForbiddenAction"/>
+    <rdfs:subClassOf rdf:resource="#Action"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Role"/>
+  <owl:Ontology rdf:about=""/>
+</rdf:RDF>

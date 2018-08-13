@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xml:base="http://www.missioncriticalit.com/ontologies/builtins/date_time_builtins.owl"
+    xmlns="http://www.missioncriticalit.com/ontologies/builtins/date_time_builtins.owl#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+  <owl:Ontology rdf:about=""/>
+  <swrl:Builtin rdf:ID="yearMonth">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">yearMonth(yearMont, Year, Month)
+extracts the year, month from a xsd:gYearMonth</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dateParts">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dateParts(Date, Year, [Month, [Day]])
+extracts the year, month and day from a date</rdfs:comment>
+    <swrlb:minArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:minArgs>
+    <swrlb:maxArgs rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</swrlb:maxArgs>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="firstDayOfMonth">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">firstDayOfMonth(Date, DateOfFirstDayOfMonth)
+takes a date and returns the date of the first day of the same month</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="lastDayOfMonth">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lastDayOfMonth(Date, DateOfLastDayOfMonth)
+takes a date and returns the date of the last day of the same month</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="firstWeekDayAtOrAfter">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">firstWeekDayAfter(FirstWeekDayDate, Date)
+FirstWeekDayDate is the first week-day (as in Monday to Friday) at or after Date</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="lastWeekDayAtOrBefore">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">lastWeekDayAtOrBefore(LastWeekDayDate, Date)
+LastWeekDayDate is the last week-day (as in Monday to Friday) at or before Date</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="sameYearMonthAs">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sameYearMonthAs(Date1, Date2)
+is true if Date1 and Date2 are in the same year and month (both must be ground)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="deZone">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">deZone(date(Time), date(Time)(Zone))
+is true if date(Time)(Zone) is ground, and is of type date or dateTime with or without zone, and date(Time) is the same date(Time) with the zone dropped. Works also for gYearMonth types.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dateTimeSecondsTimeStamp">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dateTimeSecondsTimeStamp(dateTimeZoned, Zone, decimal_s_TimeStamp)
+either dateTimeZoned is ground or decimal_s_TimeStamp and Zone are ground; note that the 0 reference point can be implementation specific; the dateTime must be zoned.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="startOfDay">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">startOfDay(StartOfDayDateTime, Date) is true iff StartOfDayDateTime is the same date as Date at 00:00:00 in the same timezone (if any)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="endOfDay">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">endOfDay(EndOfDayDateTime, Date) is true iff EndOfDayDateTime is the same date as Date at 24:00:00 in the same timezone (if any)</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="durationInSeconds">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">durationInSeconds(Seconds,Duration) is true iff the duration is equivalent to the number of seconds</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dayTimeDurationInDays">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dayTimeDurationInDays(days,Duration) is true iff the day time  duration is equivalent (truncated) to the number of days</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dateFormat">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dateFormat(?date, ?dateString, format), where format can contain y for year, M for months, d for day. For instance yyyyMMdd. Zones are not supported yet.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+  <swrl:Builtin rdf:ID="dateTimeFormat">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dateTimeFormat(?date, ?dateTimeString, format), where format can contain y for year, M for months, d for day, H four hours, m minute, s seconds, S milliseconds. For instance yyyy-MM-dd HH:mm:ss.SSS. Zones are not supported yet.</rdfs:comment>
+    <swrlb:args rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</swrlb:args>
+  </swrl:Builtin>
+
+</rdf:RDF>

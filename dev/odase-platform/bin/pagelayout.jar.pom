@@ -1,0 +1,15 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.pagelayout</groupId>
+  <artifactId>pagelayout</artifactId>
+  <packaging>jar</packaging>
+  <version>1.16</version>
+  <url>http://pagelayout.sourceforge.net/</url>
+  <licenses>
+    <license>
+      <name>GNU Library or Lesser General Public License version 2.0 (LGPLv2)</name>
+      <url>http://www.gnu.org/licenses/lgpl-2.0.html</url>
+    </license>
+  </licenses>
+</project>
+

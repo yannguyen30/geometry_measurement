@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.odaseontologies.odase</groupId>
+  <artifactId>odase-integration-cobol</artifactId>
+  <packaging>jar</packaging>
+  <name>ODASE java cobol integration</name>
+  <version></version>
+  <description>ODASE</description>
+  <url>http://www.odaseontologies.com</url>
+  <licenses>
+    <license>
+      <name>Proprietary</name>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>com.odaseontologies.odase</groupId>
+      <artifactId>odase-runtime</artifactId>
+      <version></version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.cb2java</groupId>
+      <artifactId>odase-cb2java</artifactId>
+      <version>5.7.1</version>
+    </dependency>
+  </dependencies>
+</project>

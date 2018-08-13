@@ -1,0 +1,77 @@
+ontology <http://ontologies.missioncriticalit.com/directER2OWLR2RML.swd>.
+
+import <http://ontologies.missioncriticalit.com/directER2OWL.owl> as erowl.
+import <http://www.w3.org/ns/r2rml> as r2rml.
+import <http://swrl.stanford.edu/ontologies/built-ins/3.3/tbox.owl> as tbox.
+import <http://www.missioncriticalit.com/ontologies/builtins/aggregate_builtins.owl> as aggr.
+
+
+# R2RML inference rules
+
+if ?tc is a erowl:TableClass
+    and ?tc erowl:tableName ?tname
+    and ?tc erowl:tableRowTemplate ?template
+    and ?tm function of[r2rml:TriplesMap, ?tc]
+    and ?bt function of[r2rml:BaseTableOrView, ?tc]
+    and ?sm function of[r2rml:SubjectMap, ?tc]
+then
+    ?tm is a r2rml:TriplesMap
+    and ?tm r2rml:logicalTable ?bt
+    and ?bt is a r2rml:BaseTableOrView
+    and ?bt r2rml:tableName ?tname
+    and ?tm r2rml:subjectMap ?sm
+    and ?sm is a r2rml:SubjectMap
+    and ?sm r2rml:class ?tc
+    and ?sm r2rml:template ?template
+    and
+        (if ?cp erowl:columnOfTable ?tc
+            and ?cp erowl:derivedFromProperty ?prop
+            and ?cp erowl:columnName ?cname
+            and ?pom function of[r2rml:PredicateObjectMap, ?cp]
+            and ?om function of[r2rml:ObjectMap, ?cp]
+        then ?pom is a r2rml:PredicateObjectMap
+            and ?pom r2rml:predicate ?prop
+            and ?pom r2rml:objectMap ?om
+            and ?om is a r2rml:ObjectMap
+            and
+                (if ?prop is a owl:DatatypeProperty
+                then ?tm r2rml:predicateObjectMap ?pom
+                    and ?om r2rml:column ?cname
+                    and ?om r2rml:termType r2rml:Literal
+                    and (if inDirectRange(?range, ?prop) then ?om r2rml:datatype ?range)
+                    and (if ?cp erowl:filteredForLanguage ?lg then ?om r2rml:language ?lg)
+                )
+             and
+                (if ?prop is a owl:ObjectProperty
+                    and inDirectRange(?range, ?prop)
+                    and ?cp is a erowl:ForeignKeyColumn
+                    and ?cp erowl:isForeignKeyOf ?rangeColumn
+                    and ?range erowl:hasPrimaryKey ?pk
+                    and ?pk erowl:constrainsColumn ?rangeColumn # XXX the only primary key!? TODO compund pk
+                    and ?rangeColumn erowl:columnName ?rangeColumnName
+                    and ?range erowl:tableRowTemplate ?rangeTemplate
+                    and swrlb:stringConcat(?rangeColumnTemplateVariable, "\\{", ?rangeColumnName, "\\}")
+                    and swrlb:stringConcat(?cnameTemplateVariable, "{", ?cname, "}")
+                    and swrlb:replace(?foreignTemplate, ?rangeTemplate, ?rangeColumnTemplateVariable, ?cnameTemplateVariable)
+                then ?tm r2rml:predicateObjectMap ?pom
+                    and ?om r2rml:template ?foreignTemplate
+                    and ?om r2rml:termType r2rml:IRI
+                )
+        )
+.
+
+predicate inDirectRange.
+
+if tbox:isInDirectRangeOf(?range, ?p)
+then inDirectRange(?range, ?p).
+
+if ?p rdfs:range ?range
+then inDirectRange(?range, ?p).
+
+
+
+# TODO: generic engineering rules ??? is it possible?
+# every class except those that are TableClass of this DB is not persisted in the corresponding store.
+# every property except those that are ColumnProperty of this DB is not persisted in the corresponding store.
+
+

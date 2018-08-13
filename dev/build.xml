@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<project name="onto-maintenance" basedir=".">
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+    <path id="odase.classpath">
+        <fileset dir="odase-platform/bin">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="libs.classpath">
+        <fileset dir="libs">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="run.classpath">
+      <fileset dir="odase-platform/bin">
+	<include name="*.jar"/>
+      </fileset>
+      <fileset dir="libs">
+        <include name="*.jar"/>
+      </fileset>
+      <pathelement location="build/WEB-INF/classes"/>
+    </path>
+
+    <path id="test.classpath">
+        <fileset dir="odase-platform/bin">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="libs">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="build/WEB-INF/classes"/>
+        <pathelement location="build/test/classes"/>
+    </path>
+
+    
+    <target name="workbench-debug" >
+      <!---->
+      <java
+          classname="odase.cockpit.OdaseCockpitFrame"
+          fork="yes"
+          classpathref="run.classpath"
+          failonerror="true">
+        <arg line="--catalog catalog.xml"/>
+        <jvmarg value="-Xss128m" />
+        <jvmarg value="-Xmx8g" />
+        <jvmarg line="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"/>
+      </java>
+    </target>
+
+    <target name="workbench" >
+      <!---->
+      <java
+          classname="odase.cockpit.OdaseCockpitFrame"
+          fork="yes"
+          classpathref="run.classpath"
+          failonerror="true">
+        <arg line="--catalog catalog.xml"/>
+        <jvmarg value="-Xss128m" />
+        <jvmarg value="-Xmx8g" />
+      </java>
+    </target>
+
+
+    
+    <target name="api">
+      <java
+          classname="jmercury.hedwig"
+          classpathref="odase.classpath"
+          failonerror="true">
+        <arg line="--catalog catalog.xml"/>
+        <arg line="--java-uri-fields --generate-java --replace-invalid-characters"/>
+        <arg line="-t src/java"/>
+        <arg line="-p mesea.model"/>
+        <arg line="http://www.mesea.fr/onto-maintenance/ontologies/hedwig.swd"/>
+      </java>
+    </target>
+    
+    <target name="compile" description="Compile Java sources" depends="api">
+      <mkdir dir="build/WEB-INF/classes"/>
+      <javac srcdir="src/java"
+          destdir="build/WEB-INF/classes"
+          debug="true"
+             encoding="UTF8">
+        <include name="**/*.java"/>
+        <classpath refid="odase.classpath"/>
+        <classpath refid="libs.classpath"/>
+      </javac>
+      <copy file="log4j2.xml" todir="build/WEB-INF/classes" overwrite="true" failonerror="false"/>
+    </target>
+
+    <target name="compile.test" depends="compile">
+      <mkdir dir="build/test/classes"/>
+        <javac srcdir="src/test"
+               destdir="build/test/classes"
+               debug="true"
+               encoding="UTF8">
+            <include name="**/*.java"/>
+            <classpath refid="odase.classpath"/>
+            <classpath refid="run.classpath"/>
+        </javac>
+    </target>
+    
+    <target name="test" depends="compile.test">
+        <mkdir dir="test/results"/>
+        <junit printsummary="true" fork="yes" failureproperty="test.failed">
+	  <jvmarg line="-Xss64m -Xmx2g"/>
+          <classpath refid="test.classpath"/>
+          <batchtest todir="test/results">
+            <fileset dir="src/test">
+              <include name="**/*.java"/>
+            </fileset>
+            <formatter type="xml"/>
+          </batchtest>
+        </junit>
+        <fail message="Tests failure." if="test.failed" />
+    </target>
+
+
+    <target name="modelWithData" depends="compile">
+        <java
+                classname="mesea.csv.CsvReader"
+                classpathref="run.classpath"
+                failonerror="true">
+            <!--<arg value="data/mockTestData.csv"/>-->
+            <arg value="data/deviationInput.csv"/>
+            <arg value="ontologies/main/modelWithData.owl"/>
+            <arg value="http://www.mesea.fr/onto-maintenance/ontologies/main/modelWithData.owl"/>
+        </java>
+    </target>
+
+
+    <target name="svg" depends="compile">
+        <java
+                classname="mesea.svg.SvgWriter"
+                classpathref="run.classpath"
+                failonerror="true">
+            <arg value="view/graphs.svg"/>
+            <arg value="40"/>
+        </java>
+    </target>
+
+    <target name="csvMaker" depends="compile">
+        <java
+                classname="mesea.csv.CsvMaker"
+                classpathref="run.classpath"
+                failonerror="true">
+            <arg value="data/deviationInput.csv"/>
+            <arg value="960000"/>
+        </java>
+    </target>
+
+</project>
